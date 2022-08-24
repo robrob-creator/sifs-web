@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+.txt{
+  font-family: 'myFirstFont', sans-serif;
+  text-transform: none;
+  padding: 20px;
+  letter-spacing: 3px;
+}
+
+.txt2{
+  font-family: 'Montserrat', sans-serif;
+  text-transform: none;
+  font-size: 40px;
+  padding: 40px 20px;
+  letter-spacing: 2px;
+
+}
+
+.dashboard{
+  padding: 50px 0px;
+}
+
+.center{
+  text-align: center;
+}  
+
+.button {
+  background-color:#46bb4a;
+  border: none;
+  color: white;
+  padding: 18px 75px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+  margin: 10px 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  text-transform: uppercase; 
+}
+
+.button:hover{
+  background-color:#308b33;
+  transition: .6s;
+}
+
+
+.big-btn {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 50px 60px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  font-family: 'Montserrat', sans-serif;
+  margin: 10px 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  text-transform: uppercase; 
+  letter-spacing: 2px;
+}
+
+.big-btn:hover{
+  background-color:#308b33;
+  transition: .6s;
+}
+
+.input{
+    background-color: #e6e6e6;
+    color: #383838;
+    width: 230px;
+    padding: 12px 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+::-webkit-input-placeholder{
+  color: #6d6d6dbe;
+}
+
+.input-div{
+  width: 300px;
+  align-content: center;
+  margin: 20px 0 0 0;
+}
+
+.sub{
+  padding: 15px 82px;
+}
+
+.pdf{
+  float: right;
+}
+
+.center-btn{
+  display: block;
+  margin: auto;
+}
+
+.logo{
+  width: 22.5vh;
+}
+
+.ad{
+  padding: 18px 85px;
+}
+.disabled{
+  border: none;
+  color: white;
+  padding: 15px 65px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  font-family: 'Montserrat', sans-serif;
+  margin: 10px 10px;
+  border-radius: 10px;
+  text-transform: uppercase; 
+  background-color: rgb(53, 53, 53);
+  letter-spacing: 2px;
+}
+
+.cen{
+  width: 300px;
+  height: auto;
+  display: block;
+}
+
+@media screen and (max-width: 700px) {
+  .dashboard{
+    padding: 0px;
+  }
+
+  .txt2{
+    padding: 0px;
+    margin-bottom: 20px;
+  }
+  .big-btn{padding: 40px 50px;}
+  
+}
+
+@media screen and (max-width: 700px) {
+  .cen{
+    display: inline-block;
+  }
+  .big-btn{margin: 10px 0px;}
+}
