@@ -3,7 +3,7 @@ import axios from "axios";
 
 import store from "store";
 export function baseURL() {
-  return `http://node-env.eba-uinfrsze.us-west-1.elasticbeanstalk.com`;
+  return `https://shiny-horse-0de068.netlify.app`;
 }
 export async function login(body) {
   let res = await axios.post(`${baseURL()}/login`, body);
