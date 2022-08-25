@@ -9,12 +9,14 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUser } from "../services/user";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function AdminStudentAdd() {
   const navigate = useNavigate();
   const [errors, setErrors] = useState();
   const [state, setState] = useState({
-    firstName: "Goldie",
+    firstName: "",
     lastName: "",
     middleName: "",
     suffix: "",
@@ -25,7 +27,8 @@ function AdminStudentAdd() {
     email: "",
     role: "student",
   });
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
       let res = await createUser(state);
       if (res.status === 200) {
@@ -34,27 +37,30 @@ function AdminStudentAdd() {
         setErrors({ message: "unauthorized" });
       }
     } catch (error) {
+      toast(error.response.data.message, {
+        type: "error",
+      });
       setErrors(error.response.data);
-      console.log("error", error.response);
+      console.log("error", error.response.data.message);
       return error;
     }
   };
   return (
     <>
       <AdminSidebar />
-
+      <ToastContainer position="top-right" newestOnTop />
       <div className="container">
         <h1>Add Student</h1>
         <div className="con">
           <h3 className="t-sub">Student Info</h3>
-          <form>
+          <form onSubmit={(e) => handleSubmit(e)}>
             <div className="form-inline">
               <input
                 type="text"
                 id="fname"
                 placeholder="First Name"
                 name="fname"
-                required="required"
+                required
                 onChange={(e) => {
                   setState({ ...state, firstName: e.target.value });
                 }}
@@ -64,7 +70,7 @@ function AdminStudentAdd() {
                 id="lname"
                 placeholder="Last Name"
                 name="lname"
-                required="required"
+                required
                 onChange={(e) => {
                   setState({ ...state, lastName: e.target.value });
                 }}
@@ -74,7 +80,7 @@ function AdminStudentAdd() {
                 id="mname"
                 placeholder="Middle Name"
                 name="mname"
-                required="required"
+                required
                 onChange={(e) => {
                   setState({ ...state, middleName: e.target.value });
                 }}
@@ -94,7 +100,7 @@ function AdminStudentAdd() {
                 id="username"
                 placeholder="Grade Level"
                 name="username"
-                required="required"
+                required
                 onChange={(e) => {
                   setState({ ...state, gradeLevel: e.target.value });
                 }}
@@ -122,7 +128,7 @@ function AdminStudentAdd() {
                 id="pswd"
                 placeholder="Password"
                 name="pswd"
-                required="required"
+                required
                 onChange={(e) => {
                   setState({ ...state, password: e.target.value });
                 }}
@@ -178,14 +184,10 @@ function AdminStudentAdd() {
                 </Link>
               </div>
               <div className="column mar">
-                <Link to="#">
-                  <button
-                    className="add-btn grn"
-                    onClick={() => handleSubmit()}
-                  >
-                    Submit
-                  </button>
-                </Link>
+                <button className="add-btn grn" type="submit">
+                  Submit
+                </button>
+
                 <Link to="/admin/teacher-info">
                   <input type="button" className="add-btn red" value="Cancel" />
                 </Link>
