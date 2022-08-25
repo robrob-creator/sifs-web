@@ -123,6 +123,9 @@ function AdminStudentAdd() {
                 placeholder="Password"
                 name="pswd"
                 required="required"
+                onChange={(e) => {
+                  setState({ ...state, password: e.target.value });
+                }}
               />
             </div>
 
