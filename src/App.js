@@ -18,6 +18,11 @@ import AdminStudentInfo from './Pages/AdminStudentInfo';
 import AdminStudentAdd from './Pages/AdminStudentAdd';
 import SignInAdmin from './Pages/SignInAdmin';
 import SignInTeacher from './Pages/SignInTeacher';
+import AdminAccountChoice from './Pages/AdminAccountChoice';
+import AdminTeacherAccounts from './Pages/AdminTeacherAccounts';
+import AdminAccountStudents from './Pages/AdminAccountStudents';
+import AdminTeacherAccountsEdit from './Pages/AdminTeacherAccountsEdit';
+import AdminStudentAccountsEdit from './Pages/AdminStudentAccountsEdit';
 
 
 const App = () => {
@@ -37,6 +42,11 @@ const App = () => {
             <Route path='/admin/students-dashboard' element={<AdminStudentDash/>} />
             <Route path='/admin/student-info' element={<AdminStudentInfo/>} />
             <Route path='/admin/student-add' element={<AdminStudentAdd/>} />
+            <Route path='/admin/account-choice' element={<AdminAccountChoice/>} />
+            <Route path='/admin/account-choice/teacher-accounts' element={<AdminTeacherAccounts/>} />
+            <Route path='/admin/account-choice/teacher-accounts/edit' element={<AdminTeacherAccountsEdit/>} />
+            <Route path='/admin/account-choice/student-accounts' element={<AdminAccountStudents/>} />
+            <Route path='/admin/account-choice/student-accounts/edit' element={<AdminStudentAccountsEdit/>} />
             
     
             <Route path='/teacher/subjects' element={<Subjects/>} />
