@@ -1,10 +1,7 @@
-import apiClient from "../axios";
 import axios from "axios";
-
+import baseURL from "../axios/base";
 import store from "store";
-export function baseURL() {
-  return `https://shiny-horse-0de068.netlify.app`;
-}
+
 export async function login(body) {
   let res = await axios.post(`${baseURL()}/login`, body);
   console.log(res?.data?.data?.accessToken);
