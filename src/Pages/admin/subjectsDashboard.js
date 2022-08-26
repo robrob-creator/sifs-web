@@ -1,4 +1,4 @@
-import { LikeOutlined, MessageOutlined, StarOutlined } from "@ant-design/icons";
+import { EyeOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Avatar, List, Space } from "antd";
 import AdminSidebar from "../../Components/Admin_Sidebar";
 import React, { useState } from "react";
@@ -72,18 +72,18 @@ function SubjectsDashboard() {
                 key={item?.name}
                 actions={[
                   <IconText
-                    icon={StarOutlined}
-                    text="156"
+                    icon={EditOutlined}
+                    text="Edit"
                     key="list-vertical-star-o"
                   />,
                   <IconText
-                    icon={LikeOutlined}
-                    text="156"
+                    icon={EyeOutlined}
+                    text="View"
                     key="list-vertical-like-o"
                   />,
                   <IconText
-                    icon={MessageOutlined}
-                    text="2"
+                    icon={DeleteOutlined}
+                    text="Delete"
                     key="list-vertical-message"
                   />,
                 ]}
