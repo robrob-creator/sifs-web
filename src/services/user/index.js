@@ -1,4 +1,3 @@
-import apiClient from "../axios";
 import axios from "axios";
 import baseURL from "../axios/base";
 import store from "store";

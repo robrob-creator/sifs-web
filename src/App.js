@@ -16,10 +16,14 @@ import AdminTeacherInfo from "./Pages/AdminTeacherInfo";
 import AdminTeacherAdd from "./Pages/AdminTeacherAdd";
 import AdminStudentInfo from "./Pages/AdminStudentInfo";
 import AdminStudentAdd from "./Pages/AdminStudentAdd";
-import AdminSubjecttAdd from "./Pages/admin/subjectsDashboard";
 import SignInAdmin from "./Pages/SignInAdmin";
 import SignInTeacher from "./Pages/SignInTeacher";
-
+import AdminAccountChoice from "./Pages/AdminAccountChoice";
+import AdminTeacherAccounts from "./Pages/AdminTeacherAccounts";
+import AdminAccountStudents from "./Pages/AdminAccountStudents";
+import AdminTeacherAccountsEdit from "./Pages/AdminTeacherAccountsEdit";
+import AdminStudentAccountsEdit from "./Pages/AdminStudentAccountsEdit";
+import SubjectsDashboard from "./Pages/admin/subjectsDashboard";
 const App = () => {
   return (
     <>
@@ -44,10 +48,29 @@ const App = () => {
           <Route path="/admin/student-info" element={<AdminStudentInfo />} />
           <Route path="/admin/student-add" element={<AdminStudentAdd />} />
           <Route
-            path="/admin/subjects-dashboard"
-            element={<AdminSubjecttAdd />}
+            path="/admin/account-choice"
+            element={<AdminAccountChoice />}
           />
-
+          <Route
+            path="/admin/account-choice/teacher-accounts"
+            element={<AdminTeacherAccounts />}
+          />
+          <Route
+            path="/admin/account-choice/teacher-accounts/edit"
+            element={<AdminTeacherAccountsEdit />}
+          />
+          <Route
+            path="/admin/account-choice/student-accounts"
+            element={<AdminAccountStudents />}
+          />
+          <Route
+            path="/admin/account-choice/student-accounts/edit"
+            element={<AdminStudentAccountsEdit />}
+          />
+          <Route
+            path="/admin/subjects-dashboard"
+            element={<SubjectsDashboard />}
+          />
           <Route path="/teacher/subjects" element={<Subjects />} />
           <Route path="/teacher/feedback" element={<Feedback />} />
           <Route
