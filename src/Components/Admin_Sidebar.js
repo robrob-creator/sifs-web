@@ -16,7 +16,7 @@ function Admin_Sidebar() {
   useEffect(() => {
     fetchProfile();
   }, []);
-  console.log(profile);
+
   return (
     <>
       <div class="sidebar">
