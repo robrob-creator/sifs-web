@@ -12,6 +12,7 @@ import Teacher_Feedback from "./Pages/Teacher_Feedback";
 import AdminDashboard from "./Pages/AdminDashboard";
 import AdminTeacherDash from "./Pages/AdminTeacherDash";
 import AdminStudentDash from "./Pages/AdminStudentDash";
+import AdminSectionDash from "./Pages/admin/sectionsDashboard";
 import AdminTeacherInfo from "./Pages/AdminTeacherInfo";
 import AdminTeacherAdd from "./Pages/AdminTeacherAdd";
 import AdminStudentInfo from "./Pages/AdminStudentInfo";
@@ -44,6 +45,10 @@ const App = () => {
           <Route
             path="/admin/students-dashboard"
             element={<AdminStudentDash />}
+          />
+          <Route
+            path="/admin/section-dashboard"
+            element={<AdminSectionDash />}
           />
           <Route path="/admin/student-info" element={<AdminStudentInfo />} />
           <Route path="/admin/student-add" element={<AdminStudentAdd />} />
