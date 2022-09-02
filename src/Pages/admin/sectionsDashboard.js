@@ -14,6 +14,7 @@ const { Option } = Select;
 function SectionDashboard() {
   const [data, setData] = useState();
   const [subjects, setSubjects] = useState();
+  const [defaultSub, setDefaultSub] = useState();
   const fetchSections = async () => {
     let res = await getSections();
     setData(res?.data?.data?.list);
@@ -37,7 +38,7 @@ function SectionDashboard() {
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
-  console.log(subjects);
+  console.log("defaultSub", data);
   return (
     <>
       <AdminSidebar />
@@ -51,6 +52,7 @@ function SectionDashboard() {
           <Select
             mode="multiple"
             style={{ width: "100%" }}
+            defaultValue={defaultSub}
             placeholder="Please select"
             onChange={handleChange}
           >
@@ -92,8 +94,12 @@ function SectionDashboard() {
                     <Button
                       type="primary"
                       onClick={async () => {
+                        setDefaultSub(
+                          item.subjects.map((item) => {
+                            return item.subject._id;
+                          })
+                        );
                         let res = await getSubjects();
-                        console.log("on", res.data.data.list);
                         setSubjects(res.data.data.list);
                         showModal();
                       }}
