@@ -51,3 +51,13 @@ export async function createSection(body) {
   });
   return res;
 }
+export async function editSection(id, body) {
+  console.log("id", id, "body", body);
+  const accessToken = store.get("accessToken");
+  let res = await axios.post(`${baseURL()}/edit-section/${id}`, body, {
+    headers: {
+      authorization: accessToken && `Bearer ${accessToken}`,
+    },
+  });
+  return res;
+}

@@ -25,6 +25,8 @@ import AdminAccountStudents from "./Pages/AdminAccountStudents";
 import AdminTeacherAccountsEdit from "./Pages/AdminTeacherAccountsEdit";
 import AdminStudentAccountsEdit from "./Pages/AdminStudentAccountsEdit";
 import SubjectsDashboard from "./Pages/admin/subjectsDashboard";
+import UploadGrades from "./Pages/admin/uploadGrades";
+
 const App = () => {
   return (
     <>
@@ -82,6 +84,7 @@ const App = () => {
             path="/teacher/feedback/student-feedback"
             element={<Student_Feedback />}
           />
+          <Route path="/grade" element={<UploadGrades />} />
           <Route path="/teacher/subjects/capstone-2" element={<Students />} />
 
           <Route path="/student" element={<StudentGrade />} />

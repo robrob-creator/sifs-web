@@ -3,40 +3,57 @@ import React, { useState } from "react";
 import { createSubject } from "../../services/subjects";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import AddStudentSection from "./AddStudentSection";
+import { editSection } from "../../services/sections";
 import { createSection } from "../../services/sections";
+import { useEffect } from "react";
 const { Option } = Select;
 const { TextArea } = Input;
 
-function AddSection({ addSectModal, setAddSectModal, fetchSections }) {
+function EditSection({
+  editSectModal,
+  setEditSectModal,
+  fetchSections,
+  defaultVal,
+  setDefaultVal,
+}) {
+  const [form] = Form.useForm();
   const handleOk = () => {
-    setAddSectModal(false);
+    setDefaultVal([]);
+    setEditSectModal(false);
   };
 
   const handleCancel = () => {
-    setAddSectModal(false);
+    setDefaultVal([]);
+    setEditSectModal(false);
   };
   const onFinish = async (values) => {
-    let res = await createSection(values);
-    setAddSectModal(false);
+    let res = await editSection(defaultVal._id, values);
+    setEditSectModal(false);
     fetchSections();
+    setDefaultVal([]);
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+  console.log("def", defaultVal);
+  useEffect(() => {
+    form.setFieldsValue(defaultVal);
+  }, [form, defaultVal]);
   return (
     <Modal
-      title="Add Section"
-      visible={addSectModal}
+      title="Edit Section"
+      visible={editSectModal}
       onOk={handleOk}
       onCancel={handleCancel}
       footer={"instruction: fill up the fields"}
     >
       <Form
         name="basic"
+        form={form}
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
+        initialValues={defaultVal}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >
@@ -90,4 +107,4 @@ function AddSection({ addSectModal, setAddSectModal, fetchSections }) {
   );
 }
 
-export default AddSection;
+export default EditSection;

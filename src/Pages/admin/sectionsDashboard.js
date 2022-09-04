@@ -15,6 +15,7 @@ import { getUsers } from "../../services/user";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import AddStudentSection from "../../Components/modals/AddStudentSection";
 import AddSection from "../../Components/modals/AddSection";
+import EditSection from "../../Components/modals/EditSection";
 const { Option } = Select;
 
 function SectionDashboard() {
@@ -28,6 +29,7 @@ function SectionDashboard() {
   const [defaultStud, setDefaultStud] = useState();
   const [modalVisible, setModalVisible] = useState(false);
   const [addSectModal, setAddSectModal] = useState(false);
+  const [editSectModal, setEditSectModal] = useState(false);
   const fetchSections = async () => {
     let res = await getSections();
     setData(res?.data?.data?.list);
@@ -35,6 +37,8 @@ function SectionDashboard() {
   const [payload, setPayload] = useState();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentRow, setCurrentRow] = useState();
+  const [defaultVal, setDefaultVal] = useState();
+
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -70,7 +74,13 @@ function SectionDashboard() {
           setAddSectModal={setAddSectModal}
           fetchSections={fetchSections}
         />
-
+        <EditSection
+          editSectModal={editSectModal}
+          setEditSectModal={setEditSectModal}
+          fetchSections={fetchSections}
+          defaultVal={defaultVal}
+          setDefaultVal={setDefaultVal}
+        />
         <AddStudentSection
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
@@ -165,7 +175,7 @@ function SectionDashboard() {
         </Modal>
         <div className="row">
           <div className="column">
-            <h1>Students Dashboard</h1>
+            <h1>Sections Dashboard</h1>
           </div>
           <div className="column">
             <input
@@ -182,7 +192,7 @@ function SectionDashboard() {
             <th>School year</th>
             <th>Subjects</th>
             <th>Students</th>
-            <th>View / Delete</th>
+            <th>Edit / Delete</th>
           </thead>
           <tbody>
             {data &&
@@ -272,12 +282,16 @@ function SectionDashboard() {
                       </Button>
                     </td>
                     <td data-label="View / Delete">
-                      <Link to="/admin/student-info">
-                        <button className="icons-grn">
-                          <BsIcons.BsFillEyeFill />
-                        </button>
-                      </Link>
-
+                      <a>
+                        <MdIcons.MdOutlineModeEditOutline
+                          style={{ fontSize: "20px" }}
+                          onClick={() => {
+                            setDefaultVal(item);
+                            setInterval(setEditSectModal(true), 1000);
+                            return clearInterval();
+                          }}
+                        />
+                      </a>
                       <Link to="#">
                         <button className="icons-red">
                           <MdIcons.MdDelete />
