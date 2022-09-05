@@ -266,15 +266,15 @@ function SectionDashboard() {
                       <Button
                         type="primary"
                         onClick={async () => {
-                          setCurrentRow(item._id);
+                          setCurrentRow(item?._id);
                           setDefaultStud(
                             item?.students &&
                               item?.students.map((item) => {
-                                return item.student._id;
+                                return item?.student?._id;
                               })
                           );
                           let stud = await getUsers({ role: "student" });
-                          setStudents(stud.data.data.list);
+                          setStudents(stud?.data?.data?.list);
                           setModalVisible(true);
                         }}
                       >

@@ -5,41 +5,41 @@ import "../../css/container.css";
 import "../../css/table.css";
 import "../../css/icons.css";
 import AdminSidebar from "../../../Components/Admin_Sidebar";
-import { getGrades } from "../../../services/grades";
+import * as BsIcons from "react-icons/bs";
+import * as MdIcons from "react-icons/md";
 import { getSections } from "../../../services/sections";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, Row, Select } from "antd";
-import UploadGrade from "../../../Components/modals/UploadGrade";
+import { getGrades } from "../../../services/grades";
 import { useSearchParams } from "react-router-dom";
+import UploadGrade from "../../../Components/modals/UploadGrade";
 const { Option } = Select;
 
-function Upload() {
+function UploadStudentsList() {
   const [data, setData] = useState();
   const [showUpload, handleUpload] = useState(false);
   const [section, setSection] = useState();
-  const [subject, setSubject] = useState();
   const [grades, setGrades] = useState();
+  const [student, setStudent] = useState();
   const [searchParams] = useSearchParams();
   let id = searchParams.get("id");
-  let student = searchParams.get("student");
+  let subject = searchParams.get("subject");
+  let subjectName = searchParams.get("subject_name");
+
   const fetchSections = async (values) => {
-    let res = await getSections({ ...values, id });
+    let res = await getSections(id);
     setSection(res?.data?.data?.list[0]);
-    setData(res?.data?.data?.list[0]?.subjects);
+    setData(res?.data?.data?.list[0]?.students);
   };
-  const fetchGrades = async (values) => {
-    let res = await getGrades({ ...values });
+  const fetchGrades = async () => {
+    let res = await getGrades({ subject, section: id });
     setGrades(res?.data?.data?.list);
   };
-  const onFinish = (values) => {
-    fetchSections(values);
-  };
-
   useEffect(() => {
     fetchSections();
-    fetchGrades({ student, section: id });
+    fetchGrades();
   }, []);
-  console.log("grades", grades);
+  console.log(data);
   return (
     <>
       <AdminSidebar />
@@ -56,14 +56,14 @@ function Upload() {
         />
         <div className="row">
           <div className="column">
-            <h1>Upload grades</h1>
+            <h1>{subjectName.substring(0, 10)}...</h1>
           </div>
           <div className="column"></div>
         </div>
 
         <table>
           <thead>
-            <th>Subject</th>
+            <th>Student</th>
             <th>Grade</th>
             <th>Upload/Edit</th>
           </thead>
@@ -71,26 +71,24 @@ function Upload() {
             {data?.map((item, index) => {
               return (
                 <tr>
-                  <td data-label="Student ID">{`${item?.subject?.name}`}</td>
+                  <td data-label="Student ID">{`${item?.student?.firstName} ${item?.student?.lastName}`}</td>
                   <td data-label="Student ID">
+                    {" "}
                     {grades?.map((grade, i) => {
-                      return grade?.subject?._id === item?.subject?._id
+                      return grade?.student?._id === item?.student?._id
                         ? grade?.grade
                         : "";
                     })}
                   </td>
                   <td data-label="View / Delete">
-                    <span>
-                      <a
-                        onClick={() => {
-                          setSubject(item?.subject?._id);
-                          handleUpload(true);
-                        }}
-                      >
-                        Upload
-                      </a>{" "}
-                      | <a>Edit</a>
-                    </span>
+                    <a
+                      onClick={() => {
+                        setStudent(item?.student?._id);
+                        handleUpload(true);
+                      }}
+                    >
+                      Upload
+                    </a>
                   </td>
                 </tr>
               );
@@ -102,4 +100,4 @@ function Upload() {
   );
 }
 
-export default Upload;
+export default UploadStudentsList;

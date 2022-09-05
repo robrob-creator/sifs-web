@@ -11,9 +11,10 @@ import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, Row, Select } from "antd";
 import UploadGrade from "../../../Components/modals/UploadGrade";
 import { useSearchParams } from "react-router-dom";
+import { BsEyeFill } from "react-icons/bs";
 const { Option } = Select;
 
-function Upload() {
+function UploadSubjectPage() {
   const [data, setData] = useState();
   const [showUpload, handleUpload] = useState(false);
   const [section, setSection] = useState();
@@ -64,32 +65,24 @@ function Upload() {
         <table>
           <thead>
             <th>Subject</th>
-            <th>Grade</th>
-            <th>Upload/Edit</th>
+
+            <th>View</th>
           </thead>
           <tbody>
             {data?.map((item, index) => {
               return (
                 <tr>
                   <td data-label="Student ID">{`${item?.subject?.name}`}</td>
-                  <td data-label="Student ID">
-                    {grades?.map((grade, i) => {
-                      return grade?.subject?._id === item?.subject?._id
-                        ? grade?.grade
-                        : "";
-                    })}
-                  </td>
+
                   <td data-label="View / Delete">
                     <span>
-                      <a
-                        onClick={() => {
-                          setSubject(item?.subject?._id);
-                          handleUpload(true);
-                        }}
+                      <Link
+                        to={`/grade/students?id=${item?._id}&subject=${item?.subject?._id}&subject_name=${item?.subject?.name}`}
                       >
-                        Upload
-                      </a>{" "}
-                      | <a>Edit</a>
+                        <button className="icons-grn">
+                          <BsEyeFill />
+                        </button>
+                      </Link>{" "}
                     </span>
                   </td>
                 </tr>
@@ -102,4 +95,4 @@ function Upload() {
   );
 }
 
-export default Upload;
+export default UploadSubjectPage;

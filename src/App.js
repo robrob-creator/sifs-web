@@ -26,6 +26,9 @@ import AdminTeacherAccountsEdit from "./Pages/AdminTeacherAccountsEdit";
 import AdminStudentAccountsEdit from "./Pages/AdminStudentAccountsEdit";
 import SubjectsDashboard from "./Pages/admin/subjectsDashboard";
 import UploadGrades from "./Pages/admin/uploadGrades";
+import Upload from "./Pages/admin/uploadGrades/uploadGrades";
+import UploadStudentsList from "./Pages/admin/uploadGrades/students";
+import UploadSubjectPage from "./Pages/admin/uploadGrades/subjects";
 
 const App = () => {
   return (
@@ -85,6 +88,9 @@ const App = () => {
             element={<Student_Feedback />}
           />
           <Route path="/grade" element={<UploadGrades />} />
+          <Route path="/grade/students" element={<UploadStudentsList />} />
+          <Route path="/grade/subjects" element={<UploadSubjectPage />} />
+          <Route path="/grade/upload" element={<Upload />} />
           <Route path="/teacher/subjects/capstone-2" element={<Students />} />
 
           <Route path="/student" element={<StudentGrade />} />
