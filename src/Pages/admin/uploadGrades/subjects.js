@@ -77,7 +77,7 @@ function UploadSubjectPage() {
                   <td data-label="View / Delete">
                     <span>
                       <Link
-                        to={`/grade/students?id=${item?._id}&subject=${item?.subject?._id}&subject_name=${item?.subject?.name}`}
+                        to={`/grade/students?id=${id}&subject=${item?.subject?._id}&subject_name=${item?.subject?.name}`}
                       >
                         <button className="icons-grn">
                           <BsEyeFill />

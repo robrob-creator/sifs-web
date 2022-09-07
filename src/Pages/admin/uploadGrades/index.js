@@ -32,12 +32,6 @@ function AdminStudentDash() {
         options: ["1st", "2nd"],
         type: "select",
       },
-      {
-        field: "gradingPeriod",
-        label: "Grading Period",
-        options: ["1st", "2nd"],
-        type: "select",
-      },
     ];
     const children = [];
     data.map((item, i) => {
@@ -73,7 +67,6 @@ function AdminStudentDash() {
   useEffect(() => {
     fetchStudents();
   }, []);
-
   return (
     <>
       <AdminSidebar />

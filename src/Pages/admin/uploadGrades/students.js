@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "../../css/container.css";
 import "../../css/table.css";
 import "../../css/icons.css";
@@ -27,8 +28,9 @@ function UploadStudentsList() {
   let subjectName = searchParams.get("subject_name");
 
   const fetchSections = async (values) => {
-    let res = await getSections(id);
+    let res = await getSections({ id });
     setSection(res?.data?.data?.list[0]);
+    console.log(res?.data);
     setData(res?.data?.data?.list[0]?.students);
   };
   const fetchGrades = async () => {
@@ -39,11 +41,12 @@ function UploadStudentsList() {
     fetchSections();
     fetchGrades();
   }, []);
-  console.log(data);
+
   return (
     <>
       <AdminSidebar />
       <div className="container">
+        <ToastContainer position="top-right" newestOnTop />
         <UploadGrade
           showUpload={showUpload}
           handleUpload={handleUpload}
@@ -64,7 +67,8 @@ function UploadStudentsList() {
         <table>
           <thead>
             <th>Student</th>
-            <th>Grade</th>
+            <th>1st Grading</th>
+            <th>2nd Grading</th>
             <th>Upload/Edit</th>
           </thead>
           <tbody>
@@ -74,11 +78,23 @@ function UploadStudentsList() {
                   <td data-label="Student ID">{`${item?.student?.firstName} ${item?.student?.lastName}`}</td>
                   <td data-label="Student ID">
                     {" "}
-                    {grades?.map((grade, i) => {
-                      return grade?.student?._id === item?.student?._id
-                        ? grade?.grade
-                        : "";
-                    })}
+                    {grades
+                      ?.filter((item) => item.gradingPeriod === "1st")
+                      ?.map((grade, i) => {
+                        return grade?.student?._id === item?.student?._id
+                          ? grade?.grade
+                          : "";
+                      })}
+                  </td>
+                  <td data-label="Student ID">
+                    {" "}
+                    {grades
+                      ?.filter((item) => item.gradingPeriod === "2nd")
+                      ?.map((grade, i) => {
+                        return grade?.student?._id === item?.student?._id
+                          ? grade?.grade
+                          : "";
+                      })}
                   </td>
                   <td data-label="View / Delete">
                     <a

@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AddStudentSection from "./AddStudentSection";
 import { createSection } from "../../services/sections";
+
 import { useEffect } from "react";
 const { Option } = Select;
 const { TextArea } = Input;
@@ -28,10 +29,16 @@ function UploadGrade({
     handleUpload(false);
   };
   const onFinish = async (values) => {
-    let res = await createGrade(values);
-    handleUpload(false);
-    fetchSections();
-    fetchGrades({ student, section: id });
+    try {
+      let res = await createGrade(values);
+      handleUpload(false);
+      fetchSections();
+      fetchGrades({ student, section: id });
+    } catch (err) {
+      toast(err?.response?.data?.message, {
+        type: "error",
+      });
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -106,6 +113,16 @@ function UploadGrade({
           rules={[{ required: true, message: "Please input the student!" }]}
         >
           <Input />
+        </Form.Item>
+        <Form.Item
+          label="Grading Period"
+          name="gradingPeriod"
+          rules={[{ required: true, message: "Please input the student!" }]}
+        >
+          <Select placeholder="PLease select">
+            <Option value="1st">1st</Option>
+            <Option value="2nd">2nd</Option>
+          </Select>
         </Form.Item>
         <Form.Item
           label="Semester"

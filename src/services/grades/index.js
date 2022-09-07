@@ -22,3 +22,14 @@ export async function getGrades(params) {
 
   return res;
 }
+export async function getGradesById(id, params) {
+  const accessToken = store.get("accessToken");
+  let res = await axios.get(`${baseURL()}/grade/${id}`, {
+    headers: {
+      authorization: accessToken && `Bearer ${accessToken}`,
+    },
+    params: { ...params },
+  });
+
+  return res;
+}

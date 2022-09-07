@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "./Sidebar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as CgIcons from "react-icons/cg";
 import * as FaIcons from "react-icons/fa";
 import * as MdIcons from "react-icons/md";
 import { getProfile } from "../services/user";
 import profile from "../Pages/data/profile";
 import logo from "./images/logo.png";
+import store from "store";
 
 function Admin_Sidebar() {
   const [profile, setProfile] = useState();
+  let navigate = useNavigate();
+
   const fetchProfile = async () => {
     let res = await getProfile();
     setProfile(res?.data?.data?.profile);
@@ -68,10 +71,15 @@ function Admin_Sidebar() {
             <span>Accounts</span>
           </Link>
 
-          <Link to="/">
+          <a
+            onClick={() => {
+              store.remove("accessToken");
+              navigate("/");
+            }}
+          >
             <CgIcons.CgLogOut className="icons" />
             <span>Logout</span>
-          </Link>
+          </a>
         </div>
       </div>
     </>
