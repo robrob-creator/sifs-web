@@ -52,7 +52,7 @@ function AdminStudentDash() {
                   <td data-label="Subjects">subs</td>
                   <td data-label="Units">units</td>
                   <td data-label="View / Delete">
-                    <Link to="/admin/student-info">
+                    <Link to={`/admin/student-info?id=${item._id}`}>
                       <button className="icons-grn">
                         <BsIcons.BsFillEyeFill />
                       </button>
