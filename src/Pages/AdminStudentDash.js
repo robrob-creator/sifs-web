@@ -7,7 +7,8 @@ import AdminSidebar from "../Components/Admin_Sidebar";
 import * as BsIcons from "react-icons/bs";
 import * as MdIcons from "react-icons/md";
 import student_dashboard from "./data/grades";
-import { getUsers } from "../services/user";
+
+import { getUsers, updateRoles } from "../services/user";
 
 function AdminStudentDash() {
   const [data, setData] = useState();
@@ -15,9 +16,15 @@ function AdminStudentDash() {
     let res = await getUsers({ role: "student" });
     setData(res?.data?.data?.list);
   };
+  const [trigger, setTrigger] = useState(false);
+
+  const removeTeacher = async (id) => {
+    updateRoles(id, { role: "civilian" });
+    setTrigger(trigger ? false : true);
+  };
   useEffect(() => {
     fetchStudents();
-  }, []);
+  }, [trigger, data]);
 
   return (
     <>
@@ -60,7 +67,9 @@ function AdminStudentDash() {
 
                     <Link to="#">
                       <button className="icons-red">
-                        <MdIcons.MdDelete />
+                        <MdIcons.MdDelete
+                          onClick={() => removeTeacher(item?._id)}
+                        />
                       </button>
                     </Link>
                   </td>
