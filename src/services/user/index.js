@@ -40,3 +40,17 @@ export async function getProfile(params) {
 
   return res;
 }
+export async function updateRoles(id, body) {
+  const accessToken = store.get("accessToken");
+  let res = await axios.post(
+    `${baseURL()}/update-role/${id}`,
+    { ...body },
+    {
+      headers: {
+        authorization: accessToken && `Bearer ${accessToken}`,
+      },
+    }
+  );
+
+  return res;
+}

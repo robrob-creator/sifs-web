@@ -7,17 +7,23 @@ import teacher_dashboard from "./data/teacher-dashboard";
 import * as BsIcons from "react-icons/bs";
 import * as MdIcons from "react-icons/md";
 import { Link } from "react-router-dom";
-import { getUsers } from "../services/user";
+import { getUsers, updateRoles } from "../services/user";
 
 function AdminTeacherDash() {
   const [data, setData] = useState();
+  const [trigger, setTrigger] = useState(false);
+
   const fetchTeachers = async () => {
     let res = await getUsers({ role: "teacher" });
     setData(res?.data?.data?.list);
   };
+  const removeTeacher = async (id) => {
+    updateRoles(id, { role: "civilian" });
+    setTrigger(trigger ? false : true);
+  };
   useEffect(() => {
     fetchTeachers();
-  }, []);
+  }, [trigger, data]);
   return (
     <>
       <AdminSidebar />
@@ -51,13 +57,16 @@ function AdminTeacherDash() {
                   <td data-label="Subject #">subject no</td>
                   <td data-label="Subject Name">subject name</td>
                   <td data-label="View / Delete">
-                    <Link to="/admin/teacher-info">
+                    <Link to={`/admin/teacher-info?id=${item?._id}`}>
                       <button className="icons-grn">
                         <BsIcons.BsFillEyeFill />
                       </button>
                     </Link>
                     <Link to="#">
-                      <button className="icons-red">
+                      <button
+                        className="icons-red"
+                        onClick={() => removeTeacher(item?._id)}
+                      >
                         <MdIcons.MdDelete />
                       </button>
                     </Link>

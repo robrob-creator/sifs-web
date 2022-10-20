@@ -122,7 +122,7 @@ function SectionDashboard() {
                         >
                           {subjects?.map((item, index) => {
                             return (
-                              <Option value={item._id}>{item.name}</Option>
+                              <Option value={item?._id}>{item?.name}</Option>
                             );
                           })}
                         </Select>
@@ -141,10 +141,10 @@ function SectionDashboard() {
                         >
                           {teacher?.map((item, index) => {
                             return (
-                              <Option value={item._id}>{`${
+                              <Option value={item?._id}>{`${
                                 item.firstName
-                              } ${item.middleName.charAt(0)} ${
-                                item.lastName
+                              } ${item?.middleName.charAt(0)} ${
+                                item?.lastName
                               }`}</Option>
                             );
                           })}
@@ -242,13 +242,13 @@ function SectionDashboard() {
                       <Button
                         type="primary"
                         onClick={async () => {
-                          setCurrentRow(item._id);
+                          setCurrentRow(item?._id);
                           setDefaultSub(
                             item?.subjects &&
-                              item?.subjects.map((item) => {
+                              item?.subjects?.map((item) => {
                                 return {
-                                  subject: item.subject._id,
-                                  teacher: item.teacher._id,
+                                  subject: item?.subject?._id,
+                                  teacher: item?.teacher?._id,
                                 };
                               })
                           );
