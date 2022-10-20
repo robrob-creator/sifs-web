@@ -8,7 +8,7 @@ export async function getSections(params) {
     headers: {
       authorization: accessToken && `Bearer ${accessToken}`,
     },
-    params: { ...params },
+    params: { ...params, deleted: false },
   });
 
   return res;
@@ -59,5 +59,18 @@ export async function editSection(id, body) {
       authorization: accessToken && `Bearer ${accessToken}`,
     },
   });
+  return res;
+}
+export async function deleteSection(id) {
+  const accessToken = store.get("accessToken");
+  let res = await axios.post(
+    `${baseURL()}/delete-section/${id}`,
+    {},
+    {
+      headers: {
+        authorization: accessToken && `Bearer ${accessToken}`,
+      },
+    }
+  );
   return res;
 }

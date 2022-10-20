@@ -16,6 +16,9 @@ import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import AddStudentSection from "../../Components/modals/AddStudentSection";
 import AddSection from "../../Components/modals/AddSection";
 import EditSection from "../../Components/modals/EditSection";
+import { deleteSection } from "../../services/sections";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const { Option } = Select;
 
 function SectionDashboard() {
@@ -51,6 +54,13 @@ function SectionDashboard() {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
+  const handleDelete = async (id) => {
+    await deleteSection(id);
+    handleUpdates(true ? false : true);
+    toast("Section deleted!", {
+      type: "success",
+    });
+  };
   useEffect(() => {
     fetchSections();
   }, [update]);
@@ -69,6 +79,7 @@ function SectionDashboard() {
     <>
       <AdminSidebar />
       <div className="container">
+        <ToastContainer position="top-right" newestOnTop />
         <AddSection
           addSectModal={addSectModal}
           setAddSectModal={setAddSectModal}
@@ -293,7 +304,10 @@ function SectionDashboard() {
                         />
                       </a>
                       <Link to="#">
-                        <button className="icons-red">
+                        <button
+                          className="icons-red"
+                          onClick={() => handleDelete(item?._id)}
+                        >
                           <MdIcons.MdDelete />
                         </button>
                       </Link>

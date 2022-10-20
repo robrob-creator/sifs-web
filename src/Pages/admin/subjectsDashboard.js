@@ -6,8 +6,12 @@ import { Button, Descriptions, PageHeader } from "antd";
 import { getSubjects } from "../../services/subjects";
 import { useEffect } from "react";
 import Addsubject from "../../Components/modals/AddSubject";
-import { ToastContainer } from "react-toastify";
 import { Skeleton } from "antd";
+import { deleteSubject } from "../../services/subjects";
+import * as MdIcons from "react-icons/md";
+import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 var randomColor = require("randomcolor");
 
 const IconText = ({ icon, text }) => (
@@ -20,6 +24,10 @@ const IconText = ({ icon, text }) => (
 function SubjectsDashboard() {
   const [data, setData] = useState();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [editSectModal, setEditSectModal] = useState(false);
+  const [currentRow, setCurrentRow] = useState();
+  const [defaultVal, setDefaultVal] = useState();
+  const [update, handleUpdates] = useState(true);
 
   const fetchSubject = async () => {
     let res = await getSubjects();
@@ -29,10 +37,16 @@ function SubjectsDashboard() {
   const showModal = () => {
     setIsModalVisible(true);
   };
-
+  const handleDelete = async (id) => {
+    await deleteSubject(id);
+    handleUpdates(true ? false : true);
+    toast("Section deleted!", {
+      type: "success",
+    });
+  };
   useEffect(() => {
     fetchSubject();
-  }, []);
+  }, [update]);
   return (
     <>
       <AdminSidebar />
@@ -54,61 +68,44 @@ function SubjectsDashboard() {
           setIsModalVisible={setIsModalVisible}
           fetchSubject={fetchSubject}
         />
-        {data ? (
-          <List
-            style={{ backgroundColor: "white", padding: 10 }}
-            itemLayout="vertical"
-            title="header"
-            size="large"
-            pagination={{
-              onChange: (page) => {
-                console.log(page);
-              },
-              pageSize: 5,
-            }}
-            dataSource={data}
-            renderItem={(item) => (
-              <List.Item
-                key={item?.name}
-                actions={[
-                  <IconText
-                    icon={EditOutlined}
-                    text="Edit"
-                    key="list-vertical-star-o"
-                  />,
-                  <IconText
-                    icon={EyeOutlined}
-                    text="View"
-                    key="list-vertical-like-o"
-                  />,
-                  <IconText
-                    icon={DeleteOutlined}
-                    text="Delete"
-                    key="list-vertical-message"
-                  />,
-                ]}
-              >
-                <List.Item.Meta
-                  avatar={
-                    <Avatar
-                      style={{
-                        backgroundColor: randomColor(),
-                        verticalAlign: "middle",
-                      }}
-                    >
-                      {item.name.charAt(0)}
-                    </Avatar>
-                  }
-                  title={<a href={item.href}>{item.name}</a>}
-                  description={item?.units + ` Units`}
-                />
-                {item.description}
-              </List.Item>
-            )}
-          />
-        ) : (
-          <Skeleton style={{ backgroundColor: "white", padding: 10 }} />
-        )}
+        <table>
+          <thead>
+            <th>Name</th>
+            <th>Units</th>
+            <th>Edit / Delete</th>
+          </thead>
+          <tbody>
+            {data &&
+              data?.map((item, index) => {
+                return (
+                  <tr>
+                    <td data-label="Name">{item?.name}</td>
+                    <td data-label="Units">{item?.units}</td>
+                    <td data-label="View / Delete">
+                      {/* <a>
+                        <MdIcons.MdOutlineModeEditOutline
+                          style={{ fontSize: "20px" }}
+                          onClick={() => {
+                            setDefaultVal(item);
+                            setInterval(setEditSectModal(true), 1000);
+                            return clearInterval();
+                          }}
+                        />
+                        </a>*/}
+                      <Link to="#">
+                        <button
+                          className="icons-red"
+                          onClick={() => handleDelete(item?._id)}
+                        >
+                          <MdIcons.MdDelete />
+                        </button>
+                      </Link>
+                    </td>
+                  </tr>
+                );
+              })}
+          </tbody>
+        </table>
       </div>
     </>
   );

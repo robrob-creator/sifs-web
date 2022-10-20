@@ -8,7 +8,7 @@ export async function getSubjects(params) {
     headers: {
       authorization: accessToken && `Bearer ${accessToken}`,
     },
-    params: { ...params },
+    params: { ...params, deleted: false },
   });
 
   return res;
@@ -20,5 +20,18 @@ export async function createSubject(body) {
       authorization: accessToken && `Bearer ${accessToken}`,
     },
   });
+  return res;
+}
+export async function deleteSubject(id) {
+  const accessToken = store.get("accessToken");
+  let res = await axios.post(
+    `${baseURL()}/delete-subject/${id}`,
+    {},
+    {
+      headers: {
+        authorization: accessToken && `Bearer ${accessToken}`,
+      },
+    }
+  );
   return res;
 }
