@@ -62,10 +62,12 @@ function Admin_Sidebar() {
             <FaIcons.FaBook className="icons" />
             <span>Sections</span>
           </Link>
-          <Link to="/grade">
-            <FaIcons.FaBook className="icons" />
-            <span>Upload Grades</span>
-          </Link>
+          {profile?.role?.includes("teacher") && (
+            <Link to="/grade">
+              <FaIcons.FaBook className="icons" />
+              <span>Upload Grades</span>
+            </Link>
+          )}
           <Link to="/admin/account-choice">
             <MdIcons.MdManageAccounts className="icons" />
             <span>Accounts</span>

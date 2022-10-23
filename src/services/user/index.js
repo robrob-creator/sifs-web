@@ -54,3 +54,17 @@ export async function updateRoles(id, body) {
 
   return res;
 }
+export async function updateUser(id, body) {
+  const accessToken = store.get("accessToken");
+  let res = await axios.post(
+    `${baseURL()}/update-role/${id}`,
+    { ...body },
+    {
+      headers: {
+        authorization: accessToken && `Bearer ${accessToken}`,
+      },
+    }
+  );
+
+  return res;
+}

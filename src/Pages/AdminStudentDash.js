@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./css/container.css";
@@ -7,11 +8,14 @@ import AdminSidebar from "../Components/Admin_Sidebar";
 import * as BsIcons from "react-icons/bs";
 import * as MdIcons from "react-icons/md";
 import student_dashboard from "./data/grades";
+import EditStudent from "../Components/modals/EditUser";
 
 import { getUsers, updateRoles } from "../services/user";
 
 function AdminStudentDash() {
   const [data, setData] = useState();
+  const [isModalVisible, setIsModalVisible] = useState();
+  const [currentRow, setCurrentRow] = useState();
   const fetchStudents = async () => {
     let res = await getUsers({ role: "student" });
     setData(res?.data?.data?.list);
@@ -24,7 +28,7 @@ function AdminStudentDash() {
   };
   useEffect(() => {
     fetchStudents();
-  }, [trigger, data]);
+  }, [trigger]);
 
   return (
     <>
@@ -40,13 +44,20 @@ function AdminStudentDash() {
             </Link>
           </div>
         </div>
+        <EditStudent
+          isModalVisible={isModalVisible}
+          setIsModalVisible={setIsModalVisible}
+          fetch={fetchStudents}
+          currentRow={currentRow}
+          setCurrentRow={setCurrentRow}
+        />
         <table>
           <thead>
             <th>Student ID</th>
             <th>Student Name</th>
             <th>Subjects</th>
             <th>Units</th>
-            <th>View / Delete</th>
+            <th>View / Edit / Delete</th>
           </thead>
           <tbody>
             {data?.map((item, index) => {
@@ -64,7 +75,15 @@ function AdminStudentDash() {
                         <BsIcons.BsFillEyeFill />
                       </button>
                     </Link>
-
+                    <a>
+                      <MdIcons.MdOutlineModeEditOutline
+                        style={{ fontSize: "20px" }}
+                        onClick={() => {
+                          setCurrentRow(item);
+                          setIsModalVisible(true);
+                        }}
+                      />
+                    </a>
                     <Link to="#">
                       <button className="icons-red">
                         <MdIcons.MdDelete

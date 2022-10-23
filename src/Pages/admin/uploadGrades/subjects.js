@@ -22,6 +22,7 @@ function UploadSubjectPage() {
   const [grades, setGrades] = useState();
   const [searchParams] = useSearchParams();
   let id = searchParams.get("id");
+  let subjectId = searchParams.get("subject");
   let student = searchParams.get("student");
   const fetchSections = async (values) => {
     let res = await getSections({ ...values, id });
@@ -38,7 +39,7 @@ function UploadSubjectPage() {
 
   useEffect(() => {
     fetchSections();
-    fetchGrades({ student, section: id });
+    fetchGrades({ student, section: id, subject: subjectId });
   }, []);
   console.log("grades", grades);
   return (

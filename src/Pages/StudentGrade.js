@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./css/table.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import StudentSidebar from "../Components/Student_Sidebar";
 import "./css/container.css";
 import student_grade from "./data/student_grade1";
@@ -8,6 +8,7 @@ import { getProfile } from "../services/user";
 import { getGradesById } from "../services/grades";
 import { Button, Col, Form, Input, Row, Select } from "antd";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
+import { authChecker } from "../services/auth";
 const { Option } = Select;
 
 function StudentGrade() {
@@ -15,6 +16,7 @@ function StudentGrade() {
   const [grades, setGrades] = useState();
   const [expand, setExpand] = useState(false);
   const [form] = Form.useForm();
+  let navigate = useNavigate();
 
   const getFields = () => {
     const count = expand ? 4 : 3;
@@ -86,14 +88,17 @@ function StudentGrade() {
   };
 
   useEffect(() => {
+    authCheck();
     fetchProfile({ semester: "1st" });
   }, []);
-  console.log(
-    "map",
-    grades?.map((item) => {
-      return item.filter((i) => i.gradingPeriod === "1st")[0].grade;
-    })
-  );
+
+  const authCheck = async () => {
+    let auth = await authChecker();
+    console.log(auth);
+    if (!auth) {
+      navigate("/");
+    }
+  };
 
   const onFinish = (values) => {
     fetchProfile(values);

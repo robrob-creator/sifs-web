@@ -39,8 +39,9 @@ function SubjectsDashboard() {
   };
   const handleDelete = async (id) => {
     await deleteSubject(id);
-    handleUpdates(true ? false : true);
-    toast("Section deleted!", {
+    handleUpdates(update ? true : false);
+    fetchSubject();
+    toast("Subject deleted!", {
       type: "success",
     });
   };

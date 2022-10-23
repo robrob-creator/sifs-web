@@ -24,6 +24,7 @@ function AdminStudentAdd() {
     password: "",
     gradeLevel: "",
     strand_track: "",
+    phoneNumber: "",
     email: "",
     role: "student",
   });
@@ -121,6 +122,15 @@ function AdminStudentAdd() {
                 name="suffix"
                 onChange={(e) => {
                   setState({ ...state, idNo: e.target.value });
+                }}
+              />
+              <input
+                type="number"
+                id="contact"
+                placeholder="Contact number"
+                name="Contact number"
+                onChange={(e) => {
+                  setState({ ...state, phoneNumber: e.target.value });
                 }}
               />
               <input
