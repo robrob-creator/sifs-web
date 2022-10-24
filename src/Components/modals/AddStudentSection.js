@@ -44,7 +44,7 @@ function AddStudentSection({
       student: defaultStud?.filter((item) => values?.includes(item)),
     });
     console.log("default", values);
-  }, [form, defaultStud]);
+  }, [form, defaultStud, students]);
   console.log(
     "default",
     students?.map((val, i) => {
