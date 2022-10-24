@@ -13,6 +13,7 @@ function AddStudentSection({
   setModalVisible,
   students,
   currentRow,
+  fetchSections,
   defaultStud,
 }) {
   const [payload, setPayload] = useState();
@@ -26,7 +27,11 @@ function AddStudentSection({
         return { student: item };
       })
     );
+    fetchSections();
     setModalVisible(false);
+    toast("Succesfully added", {
+      type: "success",
+    });
   };
 
   const handleCancel = () => {

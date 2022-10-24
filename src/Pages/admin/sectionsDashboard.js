@@ -64,7 +64,7 @@ function SectionDashboard() {
   useEffect(() => {
     fetchSections();
   }, [update]);
-  
+
   const handleChange = (value) => {
     setPayload(value);
   };
@@ -97,6 +97,7 @@ function SectionDashboard() {
           modalVisible={modalVisible}
           setModalVisible={setModalVisible}
           students={students}
+          fetchSections={fetchSections}
           currentRow={currentRow}
           defaultStud={defaultStud}
         />
