@@ -29,8 +29,9 @@ function AdminTeacherAdd() {
     e.preventDefault();
     try {
       let res = await createUser(state);
+      console.log(res?.data?._id);
       if (res.status === 200) {
-        navigate("/admin/teacher-info");
+        navigate(`/admin/teacher-info?id=${res?.data?._id}`);
       } else {
         setErrors({ message: "unauthorized" });
       }
@@ -105,6 +106,16 @@ function AdminTeacherAdd() {
               />
               <input
                 type="text"
+                id="contactNumber"
+                placeholder="Contact number"
+                name="contact"
+                required
+                onChange={(e) => {
+                  setState({ ...state, phoneNumber: e.target.value });
+                }}
+              />
+              <input
+                type="text"
                 id="username"
                 placeholder="ID no."
                 name="ID no."
@@ -126,7 +137,7 @@ function AdminTeacherAdd() {
             </div>
 
             <div className="con-tab">
-              <h3 className="t-sub">Subjects</h3>
+              {/* <h3 className="t-sub">Subjects</h3>
               <table className="tbl-tch">
                 <thead>
                   <th>Subject Name</th>
@@ -147,7 +158,7 @@ function AdminTeacherAdd() {
                     );
                   })}
                 </tbody>
-              </table>
+                </table>*/}
             </div>
             <div className="row2">
               <div className="column">

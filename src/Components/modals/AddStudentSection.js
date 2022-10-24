@@ -37,9 +37,20 @@ function AddStudentSection({
     console.log(`selected ${payload}`);
   };
   useEffect(() => {
-    form.setFieldsValue({ student: defaultStud });
+    let values = students?.map((val, i) => {
+      return val?._id;
+    });
+    form.setFieldsValue({
+      student: defaultStud?.filter((item) => values?.includes(item)),
+    });
+    console.log("default", values);
   }, [form, defaultStud]);
-  console.log("default", defaultStud);
+  console.log(
+    "default",
+    students?.map((val, i) => {
+      return val?._id;
+    })
+  );
   return (
     <Modal
       title="Add Student to Section"

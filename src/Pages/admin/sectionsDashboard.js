@@ -64,6 +64,7 @@ function SectionDashboard() {
   useEffect(() => {
     fetchSections();
   }, [update]);
+  
   const handleChange = (value) => {
     setPayload(value);
   };

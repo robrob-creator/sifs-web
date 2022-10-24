@@ -89,10 +89,6 @@ function EditSection({
           rules={[{ required: true, message: "Please select level" }]}
         >
           <Select>
-            <Option value="7"> Grade 7</Option>
-            <Option value="8"> Grade 8</Option>
-            <Option value="9"> Grade 9</Option>
-            <Option value="10"> Grade 10</Option>
             <Option value="11"> Grade 11</Option>
             <Option value="12"> Grade 12</Option>
           </Select>
