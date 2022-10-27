@@ -68,11 +68,6 @@ function Admin_Sidebar() {
               <span>Upload Grades</span>
             </Link>
           )}
-          <Link to="/admin/account-choice">
-            <MdIcons.MdManageAccounts className="icons" />
-            <span>Accounts</span>
-          </Link>
-
           <a
             onClick={() => {
               store.remove("accessToken");

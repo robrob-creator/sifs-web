@@ -74,3 +74,13 @@ export async function deleteSection(id) {
   );
   return res;
 }
+export async function addOneSubjecttoSection(id, body) {
+  console.log("id", id, "body", body);
+  const accessToken = store.get("accessToken");
+  let res = await axios.post(`${baseURL()}/one-subject/${id}`, body, {
+    headers: {
+      authorization: accessToken && `Bearer ${accessToken}`,
+    },
+  });
+  return res;
+}
