@@ -11,6 +11,7 @@ import { deleteSubject } from "../../services/subjects";
 import * as MdIcons from "react-icons/md";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import Editsubject from "../../Components/modals/EditSubject";
 import "react-toastify/dist/ReactToastify.css";
 var randomColor = require("randomcolor");
 
@@ -24,9 +25,8 @@ const IconText = ({ icon, text }) => (
 function SubjectsDashboard() {
   const [data, setData] = useState();
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [editSectModal, setEditSectModal] = useState(false);
+  const [isEditVisible, setIsEditVisible] = useState(false);
   const [currentRow, setCurrentRow] = useState();
-  const [defaultVal, setDefaultVal] = useState();
   const [update, handleUpdates] = useState(true);
 
   const fetchSubject = async () => {
@@ -37,6 +37,7 @@ function SubjectsDashboard() {
   const showModal = () => {
     setIsModalVisible(true);
   };
+
   const handleDelete = async (id) => {
     await deleteSubject(id);
     handleUpdates(update ? true : false);
@@ -45,9 +46,13 @@ function SubjectsDashboard() {
       type: "success",
     });
   };
+
   useEffect(() => {
     fetchSubject();
   }, [update]);
+
+  console.log("case", currentRow);
+
   return (
     <>
       <AdminSidebar />
@@ -63,6 +68,12 @@ function SubjectsDashboard() {
               Add Subject
             </Button>,
           ]}
+        />
+        <Editsubject
+          isEditVisible={isEditVisible}
+          setIsEditVisible={setIsEditVisible}
+          fetchSubject={fetchSubject}
+          currentRow={currentRow}
         />
         <Addsubject
           isModalVisible={isModalVisible}
@@ -83,16 +94,16 @@ function SubjectsDashboard() {
                     <td data-label="Name">{item?.name}</td>
                     <td data-label="Units">{item?.units}</td>
                     <td data-label="View / Delete">
-                      {/* <a>
+                      <Link to="#">
                         <MdIcons.MdOutlineModeEditOutline
                           style={{ fontSize: "20px" }}
                           onClick={() => {
-                            setDefaultVal(item);
-                            setInterval(setEditSectModal(true), 1000);
+                            setCurrentRow(item);
+                            setInterval(setIsEditVisible(true), 1000);
                             return clearInterval();
                           }}
                         />
-                        </a>*/}
+                      </Link>
                       <Link to="#">
                         <button
                           className="icons-red"
