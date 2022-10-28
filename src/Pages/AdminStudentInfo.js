@@ -44,8 +44,8 @@ function AdminStudentInfo() {
                     <thead>
                       <th>Subject Name</th>
                       <th>Units</th>
-                      <th>School year</th>
-                      <th className="del-col">Delete</th>
+                      <th>Schedule</th>
+                      {/* <th className="del-col">Delete</th>*/}
                     </thead>
 
                     <tbody>
@@ -58,11 +58,11 @@ function AdminStudentInfo() {
                               </td>
                               <td data-label="Units">{sub.subject.units}</td>
                               <td data-label="School year">
-                                {item?.schoolYear}
+                                {sub?.subject?.schedule}
                               </td>
-                              <td data-label="Delete">
+                              {/*  <td data-label="Delete">
                                 <MdIcons.MdDelete className="icons-red" />
-                              </td>
+                          </td>*/}
                             </tr>
                           );
                         })}

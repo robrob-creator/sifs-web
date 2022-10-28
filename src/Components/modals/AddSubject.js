@@ -64,14 +64,10 @@ function Addsubject({ isModalVisible, setIsModalVisible, fetchSubject }) {
         >
           <TextArea rows={4} />
         </Form.Item>
-        <Form.Item
-          label="Units"
-          name="units"
-          rules={[
-            { pattern: "^[0-9]*$", message: "Invalid" },
-            { required: true, message: "Please input your password!" },
-          ]}
-        >
+        <Form.Item label="Units" name="units">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Schedule" name="schedule">
           <Input />
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
