@@ -42,8 +42,8 @@ function AdminTeacherDash() {
         <table>
           <thead className="thead">
             <th>Teacher Name</th>
-            <th>Subject #</th>
-            <th>Subject Name</th>
+            {/* <th>Subject #</th>
+            <th>Subject Name</th>*/}
             <th>View / Delete</th>
           </thead>
           <tbody>
@@ -54,8 +54,8 @@ function AdminTeacherDash() {
                     {" "}
                     {item?.firstName} {item?.lastName}
                   </td>
-                  <td data-label="Subject #">subject no</td>
-                  <td data-label="Subject Name">subject name</td>
+                  {/*  <td data-label="Subject #">subject no</td>
+                  <td data-label="Subject Name">subject name</td>*/}
                   <td data-label="View / Delete">
                     <Link to={`/admin/teacher-info?id=${item?._id}`}>
                       <button className="icons-grn">
