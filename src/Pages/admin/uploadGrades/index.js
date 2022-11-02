@@ -9,11 +9,19 @@ import * as MdIcons from "react-icons/md";
 import { getSections } from "../../../services/sections";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, Row, Select } from "antd";
+import { getProfile } from "../../../services/user";
+
 const { Option } = Select;
 function AdminStudentDash() {
   const [data, setData] = useState();
   const [expand, setExpand] = useState(false);
   const [form] = Form.useForm();
+  const [profile, setProfile] = useState();
+
+  const fetchProfile = async () => {
+    let res = await getProfile();
+    setProfile(res?.data?.data?.profile);
+  };
 
   const getFields = () => {
     const count = expand ? 4 : 3;
@@ -56,7 +64,7 @@ function AdminStudentDash() {
   };
 
   const fetchStudents = async (values) => {
-    let res = await getSections(values);
+    let res = await getSections({ ...values, teacher: profile?._id });
     setData(res?.data?.data?.list);
   };
 
@@ -65,8 +73,11 @@ function AdminStudentDash() {
   };
 
   useEffect(() => {
-    fetchStudents();
-  }, []);
+    if (!profile) {
+      fetchProfile();
+    }
+    fetchStudents({ teacher: profile?._id });
+  }, [profile]);
   return (
     <>
       <AdminSidebar />
