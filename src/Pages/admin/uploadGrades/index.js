@@ -84,7 +84,7 @@ function AdminStudentDash() {
       <div className="container">
         <div className="row">
           <div className="column">
-            <h1>Section List</h1>
+            <h1>Subject List</h1>
           </div>
           <div className="column"></div>
         </div>
@@ -120,29 +120,38 @@ function AdminStudentDash() {
             </Col>
           </Row>
         </Form>
-        <table>
-          <thead>
-            <th>Section</th>
-            <th>View</th>
-          </thead>
-          <tbody>
-            {data?.map((item, index) => {
-              return (
-                <tr>
-                  <td data-label="Student ID">{item?.name}</td>
-
-                  <td data-label="View / Delete">
-                    <Link to={`/grade/subjects?id=${item?._id}`}>
-                      <button className="icons-grn">
-                        <BsIcons.BsFillEyeFill />
-                      </button>
-                    </Link>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        {data?.map((datas, index) => {
+          return (
+            <>
+              {datas?.subjects
+                ?.filter((item) => item?.teacher?._id === profile?._id)
+                .map((item, index) => {
+                  return (
+                    <table>
+                      <thead>
+                        <th>Subject</th>
+                        <th>View</th>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td data-label="Student ID">{item?.subject?.name}</td>
+                          <td data-label="View / Delete">
+                            <Link
+                              to={`/grade/students?id=${datas?._id}&subject=${item?.subject?._id}&subject_name=${item?.subject?.name}`}
+                            >
+                              <button className="icons-grn">
+                                <BsIcons.BsFillEyeFill />
+                              </button>
+                            </Link>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  );
+                })}
+            </>
+          );
+        })}
       </div>
     </>
   );
