@@ -50,7 +50,7 @@ function SignInTeacher() {
               <input
                 type="text"
                 className="input"
-                placeholder="ID Number..."
+                placeholder="Username..."
                 required
                 onChange={(e) => {
                   setState({ ...state, userName: e.target.value });
