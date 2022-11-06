@@ -33,7 +33,7 @@ function Teacher_Feedback() {
               Cabulohan, Cabanglasan, Bukidnon
             </div>
             <div>
-              <MdIcons.MdMail className="icons-info" />
+              <MdIcons.MdMail className="icons-info-email" />
               cabulohanparadisenationalhighschool@gmail.com
             </div>
             <div>
