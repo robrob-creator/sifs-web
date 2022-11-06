@@ -42,7 +42,7 @@ function AdminChangePassword({
       visible={changePassModal}
       onOk={handleOk}
       onCancel={handleCancel}
-      footer={<a>Use admin controls?</a>}
+      footer="note: please fill the fields above"
     >
       <Form
         name="basic"

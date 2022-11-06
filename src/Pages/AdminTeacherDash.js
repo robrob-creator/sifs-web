@@ -9,6 +9,7 @@ import * as BsIcons from "react-icons/bs";
 import * as MdIcons from "react-icons/md";
 import { Link } from "react-router-dom";
 import { getUsers, updateRoles } from "../services/user";
+import { ToastContainer, toast } from "react-toastify";
 import EditTeacher from "../Components/modals/EditTeacher";
 
 function AdminTeacherDash() {
@@ -42,6 +43,7 @@ function AdminTeacherDash() {
             </Link>
           </div>
         </div>
+        <ToastContainer position="top-right" newestOnTop />
         <EditTeacher
           isModalVisible={isModalVisible}
           setIsModalVisible={setIsModalVisible}

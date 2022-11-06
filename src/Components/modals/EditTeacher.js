@@ -1,12 +1,15 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Button, Modal, Checkbox, Form, Input } from "antd";
 import React, { useEffect, useState } from "react";
 import { updateUser } from "../../services/user";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import AdminChangePassword from "./AdminChangePass";
 const { TextArea } = Input;
 
 function EditTeacher({ isModalVisible, setIsModalVisible, fetch, currentRow }) {
   const [form] = Form.useForm();
+  const [changePassModal, setChangePassModal] = useState(false);
 
   const handleOk = () => {
     setIsModalVisible(false);
@@ -46,8 +49,21 @@ function EditTeacher({ isModalVisible, setIsModalVisible, fetch, currentRow }) {
       visible={isModalVisible}
       onOk={handleOk}
       onCancel={handleCancel}
-      footer={"instruction: fill up the fields"}
+      footer={
+        <a
+          style={{ fontWeight: "bold" }}
+          onClick={() => setChangePassModal(true)}
+        >
+          Change password?
+        </a>
+      }
     >
+      <AdminChangePassword
+        id={currentRow?._id}
+        password={currentRow?.password}
+        changePassModal={changePassModal}
+        setChangePassModal={setChangePassModal}
+      />
       <Form
         name="basic"
         labelCol={{ span: 8 }}
