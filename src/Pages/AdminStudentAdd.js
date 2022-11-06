@@ -145,54 +145,8 @@ function AdminStudentAdd() {
               />
             </div>
 
-            <div className="con-tab">
-              <h3 className="t-sub">Subjects</h3>
-              <table className="tbl-tch">
-                <thead>
-                  <th>Subject Name</th>
-                  <th>Units</th>
-                  <th>Quarter</th>
-                  <th className="del-col">Delete</th>
-                </thead>
-
-                <tbody>
-                  {subjects.map((sub, index) => {
-                    return (
-                      <tr>
-                        <td data-label="Subject Name">{sub.subname}</td>
-                        <td data-label="Units">24</td>
-                        <td data-label="Quarter">
-                          <select className="sel quart">
-                            <option value="First">First</option>
-                            <option value="Second">Second</option>
-                            <option value="Third">Third</option>
-                            <option value="Fourth">Fourth</option>
-                          </select>
-                        </td>
-                        <td data-label="Delete">
-                          <MdIcons.MdDelete className="icons-red" />
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
+            <div className="con-tab"></div>
             <div className="row2">
-              <div className="column">
-                <select className="sel">
-                  <option value="IPT2">IPT2</option>
-                  <option value="IPT2">IPT2</option>
-                  <option value="IPT2">IPT2</option>
-                </select>
-                <Link to="/admin/teacher-info">
-                  <input
-                    type="button"
-                    className="add-btn"
-                    value="Add Subject"
-                  />
-                </Link>
-              </div>
               <div className="column mar">
                 <button className="add-btn grn" type="submit">
                   Submit
