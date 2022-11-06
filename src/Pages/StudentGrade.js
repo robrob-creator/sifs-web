@@ -9,6 +9,9 @@ import { getGradesById } from "../services/grades";
 import { Button, Col, Form, Input, Row, Select } from "antd";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import { authChecker } from "../services/auth";
+import Pdf from "react-to-pdf";
+
+const ref = React.createRef();
 const { Option } = Select;
 
 function StudentGrade() {
@@ -108,40 +111,8 @@ function StudentGrade() {
     <>
       <StudentSidebar profile={profile} />
       <div className="container">
-        <Form
-          form={form}
-          name="advanced_search"
-          style={{ background: "white", padding: "20px", marginBottom: "20px" }}
-          className="ant-advanced-search-form"
-          onFinish={onFinish}
-        >
-          <Row gutter={24}>{getFields()}</Row>
-          <Row>
-            <Col span={24} style={{ textAlign: "right" }}>
-              <Button type="primary" htmlType="submit">
-                Search
-              </Button>
-              <Button
-                style={{ margin: "0 8px" }}
-                onClick={() => {
-                  form.resetFields();
-                }}
-              >
-                Clear
-              </Button>
-              <a
-                style={{ fontSize: 12 }}
-                onClick={() => {
-                  setExpand(!expand);
-                }}
-              >
-                {expand ? <UpOutlined /> : <DownOutlined />} Collapse
-              </a>
-            </Col>
-          </Row>
-        </Form>
         <h2>Grades</h2>
-        <table>
+        <table style={{ margin: 2 }} ref={ref}>
           <thead>
             <th>Subject Name</th>
             <th>1st Grading</th>
@@ -199,7 +170,13 @@ function StudentGrade() {
             })}
           </tbody>
         </table>
-        <input type="button" class="dl-pdf pdf" value="Download PDF" />
+        <Pdf targetRef={ref} filename="grades.pdf">
+          {({ toPdf }) => (
+            <button class="dl-pdf pdf" onClick={toPdf}>
+              Generate Pdf
+            </button>
+          )}
+        </Pdf>
       </div>
     </>
   );
