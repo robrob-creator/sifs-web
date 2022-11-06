@@ -64,9 +64,7 @@ function Addsubject({ isModalVisible, setIsModalVisible, fetchSubject }) {
         >
           <TextArea rows={4} />
         </Form.Item>
-        <Form.Item label="Units" name="units">
-          <Input />
-        </Form.Item>
+
         <Form.Item label="Schedule" name="schedule">
           <Input />
         </Form.Item>
