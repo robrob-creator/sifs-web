@@ -52,13 +52,6 @@ function AdminChangePassword({
         onFinishFailed={onFinishFailed}
       >
         <Form.Item
-          label="Old Password"
-          name="oldPassword"
-          initialValue={password}
-        >
-          <Input type="password" />
-        </Form.Item>
-        <Form.Item
           label="New Password"
           name="newPassword"
           rules={[{ required: true, message: "Please enter new password" }]}
