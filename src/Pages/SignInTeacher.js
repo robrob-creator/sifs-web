@@ -22,7 +22,7 @@ function SignInTeacher() {
     try {
       let res = await teacherlogin(state);
       if (res.status === 200) {
-        navigate("/admin/dashboard");
+        navigate("/grade");
       } else {
         setErrors({ message: "unauthorized" });
       }
