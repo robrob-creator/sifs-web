@@ -32,9 +32,17 @@ function Teacher_Feedback() {
               <MdIcons.MdLocationOn className="icons-info" />
               Cabulohan, Cabanglasan, Bukidnon
             </div>
-            <div>
-              <MdIcons.MdMail className="icons-info-email" />
-              cabulohanparadisenationalhighschool@gmail.com
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <MdIcons.MdMail className="icons-info" />
+              <span style={{ fontSize: "15px" }}>
+                cabulohanparadisenationalhighschool@gmail.com
+              </span>
             </div>
             <div>
               <FaIcons.FaPhoneAlt className="icons-info" />
