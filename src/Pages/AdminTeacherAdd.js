@@ -119,7 +119,7 @@ function AdminTeacherAdd() {
                 id="username"
                 placeholder="ID no."
                 name="ID no."
-                required
+                hidden
                 onChange={(e) => {
                   setState({ ...state, idNo: e.target.value });
                 }}
@@ -161,20 +161,6 @@ function AdminTeacherAdd() {
                 </table>*/}
             </div>
             <div className="row2">
-              <div className="column">
-                <select className="sel">
-                  <option value="IPT2">IPT2</option>
-                  <option value="IPT2">IPT2</option>
-                  <option value="IPT2">IPT2</option>
-                </select>
-                <Link to="/admin/teacher-info">
-                  <input
-                    type="button"
-                    className="add-btn"
-                    value="Add Subject"
-                  />
-                </Link>
-              </div>
               <div className="column mar">
                 <button className="add-btn grn" type="submit">
                   Submit
