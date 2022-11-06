@@ -3,14 +3,14 @@ import logo from "../Components/images/logo.png";
 import "./css/signup.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { login } from "../services/user";
+import { teacherlogin } from "../services/user";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function SignInTeacher() {
   const [state, setState] = useState({
-    idNo: "",
+    userName: "",
     password: "",
     role: "teacher",
   });
@@ -20,7 +20,7 @@ function SignInTeacher() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let res = await login(state);
+      let res = await teacherlogin(state);
       if (res.status === 200) {
         navigate("/admin/dashboard");
       } else {
@@ -53,11 +53,11 @@ function SignInTeacher() {
                 placeholder="ID Number..."
                 required
                 onChange={(e) => {
-                  setState({ ...state, idNo: e.target.value });
+                  setState({ ...state, userName: e.target.value });
                 }}
               />
               <input
-                type="text"
+                type="password"
                 className="input"
                 placeholder="Password..."
                 onChange={(e) => {

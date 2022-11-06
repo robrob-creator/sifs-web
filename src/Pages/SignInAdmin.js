@@ -54,7 +54,7 @@ function SignInAdmin() {
                 }}
               />
               <input
-                type="text"
+                type="password"
                 className="input"
                 placeholder="Password..."
                 onChange={(e) => {

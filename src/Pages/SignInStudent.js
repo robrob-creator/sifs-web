@@ -57,7 +57,7 @@ function SignInStudent() {
                 }}
               />
               <input
-                type="text"
+                type="password"
                 className="input"
                 placeholder="Password..."
                 onChange={(e) => {

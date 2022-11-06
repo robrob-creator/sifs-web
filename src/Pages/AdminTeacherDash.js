@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
 import "./css/container.css";
 import "./css/table.css";
@@ -8,10 +9,13 @@ import * as BsIcons from "react-icons/bs";
 import * as MdIcons from "react-icons/md";
 import { Link } from "react-router-dom";
 import { getUsers, updateRoles } from "../services/user";
+import EditTeacher from "../Components/modals/EditTeacher";
 
 function AdminTeacherDash() {
   const [data, setData] = useState();
   const [trigger, setTrigger] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState();
+  const [currentRow, setCurrentRow] = useState();
 
   const fetchTeachers = async () => {
     let res = await getUsers({ role: "teacher" });
@@ -38,7 +42,13 @@ function AdminTeacherDash() {
             </Link>
           </div>
         </div>
-
+        <EditTeacher
+          isModalVisible={isModalVisible}
+          setIsModalVisible={setIsModalVisible}
+          fetch={fetchTeachers}
+          currentRow={currentRow}
+          setCurrentRow={setCurrentRow}
+        />
         <table>
           <thead className="thead">
             <th>Teacher Name</th>
@@ -62,6 +72,15 @@ function AdminTeacherDash() {
                         <BsIcons.BsFillEyeFill />
                       </button>
                     </Link>
+                    <a>
+                      <MdIcons.MdOutlineModeEditOutline
+                        style={{ fontSize: "20px" }}
+                        onClick={() => {
+                          setCurrentRow(item);
+                          setIsModalVisible(true);
+                        }}
+                      />
+                    </a>
                     <Link to="#">
                       <button
                         className="icons-red"

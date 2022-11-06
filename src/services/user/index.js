@@ -8,6 +8,12 @@ export async function login(body) {
   store.set("accessToken", res?.data?.data?.accessToken);
   return res;
 }
+export async function teacherlogin(body) {
+  let res = await axios.post(`${baseURL()}/teacher-login`, body);
+  console.log(res?.data?.data?.accessToken);
+  store.set("accessToken", res?.data?.data?.accessToken);
+  return res;
+}
 export async function createUser(body) {
   const accessToken = store.get("accessToken");
   let res = await axios.post(`${baseURL()}/user`, body, {
