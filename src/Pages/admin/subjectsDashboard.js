@@ -83,7 +83,7 @@ function SubjectsDashboard() {
         <table>
           <thead>
             <th>Name</th>
-            <th>Units</th>
+            <th>Description</th>
             <th>Edit / Delete</th>
           </thead>
           <tbody>
@@ -92,7 +92,7 @@ function SubjectsDashboard() {
                 return (
                   <tr>
                     <td data-label="Name">{item?.name}</td>
-                    <td data-label="Units">{item?.units}</td>
+                    <td data-label="Units">{item?.description}</td>
                     <td data-label="View / Delete">
                       <Link to="#">
                         <MdIcons.MdOutlineModeEditOutline
