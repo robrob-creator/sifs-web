@@ -101,6 +101,13 @@ function EditUser({ isModalVisible, setIsModalVisible, fetch, currentRow }) {
           <Input />
         </Form.Item>
         <Form.Item
+          label="ID number"
+          name="idNo"
+          rules={[{ required: false, message: "Please input the suffix!" }]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
           label="Contact number"
           name="phoneNumber"
           rules={[

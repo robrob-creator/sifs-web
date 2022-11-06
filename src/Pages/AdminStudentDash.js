@@ -57,8 +57,7 @@ function AdminStudentDash() {
           <thead>
             <th>Student ID</th>
             <th>Student Name</th>
-            <th>Subjects</th>
-            <th>Units</th>
+
             <th>View / Edit / Delete</th>
           </thead>
           <tbody>
@@ -69,8 +68,7 @@ function AdminStudentDash() {
                   <td data-label="Student Name">
                     {item?.firstName} {item?.lastName}
                   </td>
-                  <td data-label="Subjects">subs</td>
-                  <td data-label="Units">units</td>
+
                   <td data-label="View / Delete">
                     <Link to={`/admin/student-info?id=${item._id}`}>
                       <button className="icons-grn">
