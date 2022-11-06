@@ -1,21 +1,17 @@
-.container{
-    border: 5px outset red;
-    background-color: lightblue;
-    width: auto;
-    height: auto;
-    margin-left:10%;
-    padding-top: 100px;
-    padding-left: 15%;
-    padding-right: 15%;
-    padding-bottom: 100px;
-  }
+.container {
+  background-color: lightblue;
+  width: auto;
+  height: auto;
+  margin-left: 10%;
+  padding-top: 100px;
+  padding-left: 15%;
+  padding-right: 15%;
+  padding-bottom: 100px;
+}
 
-  .container2{
-    border: 5px outset red;
-    background-color: lightblue;
-    height: 100%;
-    padding: 80px 0;
-    text-align: center;
-  }
-
-  
+.container2 {
+  background-color: lightblue;
+  height: 100%;
+  padding: 80px 0;
+  text-align: center;
+}
