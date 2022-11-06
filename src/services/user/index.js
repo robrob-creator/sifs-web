@@ -24,6 +24,16 @@ export async function createUser(body) {
 
   return res;
 }
+export async function createTeacher(body) {
+  const accessToken = store.get("accessToken");
+  let res = await axios.post(`${baseURL()}/teacher`, body, {
+    headers: {
+      authorization: accessToken && `Bearer ${accessToken}`,
+    },
+  });
+
+  return res;
+}
 export async function getUsers(params) {
   const accessToken = store.get("accessToken");
   let res = await axios.get(`${baseURL()}/users`, {

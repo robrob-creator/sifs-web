@@ -6,7 +6,7 @@ import AdminSidebar from "../Components/Admin_Sidebar";
 import subjects from "./data/subjects";
 import * as MdIcons from "react-icons/md";
 import { Link } from "react-router-dom";
-import { createUser } from "../services/user";
+import { createTeacher } from "../services/user";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
@@ -20,7 +20,6 @@ function AdminTeacherAdd() {
     lastName: "",
     middleName: "",
     suffix: "",
-    idNo: "",
     password: "",
     email: "",
     role: "teacher",
@@ -28,7 +27,7 @@ function AdminTeacherAdd() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let res = await createUser(state);
+      let res = await createTeacher(state);
       console.log(res?.data?._id);
       if (res.status === 200) {
         navigate(`/admin/teacher-info?id=${res?.data?._id}`);
@@ -114,16 +113,7 @@ function AdminTeacherAdd() {
                   setState({ ...state, phoneNumber: e.target.value });
                 }}
               />
-              <input
-                type="text"
-                id="username"
-                placeholder="ID no."
-                name="ID no."
-                hidden
-                onChange={(e) => {
-                  setState({ ...state, idNo: e.target.value });
-                }}
-              />
+
               <input
                 type="password"
                 id="pswd"
