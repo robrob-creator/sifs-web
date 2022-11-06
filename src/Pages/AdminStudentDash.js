@@ -8,6 +8,7 @@ import AdminSidebar from "../Components/Admin_Sidebar";
 import * as BsIcons from "react-icons/bs";
 import * as MdIcons from "react-icons/md";
 import student_dashboard from "./data/grades";
+import { ToastContainer, toast } from "react-toastify";
 import EditStudent from "../Components/modals/EditUser";
 
 import { getUsers, updateRoles } from "../services/user";
@@ -44,6 +45,7 @@ function AdminStudentDash() {
             </Link>
           </div>
         </div>
+        <ToastContainer position="top-right" newestOnTop />
         <EditStudent
           isModalVisible={isModalVisible}
           setIsModalVisible={setIsModalVisible}

@@ -74,3 +74,31 @@ export async function updateUser(id, body) {
 
   return res;
 }
+export async function changePassword(id, body) {
+  const accessToken = store.get("accessToken");
+  let res = await axios.post(
+    `${baseURL()}/change-password/${id}`,
+    { ...body },
+    {
+      headers: {
+        authorization: accessToken && `Bearer ${accessToken}`,
+      },
+    }
+  );
+
+  return res;
+}
+export async function adminChangePassword(id, body) {
+  const accessToken = store.get("accessToken");
+  let res = await axios.post(
+    `${baseURL()}/admin-change-password/${id}`,
+    { ...body },
+    {
+      headers: {
+        authorization: accessToken && `Bearer ${accessToken}`,
+      },
+    }
+  );
+
+  return res;
+}
