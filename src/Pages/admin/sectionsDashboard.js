@@ -216,13 +216,17 @@ function SectionDashboard() {
                     <td data-label="School year">{item?.schoolYear}</td>
                     <td data-label="Subjects">
                       {seeMore ? (
-                        <span>
+                        <ul
+                          style={{
+                            listStyleType: "none",
+                            display: "flex",
+                            flexDirection: "column",
+                          }}
+                        >
                           {item?.subjects &&
-                            item?.subjects
-                              ?.map((item, i) => {
-                                return item?.subject?.name;
-                              })
-                              .join(",")}
+                            item?.subjects?.map((sub, i) => {
+                              return <li key={i}>{sub?.subject?.name}</li>;
+                            })}
                           <br></br>
                           <a
                             style={{ marginLeft: "12px" }}
@@ -230,14 +234,14 @@ function SectionDashboard() {
                           >
                             See less
                           </a>
-                        </span>
+                        </ul>
                       ) : (
                         <span>
                           {`${
                             item?.subjects &&
                             item?.subjects
                               ?.map((item, i) => {
-                                return item?.subject?.name;
+                                return item?.subject?.name + "\n";
                               })
                               .join(",")
                               .substring(0, 25)
