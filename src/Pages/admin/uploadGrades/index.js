@@ -88,38 +88,7 @@ function AdminStudentDash() {
           </div>
           <div className="column"></div>
         </div>
-        <Form
-          form={form}
-          name="advanced_search"
-          style={{ background: "white", padding: "20px", marginBottom: "20px" }}
-          className="ant-advanced-search-form"
-          onFinish={onFinish}
-        >
-          <Row gutter={24}>{getFields()}</Row>
-          <Row>
-            <Col span={24} style={{ textAlign: "right" }}>
-              <Button type="primary" htmlType="submit">
-                Search
-              </Button>
-              <Button
-                style={{ margin: "0 8px" }}
-                onClick={() => {
-                  form.resetFields();
-                }}
-              >
-                Clear
-              </Button>
-              <a
-                style={{ fontSize: 12 }}
-                onClick={() => {
-                  setExpand(!expand);
-                }}
-              >
-                {expand ? <UpOutlined /> : <DownOutlined />} Collapse
-              </a>
-            </Col>
-          </Row>
-        </Form>
+
         {data?.map((datas, index) => {
           return (
             <>
