@@ -1,14 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Student_Sidebar from "../Components/Student_Sidebar";
 import "./css/form.css";
 import * as FaIcons from "react-icons/fa";
 import * as MdIcons from "react-icons/md";
+import { createMessage } from "../services/feedback";
+import { useSearchParams } from "react-router-dom";
+import { getProfile } from "../services/user";
+import { ToastContainer, toast } from "react-toastify";
 
 function Teacher_Feedback() {
+  const [message, setMessage] = useState();
+  const [searchParams] = useSearchParams();
+  const [profile, setProfile] = useState();
+  let reciever = searchParams.get("to");
+
+  const sendFeedBack = async () => {
+    try {
+      createMessage({ message, reciever, sender: profile?._id });
+      toast("feedback sent", {
+        type: "success",
+      });
+    } catch (err) {}
+  };
+
+  const fetchProfile = async () => {
+    let res = await getProfile();
+    setProfile(res?.data?.data?.profile);
+  };
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+  console.log(profile);
   return (
     <>
       <Student_Sidebar />
       <div className="container">
+        <ToastContainer position="top-right" newestOnTop />
         <div class="contact-section">
           <div class="contact-form">
             <h2>Send Feedback Here</h2>
@@ -18,12 +45,13 @@ function Teacher_Feedback() {
                 rows="5"
                 placeholder="Your Message"
                 required
+                onChange={(e) => setMessage(e?.target?.value)}
               />
               <input
-                type="submit"
                 name="submit"
                 class="send-btn"
                 value="Send"
+                onClick={() => sendFeedBack()}
               />
             </form>
           </div>

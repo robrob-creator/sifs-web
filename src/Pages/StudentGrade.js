@@ -73,12 +73,13 @@ function StudentGrade() {
         ...values,
       });
       const grouped = grade?.data?.data?.list?.reduce(
-        (catsSoFar, { subject, gradingPeriod, grade }) => {
+        (catsSoFar, { subject, gradingPeriod, grade, gradedBy }) => {
           if (!catsSoFar[subject.name]) catsSoFar[subject.name] = [];
           catsSoFar[subject.name].push({
             name: subject.name,
             gradingPeriod,
             grade,
+            gradedBy,
           });
           return catsSoFar;
         },
@@ -106,7 +107,7 @@ function StudentGrade() {
   const onFinish = (values) => {
     fetchProfile(values);
   };
-  console.log(getFields());
+  console.log(grades);
   return (
     <>
       <StudentSidebar profile={profile} />
@@ -161,7 +162,12 @@ function StudentGrade() {
                       : "failed"}
                   </td>
                   <td data-label="Feedback">
-                    <Link className="link" to="/student/subject_feedback">
+                    <Link
+                      className="link"
+                      to={`/student/subject_feedback?to=${
+                        s_grade[0] && s_grade[0]?.gradedBy
+                      }`}
+                    >
                       <input type="button" class="btn red" value="Feedback" />
                     </Link>
                   </td>

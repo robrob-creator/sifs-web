@@ -60,6 +60,12 @@ function Admin_Sidebar() {
                 <FaIcons.FaBook className="icons" />
                 <span>Subjects</span>
               </Link>
+
+              <Link to="/feedbacks">
+                <FaIcons.FaBook className="icons" />
+                <span>Feedbacks</span>
+              </Link>
+
               <Link to="/admin/section-dashboard">
                 <FaIcons.FaBook className="icons" />
                 <span>Sections</span>
