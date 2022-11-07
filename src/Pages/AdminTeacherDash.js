@@ -35,7 +35,7 @@ function AdminTeacherDash() {
       <div className="container">
         <div className="row">
           <div className="column">
-            <h1>Teachers Dashboard</h1>
+            <h1>Teachers List</h1>
           </div>
           <div className="column">
             <Link to="/admin/teacher-add">

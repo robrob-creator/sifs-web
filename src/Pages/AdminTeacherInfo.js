@@ -61,7 +61,7 @@ function AdminTeacherInfo() {
           addSectModal={addSectModal}
           setAddSectModal={setAddSectModal}
         />
-        <h2>Teacher Info</h2>
+        <h2>Teaching Load</h2>
         <div className="con">
           <h2 className="t-name">{`${profile?.lastName}, ${profile?.firstName}`}</h2>
           <div className="con-tab">

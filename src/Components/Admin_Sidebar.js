@@ -73,10 +73,16 @@ function Admin_Sidebar() {
             </>
           )}
           {profile?.role?.includes("teacher") && (
-            <Link to="/grade">
-              <FaIcons.FaBook className="icons" />
-              <span>Upload Grades</span>
-            </Link>
+            <>
+              <Link to="/grade">
+                <FaIcons.FaBook className="icons" />
+                <span>Upload Grades</span>
+              </Link>
+              <Link to="/teacher/feedbacks-list">
+                <FaIcons.FaBook className="icons" />
+                <span>Feedbacks</span>
+              </Link>
+            </>
           )}
           <a
             onClick={() => {
