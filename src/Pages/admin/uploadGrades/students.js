@@ -13,11 +13,14 @@ import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, Row, Select } from "antd";
 import { getGrades } from "../../../services/grades";
 import { useSearchParams } from "react-router-dom";
+import EditGrade from "../../../Components/modals/EditGrade";
 import UploadGrade from "../../../Components/modals/UploadGrade";
 const { Option } = Select;
 
 function UploadStudentsList() {
   const [data, setData] = useState();
+  const [showGradeEdit, setShowGradeEdit] = useState();
+  const [currentRow, setCurrentRow] = useState();
   const [showUpload, handleUpload] = useState(false);
   const [section, setSection] = useState();
   const [grades, setGrades] = useState();
@@ -47,6 +50,12 @@ function UploadStudentsList() {
       <AdminSidebar />
       <div className="container">
         <ToastContainer position="top-right" newestOnTop />
+        <EditGrade
+          showGradeEdit={showGradeEdit}
+          setShowGradeEdit={setShowGradeEdit}
+          id={currentRow?._id}
+          fetch={fetchGrades}
+        />
         <UploadGrade
           showUpload={showUpload}
           handleUpload={handleUpload}
@@ -69,7 +78,7 @@ function UploadStudentsList() {
             <th>Student</th>
             <th>1st Grading</th>
             <th>2nd Grading</th>
-            <th>Upload/Edit</th>
+            <th>Upload</th>
           </thead>
           <tbody>
             {data?.map((item, index) => {
@@ -81,9 +90,23 @@ function UploadStudentsList() {
                     {grades
                       ?.filter((item) => item.gradingPeriod === "1st")
                       ?.map((grade, i) => {
-                        return grade?.student?._id === item?.student?._id
-                          ? grade?.grade
-                          : "";
+                        return grade?.student?._id === item?.student?._id ? (
+                          <span>
+                            {grade?.grade}{" "}
+                            <a>
+                              {" "}
+                              <MdIcons.MdOutlineModeEditOutline
+                                style={{ fontSize: "15px" }}
+                                onClick={() => {
+                                  setCurrentRow(grade);
+                                  setShowGradeEdit(true);
+                                }}
+                              />
+                            </a>
+                          </span>
+                        ) : (
+                          ""
+                        );
                       })}
                   </td>
                   <td data-label="Student ID">
@@ -91,9 +114,20 @@ function UploadStudentsList() {
                     {grades
                       ?.filter((item) => item.gradingPeriod === "2nd")
                       ?.map((grade, i) => {
-                        return grade?.student?._id === item?.student?._id
-                          ? grade?.grade
-                          : "";
+                        return grade?.student?._id === item?.student?._id ? (
+                          <span>
+                            {grade?.grade}{" "}
+                            <a>
+                              {" "}
+                              <MdIcons.MdOutlineModeEditOutline
+                                style={{ fontSize: "15px" }}
+                                onClick={() => {}}
+                              />
+                            </a>
+                          </span>
+                        ) : (
+                          ""
+                        );
                       })}
                   </td>
                   <td data-label="View / Delete">

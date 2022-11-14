@@ -33,3 +33,13 @@ export async function getGradesById(id, params) {
 
   return res;
 }
+export async function editGrade(id, body) {
+  console.log("id", id, "body", body);
+  const accessToken = store.get("accessToken");
+  let res = await axios.post(`${baseURL()}/edit-grade/${id}`, body, {
+    headers: {
+      authorization: accessToken && `Bearer ${accessToken}`,
+    },
+  });
+  return res;
+}

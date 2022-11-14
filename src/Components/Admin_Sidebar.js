@@ -39,60 +39,64 @@ function Admin_Sidebar() {
             marginBottom: "100px",
           }}
         >
-          {!profile?.role?.includes("teacher") && (
+          {profile?.role && (
             <>
-              <Link to="/admin/dashboard">
-                <FaIcons.FaHome className="icons" />
-                <span>Home</span>
-              </Link>
+              {!profile?.role?.includes("teacher") && (
+                <>
+                  <Link to="/admin/dashboard">
+                    <FaIcons.FaHome className="icons" />
+                    <span>Home</span>
+                  </Link>
 
-              <Link to="/admin/teachers-dashboard">
-                <FaIcons.FaUserTie className="icons" />
-                <span>Teachers</span>
-              </Link>
+                  <Link to="/admin/teachers-dashboard">
+                    <FaIcons.FaUserTie className="icons" />
+                    <span>Teachers</span>
+                  </Link>
 
-              <Link to="/admin/students-dashboard">
-                <FaIcons.FaUserGraduate className="icons" />
-                <span>Students</span>
-              </Link>
+                  <Link to="/admin/students-dashboard">
+                    <FaIcons.FaUserGraduate className="icons" />
+                    <span>Students</span>
+                  </Link>
 
-              <Link to="/admin/subjects-dashboard">
-                <FaIcons.FaBook className="icons" />
-                <span>Subjects</span>
-              </Link>
+                  <Link to="/admin/subjects-dashboard">
+                    <FaIcons.FaBook className="icons" />
+                    <span>Subjects</span>
+                  </Link>
 
-              <Link to="/feedbacks">
-                <FaIcons.FaBook className="icons" />
-                <span>Feedbacks</span>
-              </Link>
+                  <Link to="/feedbacks">
+                    <FaIcons.FaBook className="icons" />
+                    <span>Feedbacks</span>
+                  </Link>
 
-              <Link to="/admin/section-dashboard">
-                <FaIcons.FaBook className="icons" />
-                <span>Sections</span>
-              </Link>
+                  <Link to="/admin/section-dashboard">
+                    <FaIcons.FaBook className="icons" />
+                    <span>Sections</span>
+                  </Link>
+                </>
+              )}
+              {profile?.role?.includes("teacher") && (
+                <>
+                  <Link to="/grade">
+                    <FaIcons.FaBook className="icons" />
+                    <span>Upload Grades</span>
+                  </Link>
+                  <Link to="/teacher/feedbacks-list">
+                    <FaIcons.FaBook className="icons" />
+                    <span>Feedbacks</span>
+                  </Link>
+                </>
+              )}
+              <a
+                onClick={() => {
+                  store.remove("accessToken");
+                  navigate("/");
+                }}
+              >
+                <CgIcons.CgLogOut className="icons" />
+                <span>Logout</span>
+              </a>
             </>
           )}
-          {profile?.role?.includes("teacher") && (
-            <>
-              <Link to="/grade">
-                <FaIcons.FaBook className="icons" />
-                <span>Upload Grades</span>
-              </Link>
-              <Link to="/teacher/feedbacks-list">
-                <FaIcons.FaBook className="icons" />
-                <span>Feedbacks</span>
-              </Link>
-            </>
-          )}
-          <a
-            onClick={() => {
-              store.remove("accessToken");
-              navigate("/");
-            }}
-          >
-            <CgIcons.CgLogOut className="icons" />
-            <span>Logout</span>
-          </a>
         </div>
       </div>
     </>

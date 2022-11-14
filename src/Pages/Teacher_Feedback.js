@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Student_Sidebar from "../Components/Student_Sidebar";
+import StudentSidebar from "../Components/Student_Sidebar";
 import "./css/form.css";
 import * as FaIcons from "react-icons/fa";
 import * as MdIcons from "react-icons/md";
@@ -33,7 +33,7 @@ function Teacher_Feedback() {
   console.log(profile);
   return (
     <>
-      <Student_Sidebar />
+      <StudentSidebar profile={profile} />
       <div className="container">
         <ToastContainer position="top-right" newestOnTop />
         <div class="contact-section">

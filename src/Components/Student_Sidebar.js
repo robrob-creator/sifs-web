@@ -10,6 +10,7 @@ import store from "store";
 
 function Sidebar({ profile }) {
   let navigate = useNavigate();
+  console.log(profile);
   return (
     <>
       <div class="sidebar">

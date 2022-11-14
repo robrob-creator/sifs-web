@@ -8,7 +8,7 @@ import Students from "./Pages/Students";
 import SignInChoices from "./Pages/SignInChoices";
 import SignInStudent from "./Pages/SignInStudent";
 import StudentGrade from "./Pages/StudentGrade";
-import Teacher_Feedback from "./Pages/Teacher_Feedback";
+import TeacherFeedback from "./Pages/Teacher_Feedback";
 import AdminDashboard from "./Pages/AdminDashboard";
 import AdminTeacherDash from "./Pages/AdminTeacherDash";
 import AdminStudentDash from "./Pages/AdminStudentDash";
@@ -102,7 +102,7 @@ const App = () => {
           />
           <Route
             path="/student/subject_feedback"
-            element={<Teacher_Feedback />}
+            element={<TeacherFeedback />}
           />
         </Routes>
       </Router>
