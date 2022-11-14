@@ -84,7 +84,7 @@ function UploadGrade({
           label="Section"
           name="section"
           initialValue={id}
-          rules={[{ required: true, message: "Please input the student!" }]}
+          rules={[{ required: true, message: "Please input the section!" }]}
         >
           <Input />
         </Form.Item>
@@ -103,21 +103,23 @@ function UploadGrade({
           label="subject"
           name="subject"
           initialValue={subject}
-          rules={[{ required: true, message: "Please input the student!" }]}
+          rules={[{ required: true, message: "Please input the subject!" }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
           label="Grade"
           name="grade"
-          rules={[{ required: true, message: "Please input the student!" }]}
+          rules={[{ required: true, message: "Please input the grade!" }]}
         >
           <Input />
         </Form.Item>
         <Form.Item
           label="Grading Period"
           name="gradingPeriod"
-          rules={[{ required: true, message: "Please input the student!" }]}
+          rules={[
+            { required: true, message: "Please input the grading period!" },
+          ]}
         >
           <Select placeholder="PLease select">
             <Option value="1st">1st</Option>
