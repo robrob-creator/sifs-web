@@ -121,7 +121,10 @@ function UploadStudentsList() {
                               {" "}
                               <MdIcons.MdOutlineModeEditOutline
                                 style={{ fontSize: "15px" }}
-                                onClick={() => {}}
+                                onClick={() => {
+                                  setCurrentRow(grade);
+                                  setShowGradeEdit(true);
+                                }}
                               />
                             </a>
                           </span>
