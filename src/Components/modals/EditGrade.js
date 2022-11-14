@@ -42,7 +42,7 @@ function EditGrade({ showGradeEdit, setShowGradeEdit, id, fetch }) {
         <Form.Item
           label="Grade"
           name="grade"
-          rules={[{ required: true, message: "Please enter old password" }]}
+          rules={[{ required: true, message: "Please enter grade" }]}
         >
           <Input />
         </Form.Item>
