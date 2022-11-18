@@ -42,13 +42,20 @@ function FeedbackDashboard() {
     setData(res?.data?.data?.list);
   };
 
+  const rateResult = (value) => {
+    if (value <= 10) return "Very Good";
+    if (value <= 19) return "Good";
+    if (value <= 25) return "Satisfactory";
+    if (value >= 26) return "Very unsatisfactory";
+  };
+
   useEffect(() => {
     if (!profile) {
       fetchProfile();
     }
     fetchFeedbacks();
   }, [update, profile]);
-  console.log(profile);
+  console.log(data);
   return (
     <>
       <AdminSidebar />
@@ -82,9 +89,19 @@ function FeedbackDashboard() {
                           return accumulator + value;
                         },
                         0
-                      ) / 5}
+                      )}
                     </td>
-                    <td data-label="Name">result</td>
+                    <td data-label="Name">
+                      {" "}
+                      {rateResult(
+                        Object?.values(item?.review).reduce(
+                          (accumulator, value) => {
+                            return accumulator + value;
+                          },
+                          0
+                        )
+                      )}
+                    </td>
                     <td data-label="Name"> {item?.subject}</td>
                     <td data-label="School year">
                       {item?.reciever?.firstName +
