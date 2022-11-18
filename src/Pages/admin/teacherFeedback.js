@@ -62,9 +62,11 @@ function FeedbackDashboard() {
         </div>
         <table>
           <thead>
-            <th>Sender</th>
+            <th>Student</th>
+            <th>Rating</th>
+            <th>Result</th>
+            <th>Subject</th>
             <th>Teacher</th>
-            <th>Message</th>
           </thead>
           <tbody>
             {data &&
@@ -74,12 +76,21 @@ function FeedbackDashboard() {
                     <td data-label="Name">
                       {item?.sender?.firstName + " " + item?.sender?.lastName}
                     </td>
+                    <td data-label="Name">
+                      {Object?.values(item?.review).reduce(
+                        (accumulator, value) => {
+                          return accumulator + value;
+                        },
+                        0
+                      ) / 5}
+                    </td>
+                    <td data-label="Name">result</td>
+                    <td data-label="Name"> {item?.subject}</td>
                     <td data-label="School year">
                       {item?.reciever?.firstName +
                         " " +
                         item?.reciever?.lastName}
                     </td>
-                    <td data-label="School year">{item?.message}</td>
                   </tr>
                 );
               })}

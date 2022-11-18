@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
 import "./css/table.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,6 +10,8 @@ import { getGradesById } from "../services/grades";
 import { Button, Col, Form, Input, Row, Select } from "antd";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import { authChecker } from "../services/auth";
+import FeedbackModal from "../Components/modals/FeedbackModal";
+import * as MdIcons from "react-icons/md";
 import Pdf from "react-to-pdf";
 
 const ref = React.createRef();
@@ -18,6 +21,8 @@ function StudentGrade() {
   const [profile, setProfile] = useState();
   const [grades, setGrades] = useState();
   const [expand, setExpand] = useState(false);
+  const [currentRow, setCurrentRow] = useState();
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
   let navigate = useNavigate();
 
@@ -107,10 +112,16 @@ function StudentGrade() {
   const onFinish = (values) => {
     fetchProfile(values);
   };
-  console.log(grades);
+
   return (
     <>
       <StudentSidebar profile={profile} />
+      <FeedbackModal
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+        currentRow={currentRow}
+        Sender={profile?._id}
+      />
       <div className="container">
         <h2>Grades</h2>
         <table style={{ margin: 2 }} ref={ref}>
@@ -120,7 +131,6 @@ function StudentGrade() {
             <th>2nd Grading</th>
             <th>Average</th>
             <th>Remarks</th>
-            <th>Feedback</th>
           </thead>
           <tbody>
             {grades?.map((s_grade, index) => {
@@ -133,12 +143,52 @@ function StudentGrade() {
                     {s_grade[0] &&
                       s_grade.filter((i) => i?.gradingPeriod === "1st")[0]
                         ?.grade}
+                    <a
+                      className="link"
+                      onClick={() => {
+                        setCurrentRow(
+                          s_grade[0]
+                            ? s_grade.filter(
+                                (i) => i?.gradingPeriod === "1st"
+                              )[0]
+                            : ""
+                        );
+                        setIsModalVisible(true);
+                      }}
+                    >
+                      <input
+                        type="button"
+                        class="btn red"
+                        value="Feedback"
+                        style={{ fontSize: "8px", p: "4px" }}
+                      />
+                    </a>
                   </td>
                   <td data-label="2nd Grading">
                     {" "}
                     {s_grade[0] &&
                       s_grade?.filter((i) => i?.gradingPeriod === "2nd")[0]
                         ?.grade}
+                    <a
+                      className="link"
+                      onClick={() => {
+                        setCurrentRow(
+                          s_grade[0]
+                            ? s_grade.filter(
+                                (i) => i?.gradingPeriod === "2nd"
+                              )[0]
+                            : ""
+                        );
+                        setIsModalVisible(true);
+                      }}
+                    >
+                      <input
+                        type="button"
+                        class="btn red"
+                        value="Feedback"
+                        style={{ fontSize: "8px", p: "4px" }}
+                      />
+                    </a>
                   </td>
                   <td data-label="Average">
                     {" "}
@@ -160,16 +210,6 @@ function StudentGrade() {
                       75
                       ? "passed"
                       : "failed"}
-                  </td>
-                  <td data-label="Feedback">
-                    <Link
-                      className="link"
-                      to={`/student/subject_feedback?to=${
-                        s_grade[0] && s_grade[0]?.gradedBy
-                      }`}
-                    >
-                      <input type="button" class="btn red" value="Feedback" />
-                    </Link>
                   </td>
                 </tr>
               );
