@@ -55,7 +55,7 @@ function FeedbackModal({
       visible={isModalVisible}
       onOk={handleOk}
       onCancel={handleCancel}
-      footer={"*Note: 1 is the highest 5 is the lowest"}
+      footer={"*Note:  1 is the highest 5 is the lowest"}
     >
       <Form
         name="basic"
@@ -73,11 +73,11 @@ function FeedbackModal({
           rules={[{ required: true, message: "Field required" }]}
         >
           <Radio.Group>
-            <Radio value={1}>5</Radio>
-            <Radio value={2}>4</Radio>
+            <Radio value={1}>1</Radio>
+            <Radio value={2}>2</Radio>
             <Radio value={3}>3</Radio>
-            <Radio value={4}>2</Radio>
-            <Radio value={5}>1</Radio>
+            <Radio value={4}>4</Radio>
+            <Radio value={5}>5</Radio>
           </Radio.Group>
         </Form.Item>
         <Form.Item
