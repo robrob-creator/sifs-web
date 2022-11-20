@@ -3,18 +3,22 @@ import logo from "../Components/images/logo.png";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { login } from "../services/user";
+import { login, teacherlogin } from "../services/user";
 import { useState } from "react";
 
 function SignInAdmin() {
-  const [state, setState] = useState({ idNo: "", password: "", role: "admin" });
+  const [state, setState] = useState({
+    userName: "",
+    password: "",
+    role: "admin",
+  });
   const [errors, setErrors] = useState();
   let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let res = await login(state);
+      let res = await teacherlogin(state);
       if (res.status === 200) {
         toast("Success", {
           type: "success",
@@ -47,10 +51,10 @@ function SignInAdmin() {
               <input
                 type="text"
                 className="input"
-                placeholder="ID Number..."
+                placeholder="Username ..."
                 required
                 onChange={(e) => {
-                  setState({ ...state, idNo: e.target.value });
+                  setState({ ...state, userName: e.target.value });
                 }}
               />
               <input

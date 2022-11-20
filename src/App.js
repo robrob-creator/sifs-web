@@ -31,6 +31,7 @@ import UploadStudentsList from "./Pages/admin/uploadGrades/students";
 import UploadSubjectPage from "./Pages/admin/uploadGrades/subjects";
 import FeedbackDashboard from "./Pages/admin/feedbackDashboard";
 import TeacherFeedbacks from "./Pages/admin/teacherFeedback";
+import SentFeedback from "./Pages/admin/studentFeedbak";
 const App = () => {
   return (
     <>
@@ -93,7 +94,7 @@ const App = () => {
           <Route path="/grade/subjects" element={<UploadSubjectPage />} />
           <Route path="/grade/upload" element={<Upload />} />
           <Route path="/teacher/subjects/capstone-2" element={<Students />} />
-
+          <Route path="/view/sent-feedbacks" element={<SentFeedback />} />
           <Route path="/student" element={<StudentGrade />} />
           <Route path="/feedbacks" element={<FeedbackDashboard />} />
           <Route

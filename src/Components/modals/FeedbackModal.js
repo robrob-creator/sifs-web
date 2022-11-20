@@ -27,6 +27,7 @@ function FeedbackModal({
         review: values,
         sender: Sender,
         reciever: currentRow?.gradedBy,
+        grade: currentRow?.grade,
         subject: currentRow?.name,
         seen: false,
         message: "N/A",

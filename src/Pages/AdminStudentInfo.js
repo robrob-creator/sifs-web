@@ -87,7 +87,7 @@ function AdminStudentInfo() {
               <Link to="/admin/teacher-info">
                 <input type="button" className="add-btn grn" value="Submit" />
               </Link>
-              <Link to="/admin/teacher-info">
+              <Link to="/admin/students-dashboard">
                 <input type="button" className="add-btn red" value="Cancel" />
               </Link>
             </div>

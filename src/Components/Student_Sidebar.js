@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
 import "./Sidebar.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -28,10 +29,16 @@ function Sidebar({ profile }) {
   <br />*/}
           </p>
         </header>
-
         <a
           onClick={() => {
-            store.remove("accessToken");
+            navigate("/view/sent-feedbacks");
+          }}
+        >
+          <CgIcons.CgViewList className="icons" />
+          <span>Sent Feedbacks</span>
+        </a>
+        <a
+          onClick={() => {
             navigate("/");
           }}
         >

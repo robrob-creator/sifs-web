@@ -9,14 +9,7 @@ import * as BsIcons from "react-icons/bs";
 import * as MdIcons from "react-icons/md";
 import { getSections } from "../../services/sections";
 import { Button, Modal, Select, Form, Input, Space, Checkbox } from "antd";
-import { getSubjects } from "../../services/subjects";
-import { addSubjecttoSection } from "../../services/sections";
-import { getUsers } from "../../services/user";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import AddStudentSection from "../../Components/modals/AddStudentSection";
-import AddSection from "../../Components/modals/AddSection";
-import EditSection from "../../Components/modals/EditSection";
-import { deleteSection } from "../../services/sections";
+import Sidebar from "../../Components/Student_Sidebar";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getFeedbacks } from "../../services/feedback";
@@ -24,7 +17,7 @@ import { getProfile } from "../../services/user";
 import { editFeedback } from "../../services/feedback";
 const { Option } = Select;
 
-function FeedbackDashboard() {
+function SentFeedback() {
   const [data, setData] = useState();
   const [update, handleUpdates] = useState(true);
 
@@ -39,7 +32,7 @@ function FeedbackDashboard() {
   };
 
   const fetchFeedbacks = async () => {
-    let res = await getFeedbacks();
+    let res = await getFeedbacks({ sender: profile?._id });
     setData(res?.data?.data?.list);
   };
 
@@ -58,10 +51,10 @@ function FeedbackDashboard() {
       fetchFeedbacks();
     }
   }, [update, profile]);
-  console.log(data);
+
   return (
     <>
-      <AdminSidebar />
+      <Sidebar profile={profile} />
       <div className="container">
         <ToastContainer position="top-right" newestOnTop />
         <div className="row">
@@ -79,7 +72,7 @@ function FeedbackDashboard() {
               <th>Result</th>
               <th>Subject</th>
               <th>Teacher</th>
-              {profile?.role.includes("teacher") && <th>Remarks</th>}
+              <th>Remarks</th>
             </thead>
             <tbody>
               {data &&
@@ -117,21 +110,8 @@ function FeedbackDashboard() {
                           " " +
                           item?.reciever?.lastName}
                       </td>
-                      {profile?.role.includes("teacher") && (
-                        <td>
-                          <Checkbox
-                            checked={item?.seen}
-                            onChange={async (e) => {
-                              await editFeedback(item?._id, {
-                                seen: e.target.checked,
-                              });
-                              fetchFeedbacks();
-                            }}
-                          >
-                            {item?.seen ? "Done" : "Mark as done?"}
-                          </Checkbox>
-                        </td>
-                      )}
+
+                      <td>{item?.seen ? "Done" : "Pending"}</td>
                     </tr>
                   );
                 })}
@@ -143,4 +123,4 @@ function FeedbackDashboard() {
   );
 }
 
-export default FeedbackDashboard;
+export default SentFeedback;

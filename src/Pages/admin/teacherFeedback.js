@@ -8,7 +8,7 @@ import AdminSidebar from "../../Components/Admin_Sidebar";
 import * as BsIcons from "react-icons/bs";
 import * as MdIcons from "react-icons/md";
 import { getSections } from "../../services/sections";
-import { Button, Modal, Select, Form, Input, Space } from "antd";
+import { Button, Modal, Select, Form, Input, Space, Checkbox } from "antd";
 import { getSubjects } from "../../services/subjects";
 import { addSubjecttoSection } from "../../services/sections";
 import { getUsers } from "../../services/user";
@@ -21,6 +21,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getFeedbacks } from "../../services/feedback";
 import { getProfile } from "../../services/user";
+import { editFeedback } from "../../services/feedback";
 const { Option } = Select;
 
 function FeedbackDashboard() {
@@ -53,7 +54,9 @@ function FeedbackDashboard() {
     if (!profile) {
       fetchProfile();
     }
-    fetchFeedbacks();
+    if (profile) {
+      fetchFeedbacks();
+    }
   }, [update, profile]);
   console.log(data);
   return (
@@ -67,52 +70,74 @@ function FeedbackDashboard() {
           </div>
           <div className="column"></div>
         </div>
-        <table>
-          <thead>
-            <th>Student</th>
-            <th>Rating</th>
-            <th>Result</th>
-            <th>Subject</th>
-            <th>Teacher</th>
-          </thead>
-          <tbody>
-            {data &&
-              data?.map((item, index) => {
-                return (
-                  <tr>
-                    <td data-label="Name">
-                      {item?.sender?.firstName + " " + item?.sender?.lastName}
-                    </td>
-                    <td data-label="Name">
-                      {Object?.values(item?.review).reduce(
-                        (accumulator, value) => {
-                          return accumulator + value;
-                        },
-                        0
+        {profile?.role && (
+          <table>
+            <thead>
+              <th>Student</th>
+              {profile?.role.includes("teacher") && <th>Grade</th>}
+              <th>Rating</th>
+              <th>Result</th>
+              <th>Subject</th>
+              <th>Teacher</th>
+              {profile?.role.includes("teacher") && <th>Remarks</th>}
+            </thead>
+            <tbody>
+              {data &&
+                data?.map((item, index) => {
+                  return (
+                    <tr>
+                      <td data-label="Name">
+                        {item?.sender?.firstName + " " + item?.sender?.lastName}
+                      </td>
+                      {profile?.role.includes("teacher") && (
+                        <td>{item?.grade}</td>
                       )}
-                    </td>
-                    <td data-label="Name">
-                      {" "}
-                      {rateResult(
-                        Object?.values(item?.review).reduce(
+                      <td data-label="Name">
+                        {Object?.values(item?.review).reduce(
                           (accumulator, value) => {
                             return accumulator + value;
                           },
                           0
-                        )
+                        )}
+                      </td>
+                      <td data-label="Name">
+                        {" "}
+                        {rateResult(
+                          Object?.values(item?.review).reduce(
+                            (accumulator, value) => {
+                              return accumulator + value;
+                            },
+                            0
+                          )
+                        )}
+                      </td>
+                      <td data-label="Name"> {item?.subject}</td>
+                      <td data-label="School year">
+                        {item?.reciever?.firstName +
+                          " " +
+                          item?.reciever?.lastName}
+                      </td>
+                      {profile?.role.includes("teacher") && (
+                        <td>
+                          <Checkbox
+                            checked={item?.seen}
+                            onChange={async (e) => {
+                              await editFeedback(item?._id, {
+                                seen: e.target.checked,
+                              });
+                              fetchFeedbacks();
+                            }}
+                          >
+                            {item?.seen ? "Done" : "Mark as done?"}
+                          </Checkbox>
+                        </td>
                       )}
-                    </td>
-                    <td data-label="Name"> {item?.subject}</td>
-                    <td data-label="School year">
-                      {item?.reciever?.firstName +
-                        " " +
-                        item?.reciever?.lastName}
-                    </td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </table>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+        )}
       </div>
     </>
   );

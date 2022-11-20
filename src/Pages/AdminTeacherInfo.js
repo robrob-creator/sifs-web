@@ -87,9 +87,9 @@ function AdminTeacherInfo() {
                             return (
                               <tr>
                                 <td data-label="Subject Name">
-                                  {sub.subject.name}
+                                  {sub?.subject?.name}
                                 </td>
-                                <td data-label="Units">{sub.subject.units}</td>
+                                <td data-label="Units">{sub.subject?.units}</td>
                                 <td data-label="School year">
                                   {item?.schoolYear}
                                 </td>
