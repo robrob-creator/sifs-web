@@ -32,6 +32,8 @@ import UploadSubjectPage from "./Pages/admin/uploadGrades/subjects";
 import FeedbackDashboard from "./Pages/admin/feedbackDashboard";
 import TeacherFeedbacks from "./Pages/admin/teacherFeedback";
 import SentFeedback from "./Pages/admin/studentFeedbak";
+import PDF from "./Pages/admin/grades";
+
 const App = () => {
   return (
     <>
@@ -101,6 +103,7 @@ const App = () => {
             path="/teacher/feedbacks-list"
             element={<TeacherFeedbacks />}
           />
+          <Route path="/pdf-file" element={<PDF />} />
           <Route
             path="/student/subject_feedback"
             element={<TeacherFeedback />}
