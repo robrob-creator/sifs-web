@@ -192,24 +192,31 @@ function StudentGrade() {
                   </td>
                   <td data-label="Average">
                     {" "}
-                    {s_grade[0] &&
-                      s_grade.filter((i) => i?.gradingPeriod === "1st")[0]
-                        ?.grade +
+                    {s_grade.filter((i) => i?.gradingPeriod === "1st")[0]
+                      ?.grade &&
+                    s_grade?.filter((i) => i?.gradingPeriod === "2nd")[0]?.grade
+                      ? s_grade.filter((i) => i?.gradingPeriod === "1st")[0]
+                          ?.grade +
                         s_grade?.filter((i) => i?.gradingPeriod === "2nd")[0]
                           ?.grade /
-                          200}
+                          200
+                      : "0"}
                   </td>
                   <td data-label="Remarks">
                     {" "}
                     {s_grade[0] &&
                     s_grade.filter((i) => i?.gradingPeriod === "1st")[0]
-                      ?.grade +
-                      s_grade?.filter((i) => i?.gradingPeriod === "2nd")[0]
-                        ?.grade /
-                        200 >
-                      75
-                      ? "passed"
-                      : "failed"}
+                      .grade &&
+                    s_grade?.filter((i) => i?.gradingPeriod === "2nd")[0]?.grade
+                      ? s_grade.filter((i) => i?.gradingPeriod === "1st")[0]
+                          ?.grade +
+                          s_grade?.filter((i) => i?.gradingPeriod === "2nd")[0]
+                            ?.grade /
+                            200 >
+                        75
+                        ? "passed"
+                        : "failed"
+                      : ""}
                   </td>
                 </tr>
               );

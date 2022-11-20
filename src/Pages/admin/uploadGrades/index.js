@@ -76,8 +76,12 @@ function AdminStudentDash() {
     if (!profile) {
       fetchProfile();
     }
-    fetchStudents({ teacher: profile?._id });
+    if (profile) {
+      fetchStudents({ teacher: profile?._id });
+    }
   }, [profile]);
+
+  console.log(profile);
   return (
     <>
       <AdminSidebar />
