@@ -72,6 +72,10 @@ function Admin_Sidebar() {
                     <FaIcons.FaBook className="icons" />
                     <span>Sections</span>
                   </Link>
+                  <Link to="/admin/reports-dashboard">
+                    <FaIcons.FaBook className="icons" />
+                    <span>Reports</span>
+                  </Link>
                 </>
               )}
               {profile?.role?.includes("teacher") && (

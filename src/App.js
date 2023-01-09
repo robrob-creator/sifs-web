@@ -32,6 +32,7 @@ import UploadSubjectPage from "./Pages/admin/uploadGrades/subjects";
 import FeedbackDashboard from "./Pages/admin/feedbackDashboard";
 import TeacherFeedbacks from "./Pages/admin/teacherFeedback";
 import SentFeedback from "./Pages/admin/studentFeedbak";
+import ReportsDashboard from "./Pages/admin/reportsDashboard";
 import PDF from "./Pages/admin/grades";
 
 const App = () => {
@@ -84,6 +85,10 @@ const App = () => {
           <Route
             path="/admin/subjects-dashboard"
             element={<SubjectsDashboard />}
+          />
+          <Route
+            path="/admin/reports-dashboard"
+            element={<ReportsDashboard />}
           />
           <Route path="/teacher/subjects" element={<Subjects />} />
           <Route path="/teacher/feedback" element={<Feedback />} />

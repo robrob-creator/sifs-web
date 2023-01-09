@@ -1,5 +1,5 @@
 .container {
-  background-color: lightblue;
+  background-color: #72ffaf;
   width: auto;
   height: 100%;
   margin-left: 10%;
@@ -10,8 +10,8 @@
 }
 
 .container2 {
-  background-color: lightblue;
-  height: 100vh;
+  background-color: #72ffaf;
+  height: 100%;
   padding: 80px 0;
   text-align: center;
 }
