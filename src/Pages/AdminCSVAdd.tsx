@@ -57,7 +57,7 @@ export default function AdminCSVAdd() {
       <AdminSidebar />
       <div className="container">
         <div className="con">
-          <h3 className="t-sub">Student Info</h3>
+          <h3 className="t-sub">Students</h3>
           <form>
             <CSVReader
               header="false"
