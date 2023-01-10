@@ -104,7 +104,7 @@ function AdminTeacherAdd() {
                 }}
               />
               <input
-                type="text"
+                type="number"
                 id="contactNumber"
                 placeholder="Contact number"
                 name="contact"

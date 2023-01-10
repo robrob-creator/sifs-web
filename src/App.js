@@ -34,7 +34,7 @@ import TeacherFeedbacks from "./Pages/admin/teacherFeedback";
 import SentFeedback from "./Pages/admin/studentFeedbak";
 import ReportsDashboard from "./Pages/admin/reportsDashboard";
 import PDF from "./Pages/admin/grades";
-
+import AdminCSVAdd from "./Pages/AdminCSVAdd.tsx";
 const App = () => {
   return (
     <>
@@ -62,6 +62,7 @@ const App = () => {
           />
           <Route path="/admin/student-info" element={<AdminStudentInfo />} />
           <Route path="/admin/student-add" element={<AdminStudentAdd />} />
+          <Route path="/admin/csv-add" element={<AdminCSVAdd />} />
           <Route
             path="/admin/account-choice"
             element={<AdminAccountChoice />}

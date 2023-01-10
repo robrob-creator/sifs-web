@@ -43,6 +43,14 @@ function AdminStudentDash() {
             <Link to="/admin/student-add">
               <input type="button" className="add-btn" value="Add Student" />
             </Link>
+            <Link to="/admin/csv-add">
+              <input
+                type="button"
+                className="add-btn"
+                value="Add CSV"
+                style={{ marginInline: 4 }}
+              />
+            </Link>
           </div>
         </div>
         <ToastContainer position="top-right" newestOnTop />

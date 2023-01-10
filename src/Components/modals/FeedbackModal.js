@@ -56,12 +56,17 @@ function FeedbackModal({
       visible={isModalVisible}
       onOk={handleOk}
       onCancel={handleCancel}
-      footer={"*Note:  1 is the highest 5 is the lowest"}
+      footer={"*Note:  5 is the highest 1 is the lowest"}
     >
+      <p style={{ fontWeight: "bold", fontStyle: "italic" }}>
+        <span style={{ color: "red" }}>* </span>Note: 5 is the highest 1 is the
+        lowest
+      </p>
       <Form
         name="basic"
         labelCol={{ span: 18 }}
         initialValues={currentRow}
+        title="*Note:  5 is the highest 1 is the lowest"
         layout="vertical"
         form={form}
         wrapperCol={{ span: 18 }}

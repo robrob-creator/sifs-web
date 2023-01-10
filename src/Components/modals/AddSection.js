@@ -54,7 +54,18 @@ function AddSection({ addSectModal, setAddSectModal, fetchSections }) {
           name="schoolYear"
           rules={[{ required: true, message: "Please input School Year!" }]}
         >
-          <Input />
+          <Select>
+            <Option value="2021-2022">2021-2022</Option>
+            <Option value="2022-2023">2022-2023</Option>
+            <Option value="2023-2024">2023-2024</Option>
+            <Option value="2024-2025">2024-2025</Option>
+            <Option value="2025-2026">2025-2026</Option>
+            <Option value="2026-2027">2026-2027</Option>
+            <Option value="2027-2028">2027-2028</Option>
+            <Option value="2028-2029">2028-2029</Option>
+            <Option value="2029-2030">2029-2030</Option>
+            <Option value="2030-2031">2030-2031</Option>
+          </Select>
         </Form.Item>
         <Form.Item
           label="Semester"
