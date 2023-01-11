@@ -24,6 +24,17 @@ export async function createUser(body) {
 
   return res;
 }
+export async function createCSVUser(body) {
+  console.log("bod", body);
+  const accessToken = store.get("accessToken");
+  let res = await axios.post(`${baseURL()}/user-csv`, body, {
+    headers: {
+      authorization: accessToken && `Bearer ${accessToken}`,
+    },
+  });
+
+  return res;
+}
 export async function createTeacher(body) {
   const accessToken = store.get("accessToken");
   let res = await axios.post(`${baseURL()}/teacher`, body, {

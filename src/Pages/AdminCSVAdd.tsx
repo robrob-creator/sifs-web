@@ -1,7 +1,8 @@
-import React, { CSSProperties } from "react";
 import AdminSidebar from "../Components/Admin_Sidebar";
 import { useCSVReader } from "react-papaparse";
 import { usePapaParse } from "react-papaparse";
+import React, { useEffect, useState, CSSProperties } from "react";
+import { createCSVUser } from "../services/user";
 
 const styles = {
   csvReader: {
@@ -24,12 +25,13 @@ const styles = {
     padding: "0 20px",
   } as CSSProperties,
   progressBarBackgroundColor: {
-    backgroundColor: "red",
+    backgroundColor: "green",
   } as CSSProperties,
 };
 
 export default function AdminCSVAdd() {
   const { readString } = usePapaParse();
+  const [file, setFile] = useState([]);
   const { CSVReader } = useCSVReader();
   var commonConfig = { delimiter: "," };
   const csvString = `Column 1,Column 2,Column 3,Column 4
@@ -39,7 +41,6 @@ export default function AdminCSVAdd() {
   4,5,6,7`;
 
   function convertTable(tableData) {
-    var p = console.log;
     const [header, ...rows] = tableData;
     var finalArr = [];
     for (var vals = 0; vals < rows.length; vals++) {
@@ -50,19 +51,19 @@ export default function AdminCSVAdd() {
       }
       finalArr.push(tableObj);
     }
-    p(finalArr);
+    return finalArr;
   }
   return (
     <>
       <AdminSidebar />
-      <div className="container">
+      <div className="container" style={{ height: "100vh" }}>
         <div className="con">
           <h3 className="t-sub">Students</h3>
           <form>
             <CSVReader
               header="false"
               onUploadAccepted={(results: any) => {
-                console.log(convertTable(results.data));
+                setFile(convertTable(results.data));
               }}
             >
               {({
@@ -91,6 +92,34 @@ export default function AdminCSVAdd() {
                 </>
               )}
             </CSVReader>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <button
+                style={{
+                  marginInline: 2,
+                  padding: 10,
+                  width: 245,
+                  borderRadius: 20,
+                  borderColor: "#377dff",
+                  backgroundColor: "#377dff",
+                  color: "white",
+                  fontWeight: 600,
+                }}
+                onClick={async (e) => {
+                  e.preventDefault();
+                  await createCSVUser(
+                    file?.filter((item) => item?.firstName != null)
+                  );
+                }}
+              >
+                Submit
+              </button>
+            </div>
           </form>
         </div>
       </div>
