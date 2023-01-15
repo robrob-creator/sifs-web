@@ -10,8 +10,9 @@ import * as MdIcons from "react-icons/md";
 import student_dashboard from "./data/grades";
 import { ToastContainer, toast } from "react-toastify";
 import EditStudent from "../Components/modals/EditUser";
-
+import loader from "../Components/images/loader.gif";
 import { getUsers, updateRoles } from "../services/user";
+import profile from "./data/profile";
 
 function AdminStudentDash() {
   const [data, setData] = useState();
@@ -34,78 +35,90 @@ function AdminStudentDash() {
   return (
     <>
       <AdminSidebar />
-      <div className="container">
-        <div className="row">
-          <div className="column">
-            <h1>Students Dashboard</h1>
+      {data ? (
+        <div className="container">
+          <div className="row">
+            <div className="column">
+              <h1>Students Dashboard</h1>
+            </div>
+            <div className="column">
+              <Link to="/admin/student-add">
+                <input type="button" className="add-btn" value="Add Student" />
+              </Link>
+              <Link to="/admin/csv-add">
+                <input
+                  type="button"
+                  className="add-btn"
+                  value="Add CSV"
+                  style={{ marginInline: 4 }}
+                />
+              </Link>
+            </div>
           </div>
-          <div className="column">
-            <Link to="/admin/student-add">
-              <input type="button" className="add-btn" value="Add Student" />
-            </Link>
-            <Link to="/admin/csv-add">
-              <input
-                type="button"
-                className="add-btn"
-                value="Add CSV"
-                style={{ marginInline: 4 }}
-              />
-            </Link>
-          </div>
-        </div>
-        <ToastContainer position="top-right" newestOnTop />
-        <EditStudent
-          isModalVisible={isModalVisible}
-          setIsModalVisible={setIsModalVisible}
-          fetch={fetchStudents}
-          currentRow={currentRow}
-          setCurrentRow={setCurrentRow}
-        />
-        <table>
-          <thead>
-            <th>Student ID</th>
-            <th>Student Name</th>
+          <ToastContainer position="top-right" newestOnTop />
+          <EditStudent
+            isModalVisible={isModalVisible}
+            setIsModalVisible={setIsModalVisible}
+            fetch={fetchStudents}
+            currentRow={currentRow}
+            setCurrentRow={setCurrentRow}
+          />
+          <table>
+            <thead>
+              <th>Student ID</th>
+              <th>Student Name</th>
 
-            <th>View / Edit / Delete</th>
-          </thead>
-          <tbody>
-            {data?.map((item, index) => {
-              return (
-                <tr>
-                  <td data-label="Student ID">{item?.idNo}</td>
-                  <td data-label="Student Name">
-                    {item?.firstName} {item?.lastName}
-                  </td>
+              <th>View / Edit / Delete</th>
+            </thead>
+            <tbody>
+              {data?.map((item, index) => {
+                return (
+                  <tr>
+                    <td data-label="Student ID">{item?.idNo}</td>
+                    <td data-label="Student Name">
+                      {item?.firstName} {item?.lastName}
+                    </td>
 
-                  <td data-label="View / Delete">
-                    <Link to={`/admin/student-info?id=${item._id}`}>
-                      <button className="icons-grn">
-                        <BsIcons.BsFillEyeFill />
-                      </button>
-                    </Link>
-                    <a>
-                      <MdIcons.MdOutlineModeEditOutline
-                        style={{ fontSize: "20px" }}
-                        onClick={() => {
-                          setCurrentRow(item);
-                          setIsModalVisible(true);
-                        }}
-                      />
-                    </a>
-                    <Link to="#">
-                      <button className="icons-red">
-                        <MdIcons.MdDelete
-                          onClick={() => removeTeacher(item?._id)}
+                    <td data-label="View / Delete">
+                      <Link to={`/admin/student-info?id=${item._id}`}>
+                        <button className="icons-grn">
+                          <BsIcons.BsFillEyeFill />
+                        </button>
+                      </Link>
+                      <a>
+                        <MdIcons.MdOutlineModeEditOutline
+                          style={{ fontSize: "20px" }}
+                          onClick={() => {
+                            setCurrentRow(item);
+                            setIsModalVisible(true);
+                          }}
                         />
-                      </button>
-                    </Link>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+                      </a>
+                      <Link to="#">
+                        <button className="icons-red">
+                          <MdIcons.MdDelete
+                            onClick={() => removeTeacher(item?._id)}
+                          />
+                        </button>
+                      </Link>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div
+          className="container"
+          style={{
+            backgroundImage: `url(${loader})`,
+            height: "100vh",
+            width: "100%",
+            backgroundPosition: "center",
+          }}
+        ></div>
+      )}
     </>
   );
 }

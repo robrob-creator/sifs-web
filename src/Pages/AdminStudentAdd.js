@@ -3,6 +3,7 @@ import "./css/container.css";
 import "./css/table.css";
 import "./css/icons.css";
 import AdminSidebar from "../Components/Admin_Sidebar";
+
 import subjects from "./data/subjects";
 import * as MdIcons from "react-icons/md";
 import { Link } from "react-router-dom";
@@ -29,9 +30,6 @@ function AdminStudentAdd() {
     email: "",
     role: "student",
   });
-  const PHONE_REGEX = new RegExp(
-    /"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$"/gim
-  );
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,14 +50,11 @@ function AdminStudentAdd() {
     }
   };
 
-  const handleValidate = (phoneNumber) => {
-    return PHONE_REGEX.test(phoneNumber);
-  };
-
   return (
     <>
       <AdminSidebar />
       <ToastContainer position="top-right" newestOnTop />
+
       <div className="container">
         <h1>Add Student</h1>
         <div className="con">

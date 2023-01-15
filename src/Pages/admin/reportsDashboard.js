@@ -13,6 +13,7 @@ import { getFeedbacks } from "../../services/feedback";
 import { getProfile } from "../../services/user";
 import { editFeedback } from "../../services/feedback";
 import { getGrades } from "../../services/grades";
+import loader from "../../Components/images/loader.gif";
 const { Option } = Select;
 const { Title } = Typography;
 
@@ -61,109 +62,121 @@ function ReportsDashboard() {
   return (
     <>
       <AdminSidebar />
-      <div className="container">
-        <ToastContainer position="top-right" newestOnTop />
-        <div className="row" style={{ marginBottom: 20 }}>
-          <div className="column">
-            <span>
-              <Title level={3}>Reports</Title>
-              <p>Learner Progress Report</p>
-            </span>
-            <Row>
-              <Col span={12}>Outstanding</Col>
-              <Col>90-100</Col>
-            </Row>
-            <Row>
-              <Col span={12}>Very Satisfactory</Col>
-              <Col>85-89</Col>
-            </Row>
-            <Row>
-              <Col span={12}>Satisfactory</Col>
-              <Col>80-84</Col>
-            </Row>
-            <Row>
-              <Col span={12}>Fairly Satisfactory</Col>
-              <Col>85-89</Col>
-            </Row>
-            <Row>
-              <Col span={12}>Did Not Meet Expectations</Col>
-              <Col>74 Below</Col>
-            </Row>
+      {data ? (
+        <div className="container">
+          <ToastContainer position="top-right" newestOnTop />
+          <div className="row" style={{ marginBottom: 20 }}>
+            <div className="column">
+              <span>
+                <Title level={3}>Reports</Title>
+                <p>Learner Progress Report</p>
+              </span>
+              <Row>
+                <Col span={12}>Outstanding</Col>
+                <Col>90-100</Col>
+              </Row>
+              <Row>
+                <Col span={12}>Very Satisfactory</Col>
+                <Col>85-89</Col>
+              </Row>
+              <Row>
+                <Col span={12}>Satisfactory</Col>
+                <Col>80-84</Col>
+              </Row>
+              <Row>
+                <Col span={12}>Fairly Satisfactory</Col>
+                <Col>85-89</Col>
+              </Row>
+              <Row>
+                <Col span={12}>Did Not Meet Expectations</Col>
+                <Col>74 Below</Col>
+              </Row>
+            </div>
+            <div className="column"></div>
           </div>
-          <div className="column"></div>
+          {profile?.role && (
+            <table>
+              <thead>
+                <th>Subject</th>
+
+                <th>Outstanding</th>
+                <th>Very Satisfactory</th>
+                <th>Satisfactory</th>
+                <th>Fairly Satisfactory</th>
+                <th>Did Not Meet Expectations</th>
+                {profile?.role.includes("teacher") && <th>Remarks</th>}
+              </thead>
+              <tbody>
+                {subject &&
+                  subject?.map((item, index) => {
+                    return (
+                      <tr>
+                        <td data-label="Name">{item?.name}</td>
+
+                        <td data-label="Name">
+                          {
+                            data?.filter(
+                              (e) =>
+                                e?.subject?.name === item?.name && e.grade >= 90
+                            )?.length
+                          }
+                        </td>
+                        <td data-label="Name">
+                          {
+                            data?.filter(
+                              (e) =>
+                                e?.subject?.name === item?.name &&
+                                e.grade >= 85 &&
+                                e.grade < 90
+                            )?.length
+                          }
+                        </td>
+                        <td data-label="Name">
+                          {
+                            data?.filter(
+                              (e) =>
+                                e?.subject?.name === item?.name &&
+                                e.grade >= 80 &&
+                                e.grade < 85
+                            )?.length
+                          }
+                        </td>
+                        <td data-label="School year">
+                          {
+                            data?.filter(
+                              (e) =>
+                                e?.subject?.name === item?.name &&
+                                e.grade >= 75 &&
+                                e.grade < 80
+                            )?.length
+                          }
+                        </td>
+                        <td data-label="School year">
+                          {
+                            data?.filter(
+                              (e) =>
+                                e?.subject?.name === item?.name && e.grade < 75
+                            )?.length
+                          }
+                        </td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+          )}
         </div>
-        {profile?.role && (
-          <table>
-            <thead>
-              <th>Subject</th>
-
-              <th>Outstanding</th>
-              <th>Very Satisfactory</th>
-              <th>Satisfactory</th>
-              <th>Fairly Satisfactory</th>
-              <th>Did Not Meet Expectations</th>
-              {profile?.role.includes("teacher") && <th>Remarks</th>}
-            </thead>
-            <tbody>
-              {subject &&
-                subject?.map((item, index) => {
-                  return (
-                    <tr>
-                      <td data-label="Name">{item?.name}</td>
-
-                      <td data-label="Name">
-                        {
-                          data?.filter(
-                            (e) =>
-                              e?.subject?.name === item?.name && e.grade >= 90
-                          )?.length
-                        }
-                      </td>
-                      <td data-label="Name">
-                        {
-                          data?.filter(
-                            (e) =>
-                              e?.subject?.name === item?.name &&
-                              e.grade >= 85 &&
-                              e.grade < 90
-                          )?.length
-                        }
-                      </td>
-                      <td data-label="Name">
-                        {
-                          data?.filter(
-                            (e) =>
-                              e?.subject?.name === item?.name &&
-                              e.grade >= 80 &&
-                              e.grade < 85
-                          )?.length
-                        }
-                      </td>
-                      <td data-label="School year">
-                        {
-                          data?.filter(
-                            (e) =>
-                              e?.subject?.name === item?.name &&
-                              e.grade >= 75 &&
-                              e.grade < 80
-                          )?.length
-                        }
-                      </td>
-                      <td data-label="School year">
-                        {
-                          data?.filter(
-                            (e) =>
-                              e?.subject?.name === item?.name && e.grade < 75
-                          )?.length
-                        }
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
-        )}
-      </div>
+      ) : (
+        <div
+          className="container"
+          style={{
+            backgroundImage: `url(${loader})`,
+            height: "100vh",
+            width: "100%",
+            backgroundPosition: "center",
+          }}
+        ></div>
+      )}
     </>
   );
 }

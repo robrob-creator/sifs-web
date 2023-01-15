@@ -14,7 +14,7 @@ import FeedbackModal from "../Components/modals/FeedbackModal";
 import * as MdIcons from "react-icons/md";
 import Pdf from "react-to-pdf";
 import PDF from "./admin/grades";
-
+import loader from "../Components/images/loader.gif";
 const ref = React.createRef();
 const { Option } = Select;
 
@@ -123,149 +123,167 @@ function StudentGrade() {
         currentRow={currentRow}
         Sender={profile?._id}
       />
-      <div className="container">
-        <h1 style={{ fontWeight: "bolder" }}>Welcome, {profile?.firstName}</h1>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+      {grades ? (
+        <div className="container">
+          <h1 style={{ fontWeight: "bolder" }}>
+            Welcome, {profile?.firstName}
+          </h1>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <h4>
-              Name: {profile?.firstName} {profile?.lastName}
-              <br></br>
-              Strand/Track: {profile?.strand_track}
-            </h4>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <h4>
+                Name: {profile?.firstName} {profile?.lastName}
+                <br></br>
+                Strand/Track: {profile?.strand_track}
+              </h4>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <h4>
+                Student No: {profile?.idNo}
+                <br></br>Grade Level: {profile?.gradeLevel}
+              </h4>
+            </div>
           </div>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <h4>
-              Student No: {profile?.idNo}
-              <br></br>Grade Level: {profile?.gradeLevel}
-            </h4>
-          </div>
-        </div>
-        <h2>Grades</h2>
-        <table style={{ margin: 2 }} ref={ref}>
-          <thead>
-            <th>Subject Name</th>
-            <th>1st Grading</th>
-            <th>2nd Grading</th>
-            <th>Average</th>
-            <th>Remarks</th>
-          </thead>
-          <tbody>
-            {grades?.map((s_grade, index) => {
-              return (
-                <tr>
-                  <td data-label="Subject Name">
-                    {s_grade[0] && s_grade[0]?.name}
-                  </td>
-                  <td data-label="1st Grading">
-                    <center>
-                      <div
-                        style={{
-                          width: 40,
-                          display: "flex",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        {s_grade[0] &&
+          <h2>Grades</h2>
+          <table style={{ margin: 2 }} ref={ref}>
+            <thead>
+              <th>Subject Name</th>
+              <th>1st Grading</th>
+              <th>2nd Grading</th>
+              <th>Average</th>
+              <th>Remarks</th>
+            </thead>
+            <tbody>
+              {grades?.map((s_grade, index) => {
+                return (
+                  <tr>
+                    <td data-label="Subject Name">
+                      {s_grade[0] && s_grade[0]?.name}
+                    </td>
+                    <td data-label="1st Grading">
+                      <center>
+                        <div
+                          style={{
+                            width: 40,
+                            display: "flex",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          {s_grade[0] &&
+                            s_grade.filter((i) => i?.gradingPeriod === "1st")[0]
+                              ?.grade}
+                          {s_grade[0] &&
                           s_grade.filter((i) => i?.gradingPeriod === "1st")[0]
-                            ?.grade}
-                        {s_grade[0] &&
-                        s_grade.filter((i) => i?.gradingPeriod === "1st")[0]
-                          ?.grade ? (
-                          <a
-                            className="link"
-                            onClick={() => {
-                              setCurrentRow(
-                                s_grade[0]
-                                  ? s_grade.filter(
-                                      (i) => i?.gradingPeriod === "1st"
-                                    )[0]
-                                  : ""
-                              );
-                              setIsModalVisible(true);
-                            }}
-                          >
-                            <MdIcons.MdOutlineComment color="#4caa75" />
-                          </a>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                    </center>
-                  </td>
-                  <td data-label="2nd Grading">
-                    <center>
-                      <div
-                        style={{
-                          width: 40,
-                          display: "flex",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        {s_grade[0] &&
+                            ?.grade ? (
+                            <a
+                              className="link"
+                              onClick={() => {
+                                setCurrentRow(
+                                  s_grade[0]
+                                    ? s_grade.filter(
+                                        (i) => i?.gradingPeriod === "1st"
+                                      )[0]
+                                    : ""
+                                );
+                                setIsModalVisible(true);
+                              }}
+                            >
+                              <MdIcons.MdOutlineComment color="#4caa75" />
+                            </a>
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                      </center>
+                    </td>
+                    <td data-label="2nd Grading">
+                      <center>
+                        <div
+                          style={{
+                            width: 40,
+                            display: "flex",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          {s_grade[0] &&
+                            s_grade?.filter(
+                              (i) => i?.gradingPeriod === "2nd"
+                            )[0]?.grade}
+                          {s_grade[0] &&
                           s_grade?.filter((i) => i?.gradingPeriod === "2nd")[0]
-                            ?.grade}
-                        {s_grade[0] &&
-                        s_grade?.filter((i) => i?.gradingPeriod === "2nd")[0]
-                          ?.grade ? (
-                          <a
-                            className="link"
-                            onClick={() => {
-                              setCurrentRow(
-                                s_grade[0]
-                                  ? s_grade.filter(
-                                      (i) => i?.gradingPeriod === "2nd"
-                                    )[0]
-                                  : ""
-                              );
-                              setIsModalVisible(true);
-                            }}
-                          >
-                            <MdIcons.MdOutlineComment color="#4caa75" />
-                          </a>
-                        ) : (
-                          ""
-                        )}
-                      </div>
-                    </center>
-                  </td>
-                  <td data-label="Average">
-                    {" "}
-                    {s_grade.filter((i) => i?.gradingPeriod === "1st")[0]
-                      ?.grade &&
-                    s_grade?.filter((i) => i?.gradingPeriod === "2nd")[0]?.grade
-                      ? s_grade.filter((i) => i?.gradingPeriod === "1st")[0]
-                          ?.grade +
-                        s_grade?.filter((i) => i?.gradingPeriod === "2nd")[0]
-                          ?.grade /
-                          200
-                      : "0"}
-                  </td>
-                  <td data-label="Remarks">
-                    {" "}
-                    {s_grade[0] &&
-                    s_grade.filter((i) => i?.gradingPeriod === "1st")[0]
-                      .grade &&
-                    s_grade?.filter((i) => i?.gradingPeriod === "2nd")[0]?.grade
-                      ? s_grade.filter((i) => i?.gradingPeriod === "1st")[0]
-                          ?.grade +
+                            ?.grade ? (
+                            <a
+                              className="link"
+                              onClick={() => {
+                                setCurrentRow(
+                                  s_grade[0]
+                                    ? s_grade.filter(
+                                        (i) => i?.gradingPeriod === "2nd"
+                                      )[0]
+                                    : ""
+                                );
+                                setIsModalVisible(true);
+                              }}
+                            >
+                              <MdIcons.MdOutlineComment color="#4caa75" />
+                            </a>
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                      </center>
+                    </td>
+                    <td data-label="Average">
+                      {" "}
+                      {s_grade.filter((i) => i?.gradingPeriod === "1st")[0]
+                        ?.grade &&
+                      s_grade?.filter((i) => i?.gradingPeriod === "2nd")[0]
+                        ?.grade
+                        ? s_grade.filter((i) => i?.gradingPeriod === "1st")[0]
+                            ?.grade +
                           s_grade?.filter((i) => i?.gradingPeriod === "2nd")[0]
                             ?.grade /
-                            200 >
-                        75
-                        ? "passed"
-                        : "failed"
-                      : ""}
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                            200
+                        : "0"}
+                    </td>
+                    <td data-label="Remarks">
+                      {" "}
+                      {s_grade[0] &&
+                      s_grade.filter((i) => i?.gradingPeriod === "1st")[0]
+                        .grade &&
+                      s_grade?.filter((i) => i?.gradingPeriod === "2nd")[0]
+                        ?.grade
+                        ? s_grade.filter((i) => i?.gradingPeriod === "1st")[0]
+                            ?.grade +
+                            s_grade?.filter(
+                              (i) => i?.gradingPeriod === "2nd"
+                            )[0]?.grade /
+                              200 >
+                          75
+                          ? "passed"
+                          : "failed"
+                        : ""}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
 
-        <button class="dl-pdf pdf" onClick={() => navigate("/pdf-file")}>
-          Generate Pdf
-        </button>
-      </div>
+          <button class="dl-pdf pdf" onClick={() => navigate("/pdf-file")}>
+            Generate Pdf
+          </button>
+        </div>
+      ) : (
+        <div
+          className="container2"
+          style={{
+            backgroundImage: `url(${loader})`,
+            height: "100vh",
+            width: "100%",
+            backgroundPosition: "center",
+          }}
+        ></div>
+      )}
     </>
   );
 }

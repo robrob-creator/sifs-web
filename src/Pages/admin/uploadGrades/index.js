@@ -10,6 +10,7 @@ import { getSections } from "../../../services/sections";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, Row, Select } from "antd";
 import { getProfile } from "../../../services/user";
+import loader from "../../../Components/images/loader.gif";
 
 const { Option } = Select;
 function AdminStudentDash() {
@@ -85,47 +86,61 @@ function AdminStudentDash() {
   return (
     <>
       <AdminSidebar />
-      <div className="container">
-        <div className="row">
-          <div className="column">
-            <h1>Subject List</h1>
+      {data ? (
+        <div className="container">
+          <div className="row">
+            <div className="column">
+              <h1>Subject List</h1>
+            </div>
+            <div className="column"></div>
           </div>
-          <div className="column"></div>
-        </div>
 
-        {data?.map((datas, index) => {
-          return (
-            <>
-              {datas?.subjects
-                ?.filter((item) => item?.teacher?._id === profile?._id)
-                .map((item, index) => {
-                  return (
-                    <table>
-                      <thead>
-                        <th>Subject</th>
-                        <th>View</th>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td data-label="Student ID">{item?.subject?.name}</td>
-                          <td data-label="View / Delete">
-                            <Link
-                              to={`/grade/students?id=${datas?._id}&subject=${item?.subject?._id}&subject_name=${item?.subject?.name}`}
-                            >
-                              <button className="icons-grn">
-                                <BsIcons.BsFillEyeFill />
-                              </button>
-                            </Link>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  );
-                })}
-            </>
-          );
-        })}
-      </div>
+          {data?.map((datas, index) => {
+            return (
+              <>
+                {datas?.subjects
+                  ?.filter((item) => item?.teacher?._id === profile?._id)
+                  .map((item, index) => {
+                    return (
+                      <table>
+                        <thead>
+                          <th>Subject</th>
+                          <th>View</th>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td data-label="Student ID">
+                              {item?.subject?.name}
+                            </td>
+                            <td data-label="View / Delete">
+                              <Link
+                                to={`/grade/students?id=${datas?._id}&subject=${item?.subject?._id}&subject_name=${item?.subject?.name}`}
+                              >
+                                <button className="icons-grn">
+                                  <BsIcons.BsFillEyeFill />
+                                </button>
+                              </Link>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    );
+                  })}
+              </>
+            );
+          })}
+        </div>
+      ) : (
+        <div
+          className="container"
+          style={{
+            backgroundImage: `url(${loader})`,
+            height: "100vh",
+            width: "100%",
+            backgroundPosition: "center",
+          }}
+        ></div>
+      )}
     </>
   );
 }

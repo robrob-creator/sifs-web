@@ -11,6 +11,7 @@ import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, Row, Select } from "antd";
 import UploadGrade from "../../../Components/modals/UploadGrade";
 import { useSearchParams } from "react-router-dom";
+import loader from "../../../Components/images/loader.gif";
 const { Option } = Select;
 
 function Upload() {
@@ -43,61 +44,73 @@ function Upload() {
   return (
     <>
       <AdminSidebar />
-      <div className="container">
-        <UploadGrade
-          showUpload={showUpload}
-          handleUpload={handleUpload}
-          fetchSections={fetchSections}
-          id={id}
-          subject={subject}
-          student={student}
-          section={section}
-          fetchGrades={fetchGrades}
-        />
-        <div className="row">
-          <div className="column">
-            <h1>Upload grades</h1>
+      {data ? (
+        <div className="container">
+          <UploadGrade
+            showUpload={showUpload}
+            handleUpload={handleUpload}
+            fetchSections={fetchSections}
+            id={id}
+            subject={subject}
+            student={student}
+            section={section}
+            fetchGrades={fetchGrades}
+          />
+          <div className="row">
+            <div className="column">
+              <h1>Upload grades</h1>
+            </div>
+            <div className="column"></div>
           </div>
-          <div className="column"></div>
-        </div>
 
-        <table>
-          <thead>
-            <th>Subject</th>
-            <th>Grade</th>
-            <th>Upload/Edit</th>
-          </thead>
-          <tbody>
-            {data?.map((item, index) => {
-              return (
-                <tr>
-                  <td data-label="Student ID">{`${item?.subject?.name}`}</td>
-                  <td data-label="Student ID">
-                    {grades?.map((grade, i) => {
-                      return grade?.subject?._id === item?.subject?._id
-                        ? grade?.grade
-                        : "";
-                    })}
-                  </td>
-                  <td data-label="View / Delete">
-                    <span>
-                      <a
-                        onClick={() => {
-                          setSubject(item?.subject?._id);
-                          handleUpload(true);
-                        }}
-                      >
-                        Upload
-                      </a>{" "}
-                      | <a>Edit</a>
-                    </span>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+          <table>
+            <thead>
+              <th>Subject</th>
+              <th>Grade</th>
+              <th>Upload/Edit</th>
+            </thead>
+            <tbody>
+              {data?.map((item, index) => {
+                return (
+                  <tr>
+                    <td data-label="Student ID">{`${item?.subject?.name}`}</td>
+                    <td data-label="Student ID">
+                      {grades?.map((grade, i) => {
+                        return grade?.subject?._id === item?.subject?._id
+                          ? grade?.grade
+                          : "";
+                      })}
+                    </td>
+                    <td data-label="View / Delete">
+                      <span>
+                        <a
+                          onClick={() => {
+                            setSubject(item?.subject?._id);
+                            handleUpload(true);
+                          }}
+                        >
+                          Upload
+                        </a>{" "}
+                        | <a>Edit</a>
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div
+          className="container"
+          style={{
+            backgroundImage: `url(${loader})`,
+            height: "100vh",
+            width: "100%",
+            backgroundPosition: "center",
+          }}
+        ></div>
+      )}
     </>
   );
 }

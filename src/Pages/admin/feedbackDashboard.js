@@ -22,6 +22,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { getFeedbacks } from "../../services/feedback";
 import { getProfile } from "../../services/user";
 import { editFeedback } from "../../services/feedback";
+import loader from "../../Components/images/loader.gif";
 const { Option } = Select;
 
 function FeedbackDashboard() {
@@ -62,83 +63,97 @@ function FeedbackDashboard() {
   return (
     <>
       <AdminSidebar />
-      <div className="container">
-        <ToastContainer position="top-right" newestOnTop />
-        <div className="row">
-          <div className="column">
-            <h1>Feedback Dashboard</h1>
+      {data ? (
+        <div className="container">
+          <ToastContainer position="top-right" newestOnTop />
+          <div className="row">
+            <div className="column">
+              <h1>Feedback Dashboard</h1>
+            </div>
+            <div className="column"></div>
           </div>
-          <div className="column"></div>
-        </div>
-        {profile?.role && (
-          <table>
-            <thead>
-              <th>Student</th>
-              {profile?.role.includes("teacher") && <th>Grade</th>}
-              <th>Rating</th>
-              <th>Result</th>
-              <th>Subject</th>
-              <th>Teacher</th>
-              {profile?.role.includes("teacher") && <th>Remarks</th>}
-            </thead>
-            <tbody>
-              {data &&
-                data?.map((item, index) => {
-                  return (
-                    <tr>
-                      <td data-label="Name">
-                        {item?.sender?.firstName + " " + item?.sender?.lastName}
-                      </td>
-                      {profile?.role.includes("teacher") && (
-                        <td>{item?.grade}</td>
-                      )}
-                      <td data-label="Name">
-                        {Object?.values(item?.review).reduce(
-                          (accumulator, value) => {
-                            return accumulator + value;
-                          },
-                          0
+          {profile?.role && (
+            <table>
+              <thead>
+                <th>Student</th>
+                {profile?.role.includes("teacher") && <th>Grade</th>}
+                <th>Rating</th>
+                <th>Result</th>
+                <th>Subject</th>
+                <th>Teacher</th>
+                {profile?.role.includes("teacher") && <th>Remarks</th>}
+              </thead>
+              <tbody>
+                {data &&
+                  data?.map((item, index) => {
+                    return (
+                      <tr>
+                        <td data-label="Name">
+                          {item?.sender?.firstName +
+                            " " +
+                            item?.sender?.lastName}
+                        </td>
+                        {profile?.role.includes("teacher") && (
+                          <td>{item?.grade}</td>
                         )}
-                      </td>
-                      <td data-label="Name">
-                        {" "}
-                        {rateResult(
-                          Object?.values(item?.review).reduce(
+                        <td data-label="Name">
+                          {Object?.values(item?.review).reduce(
                             (accumulator, value) => {
                               return accumulator + value;
                             },
                             0
-                          )
-                        )}
-                      </td>
-                      <td data-label="Name"> {item?.subject}</td>
-                      <td data-label="School year">
-                        {item?.reciever?.firstName +
-                          " " +
-                          item?.reciever?.lastName}
-                      </td>
-                      {profile?.role.includes("teacher") && (
-                        <td>
-                          <Checkbox
-                            checked={item?.seen}
-                            onChange={async (e) => {
-                              await editFeedback(item?._id, {
-                                seen: e.target.checked,
-                              });
-                              fetchFeedbacks();
-                            }}
-                          >
-                            {item?.seen ? "Done" : "Mark as done?"}
-                          </Checkbox>
+                          )}
                         </td>
-                      )}
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
-        )}
-      </div>
+                        <td data-label="Name">
+                          {" "}
+                          {rateResult(
+                            Object?.values(item?.review).reduce(
+                              (accumulator, value) => {
+                                return accumulator + value;
+                              },
+                              0
+                            )
+                          )}
+                        </td>
+                        <td data-label="Name"> {item?.subject}</td>
+                        <td data-label="School year">
+                          {item?.reciever?.firstName +
+                            " " +
+                            item?.reciever?.lastName}
+                        </td>
+                        {profile?.role.includes("teacher") && (
+                          <td>
+                            <Checkbox
+                              checked={item?.seen}
+                              onChange={async (e) => {
+                                await editFeedback(item?._id, {
+                                  seen: e.target.checked,
+                                });
+                                fetchFeedbacks();
+                              }}
+                            >
+                              {item?.seen ? "Done" : "Mark as done?"}
+                            </Checkbox>
+                          </td>
+                        )}
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+          )}
+        </div>
+      ) : (
+        <div
+          className="container"
+          style={{
+            backgroundImage: `url(${loader})`,
+            height: "100vh",
+            width: "100%",
+            backgroundPosition: "center",
+          }}
+        ></div>
+      )}
     </>
   );
 }

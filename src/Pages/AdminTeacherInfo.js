@@ -9,6 +9,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import { getUsers } from "../services/user";
 import { getSections, editSection } from "../services/sections";
 import DefineSection from "../Components/modals/DefineSection";
+import loader from "../Components/images/loader.gif";
 import { Button } from "antd";
 
 function AdminTeacherInfo() {
@@ -51,49 +52,52 @@ function AdminTeacherInfo() {
   return (
     <>
       <AdminSidebar />
-      <div className="container">
-        <DefineSection
-          id={searchParams.get("id")}
-          fetchSections={getTeacherSection}
-          defaultSubjects={section?.subjects}
-          selected={selected}
-          section={allSection}
-          addSectModal={addSectModal}
-          setAddSectModal={setAddSectModal}
-        />
-        <h2>Teaching Load</h2>
-        <div className="con">
-          <h2 className="t-name">{`${profile?.lastName}, ${profile?.firstName}`}</h2>
-          <div className="con-tab">
-            {section?.map((item, index) => {
-              return (
-                <>
-                  <h3 className="t-sub">Section: {item?.name} || Subjects</h3>
-                  <table className="tbl-tch">
-                    <thead>
-                      <th>Subject Name</th>
-                      <th>Units</th>
-                      <th>School year</th>
-                      {/*  <th className="del-col">Delete</th>*/}
-                    </thead>
+      {section ? (
+        <div className="container">
+          <DefineSection
+            id={searchParams.get("id")}
+            fetchSections={getTeacherSection}
+            defaultSubjects={section?.subjects}
+            selected={selected}
+            section={allSection}
+            addSectModal={addSectModal}
+            setAddSectModal={setAddSectModal}
+          />
+          <h2>Teaching Load</h2>
+          <div className="con">
+            <h2 className="t-name">{`${profile?.lastName}, ${profile?.firstName}`}</h2>
+            <div className="con-tab">
+              {section?.map((item, index) => {
+                return (
+                  <>
+                    <h3 className="t-sub">Section: {item?.name} || Subjects</h3>
+                    <table className="tbl-tch">
+                      <thead>
+                        <th>Subject Name</th>
+                        <th>Units</th>
+                        <th>School year</th>
+                        {/*  <th className="del-col">Delete</th>*/}
+                      </thead>
 
-                    <tbody>
-                      {item?.subjects &&
-                        item?.subjects
-                          ?.filter(
-                            (subj) => subj?.teacher?._id === profile?._id
-                          )
-                          .map((sub, index) => {
-                            return (
-                              <tr>
-                                <td data-label="Subject Name">
-                                  {sub?.subject?.name}
-                                </td>
-                                <td data-label="Units">{sub.subject?.units}</td>
-                                <td data-label="School year">
-                                  {item?.schoolYear}
-                                </td>
-                                {/* <td data-label="Delete">
+                      <tbody>
+                        {item?.subjects &&
+                          item?.subjects
+                            ?.filter(
+                              (subj) => subj?.teacher?._id === profile?._id
+                            )
+                            .map((sub, index) => {
+                              return (
+                                <tr>
+                                  <td data-label="Subject Name">
+                                    {sub?.subject?.name}
+                                  </td>
+                                  <td data-label="Units">
+                                    {sub.subject?.units}
+                                  </td>
+                                  <td data-label="School year">
+                                    {item?.schoolYear}
+                                  </td>
+                                  {/* <td data-label="Delete">
                                   <MdIcons.MdDelete
                                     className="icons-red"
                                     onClick={async () => {
@@ -114,16 +118,16 @@ function AdminTeacherInfo() {
                                     }}
                                   />
                                 </td>*/}
-                              </tr>
-                            );
-                          })}
-                    </tbody>
-                  </table>
-                </>
-              );
-            })}
-          </div>
-          {/*  <div className="row2">
+                                </tr>
+                              );
+                            })}
+                      </tbody>
+                    </table>
+                  </>
+                );
+              })}
+            </div>
+            {/*  <div className="row2">
             <div className="column">
               <select
                 className="sel"
@@ -146,8 +150,19 @@ function AdminTeacherInfo() {
             <div className="column mar">        
             </div>
           </div>*/}
+          </div>
         </div>
-      </div>
+      ) : (
+        <div
+          className="container"
+          style={{
+            backgroundImage: `url(${loader})`,
+            height: "100vh",
+            width: "100%",
+            backgroundPosition: "center",
+          }}
+        ></div>
+      )}
     </>
   );
 }
