@@ -1,9 +1,10 @@
-import { Button, Modal, Checkbox, Form, Input } from "antd";
+import { Button, Modal, Checkbox, Form, Input, Select } from "antd";
 import React, { useState } from "react";
 import { createSubject } from "../../services/subjects";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const { TextArea } = Input;
+const { Option } = Select;
 
 function Addsubject({ isModalVisible, setIsModalVisible, fetchSubject }) {
   const handleOk = () => {
@@ -66,7 +67,15 @@ function Addsubject({ isModalVisible, setIsModalVisible, fetchSubject }) {
         </Form.Item>
 
         <Form.Item label="Schedule" name="schedule">
-          <Input />
+          <Select>
+            <Option value="07:30 - 08:30">07:30 - 08:30</Option>
+            <Option value="08:30 - 09:30">08:30 - 09:30</Option>
+            <Option value="09:45 - 10:45">09:45 - 10:45</Option>
+            <Option value="10:45 - 11:45">10:45 - 11:45</Option>
+            <Option value="01:00 - 02:00">01:00 - 02:00</Option>
+            <Option value="02:00 - 03:00">02:00 - 03:00</Option>
+            <Option value="03:00 - 04:00">03:00 - 04:00</Option>
+          </Select>
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">

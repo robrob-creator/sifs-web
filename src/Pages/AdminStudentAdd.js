@@ -15,6 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 function AdminStudentAdd() {
   const navigate = useNavigate();
   const [errors, setErrors] = useState();
+  const [disabled, setDisabled] = useState(false);
   const [state, setState] = useState({
     firstName: "",
     lastName: "",
@@ -28,6 +29,10 @@ function AdminStudentAdd() {
     email: "",
     role: "student",
   });
+  const PHONE_REGEX = new RegExp(
+    /"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$"/gim
+  );
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -46,6 +51,11 @@ function AdminStudentAdd() {
       return error;
     }
   };
+
+  const handleValidate = (phoneNumber) => {
+    return PHONE_REGEX.test(phoneNumber);
+  };
+
   return (
     <>
       <AdminSidebar />
@@ -127,10 +137,15 @@ function AdminStudentAdd() {
               <input
                 type="number"
                 id="contact"
-                placeholder="Contact number"
+                disabled={disabled}
+                placeholder="Contact No Eg: 09++"
                 name="Contact number"
+                value={state.phoneNumber}
                 onChange={(e) => {
-                  setState({ ...state, phoneNumber: e.target.value });
+                  setState({
+                    ...state,
+                    phoneNumber: e.target.value.slice(0, 10),
+                  });
                 }}
               />
               <input

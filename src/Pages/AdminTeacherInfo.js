@@ -123,7 +123,7 @@ function AdminTeacherInfo() {
               );
             })}
           </div>
-          <div className="row2">
+          {/*  <div className="row2">
             <div className="column">
               <select
                 className="sel"
@@ -143,15 +143,9 @@ function AdminTeacherInfo() {
                 Add Subject
               </Button>
             </div>
-            <div className="column mar">
-              {/*   <Link to="/admin/teacher-info">
-                <input type="button" className="add-btn grn" value="Submit" />
-              </Link>
-              <Link to="/admin/teacher-info">
-                <input type="button" className="add-btn red" value="Cancel" />
-              </Link>*/}
+            <div className="column mar">        
             </div>
-          </div>
+          </div>*/}
         </div>
       </div>
     </>

@@ -72,7 +72,7 @@ function AdminStudentInfo() {
               );
             })}
           </div>
-          <div className="row2">
+          {/* <div className="row2">
             <div className="column">
               <select className="sel">
                 <option value="IPT2">IPT2</option>
@@ -91,7 +91,7 @@ function AdminStudentInfo() {
                 <input type="button" className="add-btn red" value="Cancel" />
               </Link>
             </div>
-          </div>
+          </div>*/}
         </div>
       </div>
     </>

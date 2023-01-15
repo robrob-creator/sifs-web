@@ -124,6 +124,22 @@ function StudentGrade() {
         Sender={profile?._id}
       />
       <div className="container">
+        <h1 style={{ fontWeight: "bolder" }}>Welcome, {profile?.firstName}</h1>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <h4>
+              Name: {profile?.firstName} {profile?.lastName}
+              <br></br>
+              Strand/Track: {profile?.strand_track}
+            </h4>
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <h4>
+              Student No: {profile?.idNo}
+              <br></br>Grade Level: {profile?.gradeLevel}
+            </h4>
+          </div>
+        </div>
         <h2>Grades</h2>
         <table style={{ margin: 2 }} ref={ref}>
           <thead>
@@ -141,55 +157,76 @@ function StudentGrade() {
                     {s_grade[0] && s_grade[0]?.name}
                   </td>
                   <td data-label="1st Grading">
-                    {s_grade[0] &&
-                      s_grade.filter((i) => i?.gradingPeriod === "1st")[0]
-                        ?.grade}
-                    <a
-                      className="link"
-                      onClick={() => {
-                        setCurrentRow(
-                          s_grade[0]
-                            ? s_grade.filter(
-                                (i) => i?.gradingPeriod === "1st"
-                              )[0]
-                            : ""
-                        );
-                        setIsModalVisible(true);
-                      }}
-                    >
-                      <input
-                        type="button"
-                        class="btn red"
-                        value="Feedback"
-                        style={{ fontSize: "8px", p: "4px" }}
-                      />
-                    </a>
+                    <center>
+                      <div
+                        style={{
+                          width: 40,
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        {s_grade[0] &&
+                          s_grade.filter((i) => i?.gradingPeriod === "1st")[0]
+                            ?.grade}
+                        {s_grade[0] &&
+                        s_grade.filter((i) => i?.gradingPeriod === "1st")[0]
+                          ?.grade ? (
+                          <a
+                            className="link"
+                            onClick={() => {
+                              setCurrentRow(
+                                s_grade[0]
+                                  ? s_grade.filter(
+                                      (i) => i?.gradingPeriod === "1st"
+                                    )[0]
+                                  : ""
+                              );
+                              setIsModalVisible(true);
+                            }}
+                          >
+                            <MdIcons.MdOutlineComment color="#4caa75" />
+                          </a>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                    </center>
                   </td>
                   <td data-label="2nd Grading">
-                    {" "}
-                    {s_grade[0] &&
-                      s_grade?.filter((i) => i?.gradingPeriod === "2nd")[0]
-                        ?.grade}
-                    <a
-                      className="link"
-                      onClick={() => {
-                        setCurrentRow(
-                          s_grade[0]
-                            ? s_grade.filter(
-                                (i) => i?.gradingPeriod === "2nd"
-                              )[0]
-                            : ""
-                        );
-                        setIsModalVisible(true);
-                      }}
-                    >
-                      <input
-                        type="button"
-                        class="btn red"
-                        value="Feedback"
-                        style={{ fontSize: "8px", p: "4px" }}
-                      />
-                    </a>
+                    <center>
+                      <div
+                        style={{
+                          width: 40,
+                          display: "flex",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        {s_grade[0] &&
+                          s_grade?.filter((i) => i?.gradingPeriod === "2nd")[0]
+                            ?.grade}
+                        {s_grade[0] &&
+                        s_grade?.filter((i) => i?.gradingPeriod === "2nd")[0]
+                          ?.grade ? (
+                          <a
+                            className="link"
+                            onClick={() => {
+                              setCurrentRow(
+                                s_grade[0]
+                                  ? s_grade.filter(
+                                      (i) => i?.gradingPeriod === "2nd"
+                                    )[0]
+                                  : ""
+                              );
+                              setIsModalVisible(true);
+                            }}
+                          >
+                            <MdIcons.MdOutlineComment color="#4caa75" />
+                          </a>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                    </center>
                   </td>
                   <td data-label="Average">
                     {" "}
