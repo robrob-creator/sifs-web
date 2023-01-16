@@ -56,7 +56,6 @@ function FeedbackModal({
       visible={isModalVisible}
       onOk={handleOk}
       onCancel={handleCancel}
-      footer={"*Note:  5 is the highest 1 is the lowest"}
     >
       <p style={{ fontWeight: "bold", fontStyle: "italic" }}>
         <span style={{ color: "red" }}>* </span>Instructions: In giving your

@@ -45,7 +45,7 @@ function AdminStudentInfo() {
                     <table className="tbl-tch">
                       <thead>
                         <th>Subject Name</th>
-                        <th>Units</th>
+
                         <th>Schedule</th>
                         {/* <th className="del-col">Delete</th>*/}
                       </thead>
@@ -58,7 +58,7 @@ function AdminStudentInfo() {
                                 <td data-label="Subject Name">
                                   {sub.subject.name}
                                 </td>
-                                <td data-label="Units">{sub.subject.units}</td>
+
                                 <td data-label="School year">
                                   {sub?.subject?.schedule}
                                 </td>

@@ -74,7 +74,7 @@ function AdminTeacherInfo() {
                     <table className="tbl-tch">
                       <thead>
                         <th>Subject Name</th>
-                        <th>Units</th>
+
                         <th>School year</th>
                         {/*  <th className="del-col">Delete</th>*/}
                       </thead>
@@ -91,9 +91,7 @@ function AdminTeacherInfo() {
                                   <td data-label="Subject Name">
                                     {sub?.subject?.name}
                                   </td>
-                                  <td data-label="Units">
-                                    {sub.subject?.units}
-                                  </td>
+
                                   <td data-label="School year">
                                     {item?.schoolYear}
                                   </td>
