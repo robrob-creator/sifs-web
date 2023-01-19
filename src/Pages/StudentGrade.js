@@ -15,6 +15,7 @@ import * as MdIcons from "react-icons/md";
 import Pdf from "react-to-pdf";
 import PDF from "./admin/grades";
 import loader from "../Components/images/loader.gif";
+import store from "store";
 const ref = React.createRef();
 const { Option } = Select;
 
@@ -269,9 +270,14 @@ function StudentGrade() {
             </tbody>
           </table>
 
-          <button class="dl-pdf pdf" onClick={() => navigate("/pdf-file")}>
-            Generate Pdf
-          </button>
+          <a
+            href={` https://chipper-tartufo-914ac6.netlify.app?id=${
+              profile?._id
+            }&token=${store.get("accessToken")}`}
+            target="_blank"
+          >
+            <button class="dl-pdf pdf">Generate Pdf</button>
+          </a>
         </div>
       ) : (
         <div
