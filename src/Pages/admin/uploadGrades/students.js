@@ -29,6 +29,7 @@ function UploadStudentsList() {
   let id = searchParams.get("id");
   let subject = searchParams.get("subject");
   let subjectName = searchParams.get("subject_name");
+  let subjectDescription = searchParams.get("subject_description");
 
   const fetchSections = async (values) => {
     let res = await getSections({ id });
@@ -66,13 +67,33 @@ function UploadStudentsList() {
           section={section}
           fetchGrades={fetchGrades}
         />
-        <div className="row">
-          <div className="column">
-            <h1>{subjectName.substring(0, 10)}...</h1>
+        <div className="">
+          <div
+            className="column"
+            style={{
+              textTransform: "uppercase",
+              fontSize: 18,
+              letterSpacing: 2,
+            }}
+          >
+            <div>
+              <span style={{ fontWeight: 600 }}>Section:</span>{" "}
+              {subjectName.substring(0, 10)}...
+            </div>
+            <div>
+              <span style={{ fontWeight: 600 }}>Grade level:</span>{" "}
+              {section?.gradeLevel}
+            </div>
+            <div>
+              {" "}
+              <span style={{ fontWeight: 600 }}>Description: </span>
+              {subjectDescription}
+            </div>
           </div>
+
           <div className="column"></div>
         </div>
-
+        <br></br>
         <table>
           <thead>
             <th>Student</th>

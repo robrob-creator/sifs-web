@@ -100,6 +100,8 @@ function AdminStudentDash() {
               <table>
                 <thead>
                   <th>Subject</th>
+                  <th>Grade Level</th>
+
                   <th>View</th>
                 </thead>
                 <tbody>
@@ -109,9 +111,10 @@ function AdminStudentDash() {
                       return (
                         <tr>
                           <td data-label="Student ID">{item?.subject?.name}</td>
+                          <td data-label="Student ID">{datas?.gradeLevel}</td>
                           <td data-label="View / Delete">
                             <Link
-                              to={`/grade/students?id=${datas?._id}&subject=${item?.subject?._id}&subject_name=${item?.subject?.name}`}
+                              to={`/grade/students?id=${datas?._id}&subject=${item?.subject?._id}&subject_name=${item?.subject?.name}&&subject_description=${item?.subject?.description}`}
                             >
                               <button className="icons-grn">
                                 <BsIcons.BsFillEyeFill />
