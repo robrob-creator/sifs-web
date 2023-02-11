@@ -97,36 +97,32 @@ function AdminStudentDash() {
 
           {data?.map((datas, index) => {
             return (
-              <>
-                {datas?.subjects
-                  ?.filter((item) => item?.teacher?._id === profile?._id)
-                  .map((item, index) => {
-                    return (
-                      <table>
-                        <thead>
-                          <th>Subject</th>
-                          <th>View</th>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td data-label="Student ID">
-                              {item?.subject?.name}
-                            </td>
-                            <td data-label="View / Delete">
-                              <Link
-                                to={`/grade/students?id=${datas?._id}&subject=${item?.subject?._id}&subject_name=${item?.subject?.name}`}
-                              >
-                                <button className="icons-grn">
-                                  <BsIcons.BsFillEyeFill />
-                                </button>
-                              </Link>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    );
-                  })}
-              </>
+              <table>
+                <thead>
+                  <th>Subject</th>
+                  <th>View</th>
+                </thead>
+                <tbody>
+                  {datas?.subjects
+                    ?.filter((item) => item?.teacher?._id === profile?._id)
+                    .map((item, index) => {
+                      return (
+                        <tr>
+                          <td data-label="Student ID">{item?.subject?.name}</td>
+                          <td data-label="View / Delete">
+                            <Link
+                              to={`/grade/students?id=${datas?._id}&subject=${item?.subject?._id}&subject_name=${item?.subject?.name}`}
+                            >
+                              <button className="icons-grn">
+                                <BsIcons.BsFillEyeFill />
+                              </button>
+                            </Link>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </table>
             );
           })}
         </div>
