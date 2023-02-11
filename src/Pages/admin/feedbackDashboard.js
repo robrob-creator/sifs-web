@@ -82,6 +82,7 @@ function FeedbackDashboard() {
                 <th>Subject</th>
                 <th>Teacher</th>
                 {profile?.role.includes("teacher") && <th>Remarks</th>}
+                <th>Action</th>
               </thead>
               <tbody>
                 {data &&
@@ -136,6 +137,23 @@ function FeedbackDashboard() {
                             </Checkbox>
                           </td>
                         )}
+                        <td data-label="Name">
+                          {" "}
+                          <button className="icons-red">
+                            <MdIcons.MdDelete
+                              onClick={async () => {
+                                await editFeedback(item?._id, {
+                                  deleted: true,
+                                });
+                                await fetchFeedbacks();
+                                toast("Succesfully deleted", {
+                                  type: "success",
+                                });
+                              }}
+                              style={{ color: "#45a049" }}
+                            />
+                          </button>
+                        </td>
                       </tr>
                     );
                   })}

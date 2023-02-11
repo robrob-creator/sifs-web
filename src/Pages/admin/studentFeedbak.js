@@ -75,6 +75,7 @@ function SentFeedback() {
                 <th>Subject</th>
                 <th>Teacher</th>
                 <th>Remarks</th>
+                <th>Actions</th>
               </thead>
               <tbody>
                 {data &&
@@ -116,6 +117,23 @@ function SentFeedback() {
                         </td>
 
                         <td>{item?.seen ? "Done" : "Pending"}</td>
+                        <td data-label="Name">
+                          {" "}
+                          <button className="icons-red">
+                            <MdIcons.MdDelete
+                              onClick={async () => {
+                                await editFeedback(item?._id, {
+                                  deleted: true,
+                                });
+                                await fetchFeedbacks();
+                                toast("Succesfully deleted", {
+                                  type: "success",
+                                });
+                              }}
+                              style={{ color: "#45a049" }}
+                            />
+                          </button>
+                        </td>
                       </tr>
                     );
                   })}
