@@ -72,12 +72,12 @@ function AdminTeacherDash() {
                     <td data-label="View / Delete">
                       <Link to={`/admin/teacher-info?id=${item?._id}`}>
                         <button className="icons-grn">
-                          <BsIcons.BsFillEyeFill />
+                          <BsIcons.BsFillEyeFill style={{ color: "#45a049" }} />
                         </button>
                       </Link>
                       <a>
                         <MdIcons.MdOutlineModeEditOutline
-                          style={{ fontSize: "20px" }}
+                          style={{ fontSize: "20px", color: "#45a049" }}
                           onClick={() => {
                             setCurrentRow(item);
                             setIsModalVisible(true);
@@ -89,7 +89,7 @@ function AdminTeacherDash() {
                           className="icons-red"
                           onClick={() => removeTeacher(item?._id)}
                         >
-                          <MdIcons.MdDelete />
+                          <MdIcons.MdDelete style={{ color: "#45a049" }} />
                         </button>
                       </Link>
                     </td>

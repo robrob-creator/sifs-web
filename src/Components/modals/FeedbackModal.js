@@ -62,7 +62,7 @@ function FeedbackModal({
         feedback please indicate your answers on the scale of 1-5 with the given
         statement below. The legend will be provided below on what the scale
         represents. <br />1 "Strongly Disagree" <br />2 "Disagree" <br />3
-        "Nuetral" <br />4 "Agree" <br />5 "Strongly Agree"
+        "Neutral" <br />4 "Agree" <br />5 "Strongly Agree"
       </p>
       <Form
         name="basic"

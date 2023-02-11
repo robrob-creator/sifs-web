@@ -8,7 +8,7 @@ import AdminSidebar from "../../Components/Admin_Sidebar";
 import * as BsIcons from "react-icons/bs";
 import * as MdIcons from "react-icons/md";
 import { getSections } from "../../services/sections";
-import { Button, Modal, Select, Form, Input, Space } from "antd";
+import { Button, Modal, Select, Form, Input, Space, Tag } from "antd";
 import { getSubjects } from "../../services/subjects";
 import { addSubjecttoSection } from "../../services/sections";
 import { getUsers } from "../../services/user";
@@ -20,6 +20,7 @@ import { deleteSection } from "../../services/sections";
 import { ToastContainer, toast } from "react-toastify";
 import loader from "../../Components/images/loader.gif";
 import "react-toastify/dist/ReactToastify.css";
+import Editsubject from "../../Components/modals/EditSubject";
 const { Option } = Select;
 
 function SectionDashboard() {
@@ -34,6 +35,7 @@ function SectionDashboard() {
   const [modalVisible, setModalVisible] = useState(false);
   const [addSectModal, setAddSectModal] = useState(false);
   const [editSectModal, setEditSectModal] = useState(false);
+  const [isEditVisible, setIsEditVisible] = useState(false);
   const fetchSections = async () => {
     let res = await getSections();
     setData(res?.data?.data?.list);
@@ -69,7 +71,15 @@ function SectionDashboard() {
   const handleChange = (value) => {
     setPayload(value);
   };
+
+  const fetchSubject = async () => {
+    let res = await getSubjects();
+    console.log(res.data.data.list);
+    setData(res.data.data.list);
+  };
+
   console.log("defaultSub", data);
+
   const onFinish = async (values) => {
     console.log("defaultSub", values);
     await addSubjecttoSection(currentRow, values.subjects);
@@ -102,6 +112,12 @@ function SectionDashboard() {
             fetchSections={fetchSections}
             currentRow={currentRow}
             defaultStud={defaultStud}
+          />
+          <Editsubject
+            isEditVisible={isEditVisible}
+            setIsEditVisible={setIsEditVisible}
+            fetchSubject={fetchSections}
+            currentRow={currentRow}
           />
           <Modal
             title="Add Subject to Section"
@@ -227,7 +243,21 @@ function SectionDashboard() {
                           >
                             {item?.subjects &&
                               item?.subjects?.map((sub, i) => {
-                                return <li key={i}>{sub?.subject?.name}</li>;
+                                return (
+                                  <li key={i}>
+                                    {" "}
+                                    <Tag
+                                      color="green"
+                                      style={{ margin: 4, cursor: "pointer" }}
+                                      onClick={async () => {
+                                        setCurrentRow(sub?.subject);
+                                        setIsEditVisible(true);
+                                      }}
+                                    >
+                                      {sub?.subject?.name}
+                                    </Tag>
+                                  </li>
+                                );
                               })}
                             <br></br>
                             <a
@@ -239,16 +269,18 @@ function SectionDashboard() {
                           </ul>
                         ) : (
                           <span>
-                            {`${
-                              item?.subjects &&
-                              item?.subjects
-                                ?.map((item, i) => {
-                                  return item?.subject?.name + "\n";
-                                })
-                                .join(",")
-                                .substring(0, 25)
-                            } ...`}
-
+                            {item?.subjects &&
+                              item?.subjects?.slice(0, 4)?.map((item, i) => {
+                                return (
+                                  <Tag
+                                    color="green"
+                                    style={{ margin: 4, cursor: "pointer" }}
+                                  >
+                                    {item?.subject?.name}
+                                  </Tag>
+                                );
+                              })}
+                            ...
                             <a
                               style={{ marginLeft: "12px" }}
                               onClick={() => handleSeeMore(true)}
@@ -259,7 +291,7 @@ function SectionDashboard() {
                         )}
 
                         <Button
-                          type="primary"
+                          style={{ backgroundColor: "#45a049", color: "white" }}
                           onClick={async () => {
                             setCurrentRow(item?._id);
                             setDefaultSub(
@@ -283,7 +315,7 @@ function SectionDashboard() {
                       </td>
                       <td data-label="name">
                         <Button
-                          type="primary"
+                          style={{ backgroundColor: "#45a049", color: "white" }}
                           onClick={async () => {
                             setCurrentRow(item?._id);
                             setDefaultStud(
@@ -303,7 +335,7 @@ function SectionDashboard() {
                       <td data-label="View / Delete">
                         <a>
                           <MdIcons.MdOutlineModeEditOutline
-                            style={{ fontSize: "20px" }}
+                            style={{ fontSize: "20px", color: "#45a049" }}
                             onClick={() => {
                               setDefaultVal(item);
                               setInterval(setEditSectModal(true), 1000);
@@ -316,7 +348,7 @@ function SectionDashboard() {
                             className="icons-red"
                             onClick={() => handleDelete(item?._id)}
                           >
-                            <MdIcons.MdDelete />
+                            <MdIcons.MdDelete style={{ color: "#45a049" }} />
                           </button>
                         </Link>
                       </td>

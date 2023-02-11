@@ -131,19 +131,25 @@ function StudentGrade() {
           </h1>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <h4>
-                Name: {profile?.firstName} {profile?.lastName}
+              <div style={{ textTransform: "uppercase", fontSize: 16 }}>
+                <span style={{ fontWeight: "600" }}> NAME:</span>{" "}
+                {profile?.firstName} {profile?.lastName}
                 <br></br>
-                Strand/Track: {profile?.strand_track}
-              </h4>
+                <span style={{ fontWeight: "600" }}>Strand/Track:</span>{" "}
+                {profile?.strand_track}
+              </div>
             </div>
             <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <h4>
-                Student No: {profile?.idNo}
-                <br></br>Grade Level: {profile?.gradeLevel}
-              </h4>
+              <div style={{ textTransform: "uppercase", fontSize: 16 }}>
+                <span style={{ fontWeight: "600" }}> Student No:</span>{" "}
+                {profile?.idNo}
+                <br></br>{" "}
+                <span style={{ fontWeight: "600" }}>Grade Level:</span>{" "}
+                {profile?.gradeLevel}
+              </div>
             </div>
           </div>
+          <br></br>
           <h2>Grades</h2>
           <table style={{ margin: 2 }} ref={ref}>
             <thead>

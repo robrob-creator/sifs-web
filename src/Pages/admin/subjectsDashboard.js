@@ -66,7 +66,11 @@ function SubjectsDashboard() {
             title="Subjects"
             subTitle="available subjects"
             extra={[
-              <Button key="1" type="primary" onClick={() => showModal()}>
+              <Button
+                key="1"
+                onClick={() => showModal()}
+                style={{ backgroundColor: "#45a049", color: "white" }}
+              >
                 Add Subject
               </Button>,
             ]}
@@ -98,7 +102,7 @@ function SubjectsDashboard() {
                       <td data-label="View / Delete">
                         <Link to="#">
                           <MdIcons.MdOutlineModeEditOutline
-                            style={{ fontSize: "20px" }}
+                            style={{ fontSize: "20px", color: "#45a049" }}
                             onClick={() => {
                               setCurrentRow(item);
                               setInterval(setIsEditVisible(true), 1000);
@@ -111,7 +115,7 @@ function SubjectsDashboard() {
                             className="icons-red"
                             onClick={() => handleDelete(item?._id)}
                           >
-                            <MdIcons.MdDelete />
+                            <MdIcons.MdDelete style={{ color: "#45a049" }} />
                           </button>
                         </Link>
                       </td>
