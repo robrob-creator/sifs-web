@@ -77,8 +77,10 @@ function UploadStudentsList() {
             }}
           >
             <div>
-              <span style={{ fontWeight: 600 }}>Section:</span>{" "}
-              {subjectName.substring(0, 10)}...
+              <span style={{ fontWeight: 600 }}>Strand:</span>{" "}
+              {section?.students
+                ? section?.students[0]?.student?.strand_track
+                : ""}
             </div>
             <div>
               <span style={{ fontWeight: 600 }}>Grade level:</span>{" "}
