@@ -1,3 +1,3 @@
 export default function baseURL() {
-  return `https://6033-103-62-155-54.ap.ngrok.io`;
+  return `https://shiny-horse-0de068.netlify.app`;
 }
