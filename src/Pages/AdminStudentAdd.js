@@ -3,6 +3,7 @@ import "./css/container.css";
 import "./css/table.css";
 import "./css/icons.css";
 import AdminSidebar from "../Components/Admin_Sidebar";
+
 import subjects from "./data/subjects";
 import * as MdIcons from "react-icons/md";
 import { Link } from "react-router-dom";
@@ -15,6 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 function AdminStudentAdd() {
   const navigate = useNavigate();
   const [errors, setErrors] = useState();
+  const [disabled, setDisabled] = useState(false);
   const [state, setState] = useState({
     firstName: "",
     lastName: "",
@@ -24,9 +26,11 @@ function AdminStudentAdd() {
     password: "",
     gradeLevel: "",
     strand_track: "",
+    phoneNumber: "",
     email: "",
     role: "student",
   });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -45,10 +49,12 @@ function AdminStudentAdd() {
       return error;
     }
   };
+
   return (
     <>
       <AdminSidebar />
       <ToastContainer position="top-right" newestOnTop />
+
       <div className="container">
         <h1>Add Student</h1>
         <div className="con">
@@ -124,6 +130,20 @@ function AdminStudentAdd() {
                 }}
               />
               <input
+                type="number"
+                id="contact"
+                disabled={disabled}
+                placeholder="Contact No Eg: 09++"
+                name="Contact number"
+                value={state.phoneNumber}
+                onChange={(e) => {
+                  setState({
+                    ...state,
+                    phoneNumber: e.target.value.slice(0, 10),
+                  });
+                }}
+              />
+              <input
                 type="password"
                 id="pswd"
                 placeholder="Password"
@@ -135,54 +155,8 @@ function AdminStudentAdd() {
               />
             </div>
 
-            <div className="con-tab">
-              <h3 className="t-sub">Subjects</h3>
-              <table className="tbl-tch">
-                <thead>
-                  <th>Subject Name</th>
-                  <th>Units</th>
-                  <th>Quarter</th>
-                  <th className="del-col">Delete</th>
-                </thead>
-
-                <tbody>
-                  {subjects.map((sub, index) => {
-                    return (
-                      <tr>
-                        <td data-label="Subject Name">{sub.subname}</td>
-                        <td data-label="Units">24</td>
-                        <td data-label="Quarter">
-                          <select className="sel quart">
-                            <option value="First">First</option>
-                            <option value="Second">Second</option>
-                            <option value="Third">Third</option>
-                            <option value="Fourth">Fourth</option>
-                          </select>
-                        </td>
-                        <td data-label="Delete">
-                          <MdIcons.MdDelete className="icons-red" />
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
+            <div className="con-tab"></div>
             <div className="row2">
-              <div className="column">
-                <select className="sel">
-                  <option value="IPT2">IPT2</option>
-                  <option value="IPT2">IPT2</option>
-                  <option value="IPT2">IPT2</option>
-                </select>
-                <Link to="/admin/teacher-info">
-                  <input
-                    type="button"
-                    className="add-btn"
-                    value="Add Subject"
-                  />
-                </Link>
-              </div>
               <div className="column mar">
                 <button className="add-btn grn" type="submit">
                   Submit

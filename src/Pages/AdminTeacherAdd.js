@@ -6,7 +6,7 @@ import AdminSidebar from "../Components/Admin_Sidebar";
 import subjects from "./data/subjects";
 import * as MdIcons from "react-icons/md";
 import { Link } from "react-router-dom";
-import { createUser } from "../services/user";
+import { createTeacher } from "../services/user";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
@@ -20,7 +20,6 @@ function AdminTeacherAdd() {
     lastName: "",
     middleName: "",
     suffix: "",
-    idNo: "",
     password: "",
     email: "",
     role: "teacher",
@@ -28,9 +27,10 @@ function AdminTeacherAdd() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      let res = await createUser(state);
+      let res = await createTeacher(state);
+      console.log(res?.data?._id);
       if (res.status === 200) {
-        navigate("/admin/teacher-info");
+        navigate(`/admin/teacher-info?id=${res?.data?._id}`);
       } else {
         setErrors({ message: "unauthorized" });
       }
@@ -104,15 +104,16 @@ function AdminTeacherAdd() {
                 }}
               />
               <input
-                type="text"
-                id="username"
-                placeholder="ID no."
-                name="ID no."
+                type="number"
+                id="contactNumber"
+                placeholder="Contact number"
+                name="contact"
                 required
                 onChange={(e) => {
-                  setState({ ...state, idNo: e.target.value });
+                  setState({ ...state, phoneNumber: e.target.value });
                 }}
               />
+
               <input
                 type="password"
                 id="pswd"
@@ -126,7 +127,7 @@ function AdminTeacherAdd() {
             </div>
 
             <div className="con-tab">
-              <h3 className="t-sub">Subjects</h3>
+              {/* <h3 className="t-sub">Subjects</h3>
               <table className="tbl-tch">
                 <thead>
                   <th>Subject Name</th>
@@ -147,23 +148,9 @@ function AdminTeacherAdd() {
                     );
                   })}
                 </tbody>
-              </table>
+                </table>*/}
             </div>
             <div className="row2">
-              <div className="column">
-                <select className="sel">
-                  <option value="IPT2">IPT2</option>
-                  <option value="IPT2">IPT2</option>
-                  <option value="IPT2">IPT2</option>
-                </select>
-                <Link to="/admin/teacher-info">
-                  <input
-                    type="button"
-                    className="add-btn"
-                    value="Add Subject"
-                  />
-                </Link>
-              </div>
               <div className="column mar">
                 <button className="add-btn grn" type="submit">
                   Submit

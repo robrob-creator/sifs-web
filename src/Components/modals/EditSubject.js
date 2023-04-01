@@ -1,27 +1,35 @@
 import { Button, Modal, Checkbox, Form, Input, Select } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createSubject } from "../../services/subjects";
+import { editSubject } from "../../services/subjects";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const { TextArea } = Input;
 const { Option } = Select;
 
-function Addsubject({ isModalVisible, setIsModalVisible, fetchSubject }) {
+function Editsubject({
+  isEditVisible,
+  setIsEditVisible,
+  fetchSubject,
+  currentRow,
+}) {
+  const [form] = Form.useForm();
+
   const handleOk = () => {
-    setIsModalVisible(false);
+    setIsEditVisible(false);
   };
 
   const handleCancel = () => {
-    setIsModalVisible(false);
+    setIsEditVisible(false);
   };
   const onFinish = async (values) => {
     try {
-      let res = await createSubject(values);
-      toast("Succesfully added", {
+      let res = await editSubject(currentRow?._id, values);
+      toast("Succesfully edited", {
         type: "success",
       });
       fetchSubject();
-      setIsModalVisible(false);
+      setIsEditVisible(false);
       console.log(res);
       return res;
     } catch (err) {
@@ -34,10 +42,15 @@ function Addsubject({ isModalVisible, setIsModalVisible, fetchSubject }) {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
+  useEffect(() => {
+    form.setFieldsValue(currentRow);
+  }, [form, currentRow]);
+
   return (
     <Modal
-      title="Add Subject"
-      visible={isModalVisible}
+      title="Edit Subject"
+      visible={isEditVisible}
       onOk={handleOk}
       onCancel={handleCancel}
       footer={"instruction: fill up the fields"}
@@ -46,6 +59,8 @@ function Addsubject({ isModalVisible, setIsModalVisible, fetchSubject }) {
         name="basic"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
+        initialValues={currentRow}
+        form={form}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
       >
@@ -65,7 +80,6 @@ function Addsubject({ isModalVisible, setIsModalVisible, fetchSubject }) {
         >
           <TextArea rows={4} />
         </Form.Item>
-
         <Form.Item label="Schedule" name="schedule">
           <Select>
             <Option value="07:30 - 08:30">07:30 - 08:30</Option>
@@ -87,4 +101,4 @@ function Addsubject({ isModalVisible, setIsModalVisible, fetchSubject }) {
   );
 }
 
-export default Addsubject;
+export default Editsubject;

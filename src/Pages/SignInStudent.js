@@ -22,7 +22,7 @@ function SignInStudent() {
     try {
       let res = await login(state);
       if (res.status === 200) {
-        navigate("/admin/dashboard");
+        navigate("/student");
       } else {
         setErrors({ message: "unauthorized" });
       }
@@ -57,7 +57,7 @@ function SignInStudent() {
                 }}
               />
               <input
-                type="text"
+                type="password"
                 className="input"
                 placeholder="Password..."
                 onChange={(e) => {

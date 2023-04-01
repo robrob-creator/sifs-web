@@ -8,10 +8,11 @@ import Students from "./Pages/Students";
 import SignInChoices from "./Pages/SignInChoices";
 import SignInStudent from "./Pages/SignInStudent";
 import StudentGrade from "./Pages/StudentGrade";
-import Teacher_Feedback from "./Pages/Teacher_Feedback";
+import TeacherFeedback from "./Pages/Teacher_Feedback";
 import AdminDashboard from "./Pages/AdminDashboard";
 import AdminTeacherDash from "./Pages/AdminTeacherDash";
 import AdminStudentDash from "./Pages/AdminStudentDash";
+import AdminSectionDash from "./Pages/admin/sectionsDashboard";
 import AdminTeacherInfo from "./Pages/AdminTeacherInfo";
 import AdminTeacherAdd from "./Pages/AdminTeacherAdd";
 import AdminStudentInfo from "./Pages/AdminStudentInfo";
@@ -24,6 +25,16 @@ import AdminAccountStudents from "./Pages/AdminAccountStudents";
 import AdminTeacherAccountsEdit from "./Pages/AdminTeacherAccountsEdit";
 import AdminStudentAccountsEdit from "./Pages/AdminStudentAccountsEdit";
 import SubjectsDashboard from "./Pages/admin/subjectsDashboard";
+import UploadGrades from "./Pages/admin/uploadGrades";
+import Upload from "./Pages/admin/uploadGrades/uploadGrades";
+import UploadStudentsList from "./Pages/admin/uploadGrades/students";
+import UploadSubjectPage from "./Pages/admin/uploadGrades/subjects";
+import FeedbackDashboard from "./Pages/admin/feedbackDashboard";
+import TeacherFeedbacks from "./Pages/admin/teacherFeedback";
+import SentFeedback from "./Pages/admin/studentFeedbak";
+import ReportsDashboard from "./Pages/admin/reportsDashboard";
+import PDF from "./Pages/admin/grades";
+import AdminCSVAdd from "./Pages/AdminCSVAdd.tsx";
 const App = () => {
   return (
     <>
@@ -45,8 +56,13 @@ const App = () => {
             path="/admin/students-dashboard"
             element={<AdminStudentDash />}
           />
+          <Route
+            path="/admin/section-dashboard"
+            element={<AdminSectionDash />}
+          />
           <Route path="/admin/student-info" element={<AdminStudentInfo />} />
           <Route path="/admin/student-add" element={<AdminStudentAdd />} />
+          <Route path="/admin/csv-add" element={<AdminCSVAdd />} />
           <Route
             path="/admin/account-choice"
             element={<AdminAccountChoice />}
@@ -71,18 +87,32 @@ const App = () => {
             path="/admin/subjects-dashboard"
             element={<SubjectsDashboard />}
           />
+          <Route
+            path="/admin/reports-dashboard"
+            element={<ReportsDashboard />}
+          />
           <Route path="/teacher/subjects" element={<Subjects />} />
           <Route path="/teacher/feedback" element={<Feedback />} />
           <Route
             path="/teacher/feedback/student-feedback"
             element={<Student_Feedback />}
           />
+          <Route path="/grade" element={<UploadGrades />} />
+          <Route path="/grade/students" element={<UploadStudentsList />} />
+          <Route path="/grade/subjects" element={<UploadSubjectPage />} />
+          <Route path="/grade/upload" element={<Upload />} />
           <Route path="/teacher/subjects/capstone-2" element={<Students />} />
-
+          <Route path="/view/sent-feedbacks" element={<SentFeedback />} />
           <Route path="/student" element={<StudentGrade />} />
+          <Route path="/feedbacks" element={<FeedbackDashboard />} />
+          <Route
+            path="/teacher/feedbacks-list"
+            element={<TeacherFeedbacks />}
+          />
+          <Route path="/pdf-file" element={<PDF />} />
           <Route
             path="/student/subject_feedback"
-            element={<Teacher_Feedback />}
+            element={<TeacherFeedback />}
           />
         </Routes>
       </Router>

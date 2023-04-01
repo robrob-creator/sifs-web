@@ -6,8 +6,14 @@ import { Button, Descriptions, PageHeader } from "antd";
 import { getSubjects } from "../../services/subjects";
 import { useEffect } from "react";
 import Addsubject from "../../Components/modals/AddSubject";
-import { ToastContainer } from "react-toastify";
 import { Skeleton } from "antd";
+import { deleteSubject } from "../../services/subjects";
+import * as MdIcons from "react-icons/md";
+import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import Editsubject from "../../Components/modals/EditSubject";
+import "react-toastify/dist/ReactToastify.css";
+import loader from "../../Components/images/loader.gif";
 var randomColor = require("randomcolor");
 
 const IconText = ({ icon, text }) => (
@@ -20,6 +26,9 @@ const IconText = ({ icon, text }) => (
 function SubjectsDashboard() {
   const [data, setData] = useState();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isEditVisible, setIsEditVisible] = useState(false);
+  const [currentRow, setCurrentRow] = useState();
+  const [update, handleUpdates] = useState(true);
 
   const fetchSubject = async () => {
     let res = await getSubjects();
@@ -30,86 +39,103 @@ function SubjectsDashboard() {
     setIsModalVisible(true);
   };
 
+  const handleDelete = async (id) => {
+    await deleteSubject(id);
+    handleUpdates(update ? true : false);
+    fetchSubject();
+    toast("Subject deleted!", {
+      type: "success",
+    });
+  };
+
   useEffect(() => {
     fetchSubject();
-  }, []);
+  }, [update]);
+
+  console.log("case", currentRow);
+
   return (
     <>
       <AdminSidebar />
       <ToastContainer position="top-right" newestOnTop />
-      <div className="container">
-        <PageHeader
-          ghost={false}
-          onBack={() => window.history.back()}
-          title="Subjects"
-          subTitle="available subjects"
-          extra={[
-            <Button key="1" type="primary" onClick={() => showModal()}>
-              Add Subject
-            </Button>,
-          ]}
-        />
-        <Addsubject
-          isModalVisible={isModalVisible}
-          setIsModalVisible={setIsModalVisible}
-          fetchSubject={fetchSubject}
-        />
-        {data ? (
-          <List
-            style={{ backgroundColor: "white", padding: 10 }}
-            itemLayout="vertical"
-            title="header"
-            size="large"
-            pagination={{
-              onChange: (page) => {
-                console.log(page);
-              },
-              pageSize: 5,
-            }}
-            dataSource={data}
-            renderItem={(item) => (
-              <List.Item
-                key={item?.name}
-                actions={[
-                  <IconText
-                    icon={EditOutlined}
-                    text="Edit"
-                    key="list-vertical-star-o"
-                  />,
-                  <IconText
-                    icon={EyeOutlined}
-                    text="View"
-                    key="list-vertical-like-o"
-                  />,
-                  <IconText
-                    icon={DeleteOutlined}
-                    text="Delete"
-                    key="list-vertical-message"
-                  />,
-                ]}
+      {data ? (
+        <div className="container">
+          <PageHeader
+            ghost={false}
+            onBack={() => window.history.back()}
+            title="Subjects"
+            subTitle="available subjects"
+            extra={[
+              <Button
+                key="1"
+                onClick={() => showModal()}
+                style={{ backgroundColor: "#45a049", color: "white" }}
               >
-                <List.Item.Meta
-                  avatar={
-                    <Avatar
-                      style={{
-                        backgroundColor: randomColor(),
-                        verticalAlign: "middle",
-                      }}
-                    >
-                      {item.name.charAt(0)}
-                    </Avatar>
-                  }
-                  title={<a href={item.href}>{item.name}</a>}
-                  description={item?.units + ` Units`}
-                />
-                {item.description}
-              </List.Item>
-            )}
+                Add Subject
+              </Button>,
+            ]}
           />
-        ) : (
-          <Skeleton style={{ backgroundColor: "white", padding: 10 }} />
-        )}
-      </div>
+          <Editsubject
+            isEditVisible={isEditVisible}
+            setIsEditVisible={setIsEditVisible}
+            fetchSubject={fetchSubject}
+            currentRow={currentRow}
+          />
+          <Addsubject
+            isModalVisible={isModalVisible}
+            setIsModalVisible={setIsModalVisible}
+            fetchSubject={fetchSubject}
+          />
+          <table>
+            <thead>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Edit / Delete</th>
+            </thead>
+            <tbody>
+              {data &&
+                data?.map((item, index) => {
+                  return (
+                    <tr>
+                      <td data-label="Name">{item?.name}</td>
+                      <td data-label="Units">{item?.description}</td>
+                      <td data-label="View / Delete">
+                        <Link to="#">
+                          <MdIcons.MdOutlineModeEditOutline
+                            style={{ fontSize: "20px", color: "#45a049" }}
+                            onClick={() => {
+                              setCurrentRow(item);
+                              setInterval(setIsEditVisible(true), 1000);
+                              return clearInterval();
+                            }}
+                          />
+                        </Link>
+                        <Link to="#">
+                          <button
+                            className="icons-red"
+                            onClick={() => handleDelete(item?._id)}
+                          >
+                            <MdIcons.MdDelete style={{ color: "#45a049" }} />
+                          </button>
+                        </Link>
+                      </td>
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div
+          className="container"
+          style={{
+            backgroundImage: `url(${loader})`,
+            height: "100vh",
+            width: "100%",
+            backgroundPosition: "center",
+          }}
+        ></div>
+      )}
     </>
   );
 }
