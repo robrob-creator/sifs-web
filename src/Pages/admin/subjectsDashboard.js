@@ -88,17 +88,17 @@ function SubjectsDashboard() {
           />
           <table>
             <thead>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Edit / Delete</th>
+              <th>CODE</th>
+              <th>NAME</th>
+              <th>EDIT / DELETE</th>
             </thead>
             <tbody>
               {data &&
                 data?.map((item, index) => {
                   return (
                     <tr>
-                      <td data-label="Name">{item?.name}</td>
-                      <td data-label="Units">{item?.description}</td>
+                      <td data-label="Name">{item?.subject_code}</td>
+                      <td data-label="Units">{item?.name}</td>
                       <td data-label="View / Delete">
                         <Link to="#">
                           <MdIcons.MdOutlineModeEditOutline
