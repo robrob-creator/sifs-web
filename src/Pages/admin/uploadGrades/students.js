@@ -116,7 +116,6 @@ function UploadStudentsList() {
             <th>Name</th>
             <th>1st Grading</th>
             <th>2nd Grading</th>
-            <th>Upload</th>
           </thead>
           <tbody>
             {data?.map((item, index) => {
@@ -227,16 +226,6 @@ function UploadStudentsList() {
                         }}
                       />
                     )}
-                  </td>
-                  <td data-label="View / Delete">
-                    <a
-                      onClick={() => {
-                        setStudent(item?.student?._id);
-                        handleUpload(true);
-                      }}
-                    >
-                      Upload
-                    </a>
                   </td>
                 </tr>
               );
