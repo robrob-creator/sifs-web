@@ -248,13 +248,18 @@ function SectionDashboard() {
                                     {" "}
                                     <Tag
                                       color="green"
-                                      style={{ margin: 4, cursor: "pointer" }}
+                                      style={{
+                                        margin: 4,
+                                        cursor: "pointer",
+                                        borderRadius: "20px",
+                                        paddingInline: "40px",
+                                      }}
                                       onClick={async () => {
                                         setCurrentRow(sub?.subject);
                                         setIsEditVisible(true);
                                       }}
                                     >
-                                      {sub?.subject?.name}
+                                      {sub?.subject?.subject_code}
                                     </Tag>
                                   </li>
                                 );
@@ -274,9 +279,14 @@ function SectionDashboard() {
                                 return (
                                   <Tag
                                     color="green"
-                                    style={{ margin: 4, cursor: "pointer" }}
+                                    style={{
+                                      margin: 4,
+                                      cursor: "pointer",
+                                      borderRadius: "20px",
+                                      paddingInline: "40px",
+                                    }}
                                   >
-                                    {item?.subject?.name}
+                                    {item?.subject?.subject_code}
                                   </Tag>
                                 );
                               })}

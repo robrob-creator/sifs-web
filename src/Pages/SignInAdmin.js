@@ -41,8 +41,8 @@ function SignInAdmin() {
       <center>
         <div className="container2">
           <img src={logo} alt="cabulohan-paradise-logo" className="logo" />
-          <h2 className="txt">
-            Student Information and Feedbacking Using Web Technology
+          <h2 style={{ fontWeight: 600, color: "#476b6b" }} className="txt">
+            STUDENT INFORMATION AND FEEDBACKING SYSTEM
           </h2>
           <ToastContainer position="top-right" newestOnTop />
           <div className="disabled">Admin</div>
