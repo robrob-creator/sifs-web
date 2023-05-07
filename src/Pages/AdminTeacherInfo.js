@@ -10,6 +10,7 @@ import { getUsers } from "../services/user";
 import { getSections, editSection } from "../services/sections";
 import DefineSection from "../Components/modals/DefineSection";
 import loader from "../Components/images/loader.gif";
+import store from "store";
 import { Button } from "antd";
 
 function AdminTeacherInfo() {
@@ -65,7 +66,23 @@ function AdminTeacherInfo() {
           />
           <h2>Teaching Load</h2>
           <div className="con">
-            <h2 className="t-name">{`${profile?.lastName}, ${profile?.firstName}`}</h2>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+              }}
+            >
+              <h2 className="t-name">{`${profile?.lastName}, ${profile?.firstName}`}</h2>
+              <a
+                href={` https://chipper-tartufo-914ac6.netlify.app?id=${
+                  profile?._id
+                }&type=teaching-load&token=${store.get("accessToken")}`}
+                target="_blank"
+              >
+                <button class="dl-pdf pdf">PDF</button>
+              </a>
+            </div>
             <div className="con-tab">
               {section?.map((item, index) => {
                 return (
@@ -73,7 +90,7 @@ function AdminTeacherInfo() {
                     <h3 className="t-sub">Section: {item?.name} || Subjects</h3>
                     <table className="tbl-tch">
                       <thead>
-                        <th>Subject Name</th>
+                        <th>Subject Code</th>
 
                         <th>School year</th>
                         {/*  <th className="del-col">Delete</th>*/}
@@ -89,7 +106,7 @@ function AdminTeacherInfo() {
                               return (
                                 <tr>
                                   <td data-label="Subject Name">
-                                    {sub?.subject?.name}
+                                    {sub?.subject?.subject_code}
                                   </td>
 
                                   <td data-label="School year">
