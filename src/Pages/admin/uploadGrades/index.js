@@ -99,10 +99,10 @@ function AdminStudentDash() {
             return (
               <table>
                 <thead>
-                  <th>Subject</th>
-                  <th>Grade Level</th>
+                  <th>CODE</th>
+                  <th>GRADE LEVEL</th>
 
-                  <th>View</th>
+                  <th>VIEW</th>
                 </thead>
                 <tbody>
                   {datas?.subjects
@@ -110,7 +110,9 @@ function AdminStudentDash() {
                     .map((item, index) => {
                       return (
                         <tr>
-                          <td data-label="Student ID">{item?.subject?.name}</td>
+                          <td data-label="Student ID">
+                            {item?.subject?.subject_code}
+                          </td>
                           <td data-label="Student ID">{datas?.gradeLevel}</td>
                           <td data-label="View / Delete">
                             <Link

@@ -83,7 +83,7 @@ function StudentGrade() {
         (catsSoFar, { subject, gradingPeriod, grade, gradedBy }) => {
           if (!catsSoFar[subject.name]) catsSoFar[subject.name] = [];
           catsSoFar[subject.name].push({
-            name: subject.name,
+            code: subject.subject_code,
             gradingPeriod,
             grade,
             gradedBy,
@@ -153,7 +153,7 @@ function StudentGrade() {
           <h2>Grades</h2>
           <table style={{ margin: 2 }} ref={ref}>
             <thead>
-              <th>Subject Name</th>
+              <th>Subject Code</th>
               <th>1st Grading</th>
               <th>2nd Grading</th>
               <th>Average</th>
@@ -164,7 +164,7 @@ function StudentGrade() {
                 return (
                   <tr>
                     <td data-label="Subject Name">
-                      {s_grade[0] && s_grade[0]?.name}
+                      {s_grade[0] && s_grade[0]?.code}
                     </td>
                     <td data-label="1st Grading">
                       <center>
