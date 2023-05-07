@@ -74,6 +74,15 @@ function Editsubject({
           <Input />
         </Form.Item>
         <Form.Item
+          label="Subject Code"
+          name="subject_code"
+          rules={[
+            { required: true, message: "Please input the subject name!" },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
           label="Description"
           name="description"
           rules={[{ required: true, message: "Please input your password!" }]}
