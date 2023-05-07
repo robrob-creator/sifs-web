@@ -50,15 +50,6 @@ function Addsubject({ isModalVisible, setIsModalVisible, fetchSubject }) {
         onFinishFailed={onFinishFailed}
       >
         <Form.Item
-          label="Subject Name"
-          name="name"
-          rules={[
-            { required: true, message: "Please input the subject name!" },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
           label="Subject Code"
           name="subject_code"
           rules={[
@@ -68,9 +59,20 @@ function Addsubject({ isModalVisible, setIsModalVisible, fetchSubject }) {
           <Input />
         </Form.Item>
         <Form.Item
+          label="Subject Name"
+          name="name"
+          rules={[
+            { required: true, message: "Please input the subject name!" },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          hidden
           label="Description"
           name="description"
-          rules={[{ required: true, message: "Please input your password!" }]}
+          initialValue=""
         >
           <TextArea rows={4} />
         </Form.Item>
