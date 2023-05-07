@@ -10,8 +10,8 @@ import * as BsIcons from "react-icons/bs";
 import * as MdIcons from "react-icons/md";
 import { getSections } from "../../../services/sections";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
-import { Button, Col, Form, Input, Row, Select } from "antd";
-import { getGrades } from "../../../services/grades";
+import { Button, Col, Form, Input, InputNumber, Row, Select } from "antd";
+import { createGrade, editGrade, getGrades } from "../../../services/grades";
 import { useSearchParams } from "react-router-dom";
 import EditGrade from "../../../Components/modals/EditGrade";
 import UploadGrade from "../../../Components/modals/UploadGrade";
@@ -28,9 +28,9 @@ function UploadStudentsList() {
   const [searchParams] = useSearchParams();
   let id = searchParams.get("id");
   let subject = searchParams.get("subject");
-  let subjectName = searchParams.get("subject_name");
   let subjectDescription = searchParams.get("subject_description");
-
+  const firstSemGrades = grades?.filter((item) => item.gradingPeriod === "1st");
+  const secondSemGrade = grades?.filter((item) => item.gradingPeriod === "2nd");
   const fetchSections = async (values) => {
     let res = await getSections({ id });
     setSection(res?.data?.data?.list[0]);
@@ -45,7 +45,13 @@ function UploadStudentsList() {
     fetchSections();
     fetchGrades();
   }, []);
-
+  console.log(
+    "the datat your looking for",
+    grades?.filter(
+      (item) =>
+        item.gradingPeriod === "2nd" && item.student?.idNo === "30395224"
+    )
+  );
   return (
     <>
       <AdminSidebar />
@@ -108,53 +114,110 @@ function UploadStudentsList() {
               return (
                 <tr>
                   <td data-label="Student ID">{`${item?.student?.firstName} ${item?.student?.lastName}`}</td>
-                  <td data-label="Student ID">
-                    {" "}
-                    {grades
-                      ?.filter((item) => item.gradingPeriod === "1st")
-                      ?.map((grade, i) => {
-                        return grade?.student?._id === item?.student?._id ? (
-                          <span>
-                            {grade?.grade}{" "}
-                            <a>
-                              {" "}
-                              <MdIcons.MdOutlineModeEditOutline
-                                style={{ fontSize: "15px" }}
-                                onClick={() => {
-                                  setCurrentRow(grade);
-                                  setShowGradeEdit(true);
-                                }}
-                              />
-                            </a>
+                  <td>
+                    {firstSemGrades?.map((grade, i) => {
+                      if (grade?.student?._id === item?.student?._id) {
+                        return (
+                          <span key={i}>
+                            <InputNumber
+                              min={0}
+                              max={100}
+                              defaultValue={grade?.grade}
+                              onBlur={async (event) => {
+                                const newGrade = event.target.value;
+                                await editGrade(grade?._id, {
+                                  grade: newGrade,
+                                  gradingPeriod: "1st",
+                                  schoolYear: section?.schoolYear,
+                                  section: section?._id,
+                                  semester: section?.semester,
+                                  subject: subject,
+                                  student: item?.student?._id,
+                                });
+                                await fetchSections();
+                                await fetchGrades();
+                              }}
+                            />
                           </span>
-                        ) : (
-                          ""
                         );
-                      })}
+                      }
+                      return null;
+                    })}
+                    {!firstSemGrades?.some(
+                      (grade) => grade?.student?._id === item?.student?._id
+                    ) && (
+                      <InputNumber
+                        min={0}
+                        max={100}
+                        onBlur={async (event) => {
+                          const newGrade = event.target.value;
+                          await createGrade({
+                            grade: newGrade,
+                            gradingPeriod: "1st",
+                            schoolYear: section?.schoolYear,
+                            section: section?._id,
+                            semester: section?.semester,
+                            subject: subject,
+                            student: item?.student?._id,
+                          });
+                          await fetchSections();
+                          await fetchGrades();
+                        }}
+                      />
+                    )}
                   </td>
-                  <td data-label="Student ID">
-                    {" "}
-                    {grades
-                      ?.filter((item) => item.gradingPeriod === "2nd")
-                      ?.map((grade, i) => {
-                        return grade?.student?._id === item?.student?._id ? (
-                          <span>
-                            {grade?.grade}{" "}
-                            <a>
-                              {" "}
-                              <MdIcons.MdOutlineModeEditOutline
-                                style={{ fontSize: "15px" }}
-                                onClick={() => {
-                                  setCurrentRow(grade);
-                                  setShowGradeEdit(true);
-                                }}
-                              />
-                            </a>
+
+                  <td>
+                    {secondSemGrade?.map((grade, i) => {
+                      if (grade?.student?._id === item?.student?._id) {
+                        return (
+                          <span key={i}>
+                            <InputNumber
+                              min={0}
+                              max={100}
+                              defaultValue={grade?.grade}
+                              onBlur={async (event) => {
+                                const newGrade = event.target.value;
+                                await editGrade(grade?._id, {
+                                  grade: newGrade,
+                                  gradingPeriod: "2nd",
+                                  schoolYear: section?.schoolYear,
+                                  section: section?._id,
+                                  semester: section?.semester,
+                                  subject: subject,
+                                  student: item?.student?._id,
+                                });
+                                await fetchSections();
+                                await fetchGrades();
+                              }}
+                            />
                           </span>
-                        ) : (
-                          ""
                         );
-                      })}
+                      }
+                      return null;
+                    })}
+                    {!secondSemGrade?.some(
+                      (grade) => grade?.student?._id === item?.student?._id
+                    ) && (
+                      <InputNumber
+                        min={0}
+                        max={100}
+                        onBlur={async (event) => {
+                          const newGrade = event.target.value;
+                          await createGrade({
+                            grade: newGrade,
+                            gradingPeriod: "2nd",
+                            schoolYear: section?.schoolYear,
+                            section: section?._id,
+                            semester: section?.semester,
+                            subject: subject,
+                            student: item?.student?._id,
+                          });
+                          await fetchSections();
+                          await fetchGrades();
+                        }}
+                      />
+                    )}
                   </td>
                   <td data-label="View / Delete">
                     <a

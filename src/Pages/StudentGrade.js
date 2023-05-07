@@ -7,7 +7,16 @@ import "./css/container.css";
 import student_grade from "./data/student_grade1";
 import { getProfile } from "../services/user";
 import { getGradesById } from "../services/grades";
-import { Button, Col, Form, Input, Row, Select, Modal } from "antd";
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  Row,
+  Select,
+  Modal,
+  InputNumber,
+} from "antd";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
 import { authChecker } from "../services/auth";
 import FeedbackModal from "../Components/modals/FeedbackModal";
