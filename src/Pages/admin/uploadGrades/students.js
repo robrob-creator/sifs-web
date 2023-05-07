@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
@@ -15,6 +16,7 @@ import { createGrade, editGrade, getGrades } from "../../../services/grades";
 import { useSearchParams } from "react-router-dom";
 import EditGrade from "../../../Components/modals/EditGrade";
 import UploadGrade from "../../../Components/modals/UploadGrade";
+import store from "store";
 const { Option } = Select;
 
 function UploadStudentsList() {
@@ -28,7 +30,9 @@ function UploadStudentsList() {
   const [searchParams] = useSearchParams();
   let id = searchParams.get("id");
   let subject = searchParams.get("subject");
+  let code = searchParams.get("code");
   let subjectDescription = searchParams.get("subject_description");
+  let subjectName = searchParams.get("subject_name");
   const firstSemGrades = grades?.filter((item) => item.gradingPeriod === "1st");
   const secondSemGrade = grades?.filter((item) => item.gradingPeriod === "2nd");
   const fetchSections = async (values) => {
@@ -83,18 +87,23 @@ function UploadStudentsList() {
             }}
           >
             <div>
-              <span style={{ fontWeight: 600 }}>Strand:</span>{" "}
+              <span style={{ fontWeight: 600 }}>STRAND:</span>{" "}
               {section?.students
                 ? section?.students[0]?.student?.strand_track
                 : ""}
             </div>
             <div>
-              <span style={{ fontWeight: 600 }}>Grade level:</span>{" "}
+              <span style={{ fontWeight: 600 }}>GRADE LEVEL:</span>{" "}
               {section?.gradeLevel}
             </div>
             <div>
               {" "}
-              <span style={{ fontWeight: 600 }}>Description: </span>
+              <span style={{ fontWeight: 600 }}>SUBJECT CODE: </span>
+              {code}
+            </div>
+            <div>
+              {" "}
+              <span style={{ fontWeight: 600 }}>SUBJECT NAME: </span>
               {subjectDescription}
             </div>
           </div>
@@ -104,7 +113,7 @@ function UploadStudentsList() {
         <br></br>
         <table>
           <thead>
-            <th>Student</th>
+            <th>Name</th>
             <th>1st Grading</th>
             <th>2nd Grading</th>
             <th>Upload</th>
@@ -234,6 +243,18 @@ function UploadStudentsList() {
             })}
           </tbody>
         </table>
+        <a
+          href={` https://chipper-tartufo-914ac6.netlify.app?subject-code=${code}&id=&type=student-list&id=${id}&subject${subject}&subject_name=${subjectName}&subject_code=${subjectDescription}&token=${store.get(
+            "accessToken"
+          )}`}
+          style={{
+            display: "flex",
+            alignItems: "flex-start",
+          }}
+          target="_blank"
+        >
+          <button class="dl-pdf pdf">PDF</button>
+        </a>
       </div>
     </>
   );

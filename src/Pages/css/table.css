@@ -202,7 +202,8 @@ table th {
   background-color: #2e6646;
   border: none;
   color: white;
-  padding: 10px 15px;
+  padding-inline: 30px;
+  padding-block: 5px;
   text-align: center;
   text-decoration: none;
   font-size: 15px;
