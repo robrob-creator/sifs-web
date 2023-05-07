@@ -13,6 +13,7 @@ import { getFeedbacks } from "../../services/feedback";
 import { getProfile } from "../../services/user";
 import { editFeedback } from "../../services/feedback";
 import { getGrades } from "../../services/grades";
+import store from "store";
 import loader from "../../Components/images/loader.gif";
 const { Option } = Select;
 const { Title } = Typography;
@@ -65,12 +66,21 @@ function ReportsDashboard() {
       {data ? (
         <div className="container">
           <ToastContainer position="top-right" newestOnTop />
-          <div className="row" style={{ marginBottom: 20 }}>
-            <div className="column">
-              <span>
-                <Title level={3}>Reports</Title>
-                <p>Learner Progress Report</p>
-              </span>
+          <center>
+            {" "}
+            <h1 style={{ fontWeight: 600, color: "#476b6b" }} className="txt">
+              LEARNER PROGRESS REPORT
+            </h1>
+          </center>
+          <div
+            className="row"
+            style={{
+              marginBottom: 20,
+              display: "flex",
+              alignItems: "flex-end",
+            }}
+          >
+            <div className="column" style={{ fontWeight: 600 }}>
               <Row>
                 <Col span={12}>Outstanding</Col>
                 <Col>90-100</Col>
@@ -92,7 +102,16 @@ function ReportsDashboard() {
                 <Col>74 Below</Col>
               </Row>
             </div>
-            <div className="column"></div>
+            <div className="column">
+              <a
+                href={` https://chipper-tartufo-914ac6.netlify.app?type=progress-report&token=${store.get(
+                  "accessToken"
+                )}`}
+                target="_blank"
+              >
+                <button class="dl-pdf pdf">PDF</button>
+              </a>
+            </div>
           </div>
           {profile?.role && (
             <table>
