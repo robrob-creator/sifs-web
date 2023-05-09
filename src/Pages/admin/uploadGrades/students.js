@@ -233,7 +233,7 @@ function UploadStudentsList() {
           </tbody>
         </table>
         <a
-          href={` https://chipper-tartufo-914ac6.netlify.app?subject-code=${code}&id=&type=student-list&id=${id}&subject${subject}&subject_name=${subjectName}&subject_code=${subjectDescription}&token=${store.get(
+          href={` https://chipper-tartufo-914ac6.netlify.app?subject-code=${code}&type=student-list&id=${id}&subject${subject}&subject_name=${subjectName}&subject_code=${subjectDescription}&token=${store.get(
             "accessToken"
           )}`}
           style={{
