@@ -23,6 +23,7 @@ import { getFeedbacks } from "../../services/feedback";
 import { getProfile } from "../../services/user";
 import { editFeedback } from "../../services/feedback";
 import loader from "../../Components/images/loader.gif";
+import DisplayFeed from "../../Components/modals/displayFeed";
 const { Option } = Select;
 
 function FeedbackDashboard() {
@@ -72,15 +73,20 @@ function FeedbackDashboard() {
             </div>
             <div className="column"></div>
           </div>
+          <DisplayFeed
+            isModalVisible={isModalVisible}
+            setIsModalVisible={setIsModalVisible}
+            currentRow={currentRow}
+            Sender={profile?._id}
+          />
           {profile?.role && (
             <table>
               <thead>
-                <th>Student</th>
-                {profile?.role.includes("teacher") && <th>Grade</th>}
-                <th>Rating</th>
+                <th>FEEDBACK NO.</th>
+
                 <th>Result</th>
-                <th>Subject</th>
-                <th>Teacher</th>
+
+                <th>View</th>
                 {profile?.role.includes("teacher") && <th>Remarks</th>}
               </thead>
               <tbody>
@@ -88,26 +94,12 @@ function FeedbackDashboard() {
                   data?.map((item, index) => {
                     return (
                       <tr>
-                        <td data-label="Name">
-                          {item?.sender?.firstName +
-                            " " +
-                            item?.sender?.lastName}
-                        </td>
-                        {profile?.role.includes("teacher") && (
-                          <td>{item?.grade}</td>
-                        )}
-                        <td data-label="Name">
-                          {Object?.values(item?.review).reduce(
-                            (accumulator, value) => {
-                              return accumulator + value;
-                            },
-                            0
-                          )}
-                        </td>
+                        <td data-label="Name">{index + 1}</td>
+
                         <td data-label="Name">
                           {" "}
                           {rateResult(
-                            Object?.values(item?.review).reduce(
+                            Object?.values(item?.review.rating).reduce(
                               (accumulator, value) => {
                                 return accumulator + value;
                               },
@@ -115,12 +107,19 @@ function FeedbackDashboard() {
                             )
                           )}
                         </td>
-                        <td data-label="Name"> {item?.subject}</td>
-                        <td data-label="School year">
-                          {item?.reciever?.firstName +
-                            " " +
-                            item?.reciever?.lastName}
+                        <td data-label="Name">
+                          {" "}
+                          <a
+                            className="link"
+                            onClick={() => {
+                              setCurrentRow(item.review);
+                              setIsModalVisible(true);
+                            }}
+                          >
+                            <BsIcons.BsFillEyeFill color="#4caa75" />
+                          </a>
                         </td>
+
                         {profile?.role.includes("teacher") && (
                           <td>
                             <Checkbox

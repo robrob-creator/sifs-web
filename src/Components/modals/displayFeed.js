@@ -7,7 +7,7 @@ import { createMessage } from "../../services/feedback";
 
 const { TextArea } = Input;
 
-function FeedbackModal({
+function DisplayFeed({
   isModalVisible,
   setIsModalVisible,
   currentRow,
@@ -59,16 +59,10 @@ function FeedbackModal({
       onOk={handleOk}
       onCancel={handleCancel}
     >
-      <p style={{ fontWeight: "bold", fontStyle: "italic" }}>
-        <span style={{ color: "red" }}>* </span>Instructions: In giving your
-        feedback please indicate your answers on the scale of 1-5 with the given
-        statement below. The legend will be provided below on what the scale
-        represents. <br />1 "Strongly Disagree" <br />2 "Disagree" <br />3
-        "Neutral" <br />4 "Agree" <br />5 "Strongly Agree"
-      </p>
       <Form
         name="basic"
         labelCol={{ span: 18 }}
+        disabled
         initialValues={currentRow}
         title="*Note:  5 is the highest 1 is the lowest"
         layout="vertical"
@@ -178,15 +172,9 @@ function FeedbackModal({
             </Form.Item>
           </div>
         </Form.Item>
-
-        <Form.Item wrapperCol={{ offset: 8, span: 18 }}>
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
       </Form>
     </Modal>
   );
 }
 
-export default FeedbackModal;
+export default DisplayFeed;

@@ -16,6 +16,7 @@ import { getFeedbacks } from "../../services/feedback";
 import { getProfile } from "../../services/user";
 import loader from "../../Components/images/loader.gif";
 import { editFeedback } from "../../services/feedback";
+import DisplayFeed from "../../Components/modals/displayFeed";
 const { Option } = Select;
 
 function SentFeedback() {
@@ -65,12 +66,18 @@ function SentFeedback() {
             </div>
             <div className="column"></div>
           </div>
+          <DisplayFeed
+            isModalVisible={isModalVisible}
+            setIsModalVisible={setIsModalVisible}
+            currentRow={currentRow}
+            Sender={profile?._id}
+          />
           {profile?.role && (
             <table>
               <thead>
                 <th>Student</th>
                 {profile?.role.includes("teacher") && <th>Grade</th>}
-                <th>Rating</th>
+                <th>View</th>
                 <th>Result</th>
                 <th>Subject</th>
                 <th>Teacher</th>
@@ -90,17 +97,20 @@ function SentFeedback() {
                           <td>{item?.grade}</td>
                         )}
                         <td data-label="Name">
-                          {Object?.values(item?.review).reduce(
-                            (accumulator, value) => {
-                              return accumulator + value;
-                            },
-                            0
-                          )}
+                          <a
+                            className="link"
+                            onClick={() => {
+                              setCurrentRow(item.review);
+                              setIsModalVisible(true);
+                            }}
+                          >
+                            <BsIcons.BsFillEyeFill color="#4caa75" />
+                          </a>
                         </td>
                         <td data-label="Name">
                           {" "}
                           {rateResult(
-                            Object?.values(item?.review).reduce(
+                            Object?.values(item?.review?.rating).reduce(
                               (accumulator, value) => {
                                 return accumulator + value;
                               },

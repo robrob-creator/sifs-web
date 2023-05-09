@@ -6,23 +6,15 @@ import "../css/table.css";
 import "../css/icons.css";
 import AdminSidebar from "../../Components/Admin_Sidebar";
 import * as BsIcons from "react-icons/bs";
-import * as MdIcons from "react-icons/md";
-import { getSections } from "../../services/sections";
 import { Button, Modal, Select, Form, Input, Space, Checkbox } from "antd";
-import { getSubjects } from "../../services/subjects";
-import { addSubjecttoSection } from "../../services/sections";
-import { getUsers } from "../../services/user";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import AddStudentSection from "../../Components/modals/AddStudentSection";
-import AddSection from "../../Components/modals/AddSection";
-import EditSection from "../../Components/modals/EditSection";
-import { deleteSection } from "../../services/sections";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getFeedbacks } from "../../services/feedback";
 import { getProfile } from "../../services/user";
 import { editFeedback } from "../../services/feedback";
 import loader from "../../Components/images/loader.gif";
+import DisplayFeed from "../../Components/modals/displayFeed";
+
 const { Option } = Select;
 
 function FeedbackDashboard() {
@@ -72,6 +64,12 @@ function FeedbackDashboard() {
             </div>
             <div className="column"></div>
           </div>
+          <DisplayFeed
+            isModalVisible={isModalVisible}
+            setIsModalVisible={setIsModalVisible}
+            currentRow={currentRow}
+            Sender={profile?._id}
+          />
           {profile?.role && (
             <table>
               <thead>
@@ -97,17 +95,20 @@ function FeedbackDashboard() {
                           <td>{item?.grade}</td>
                         )}
                         <td data-label="Name">
-                          {Object?.values(item?.review).reduce(
-                            (accumulator, value) => {
-                              return accumulator + value;
-                            },
-                            0
-                          )}
+                          <a
+                            className="link"
+                            onClick={() => {
+                              setCurrentRow(item.review);
+                              setIsModalVisible(true);
+                            }}
+                          >
+                            <BsIcons.BsFillEyeFill color="#4caa75" />
+                          </a>
                         </td>
                         <td data-label="Name">
                           {" "}
                           {rateResult(
-                            Object?.values(item?.review).reduce(
+                            Object?.values(item?.review?.rating).reduce(
                               (accumulator, value) => {
                                 return accumulator + value;
                               },
